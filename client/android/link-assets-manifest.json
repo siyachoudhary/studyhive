@@ -1,0 +1,29 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "src/assets/fonts/Mohave-Bold.ttf",
+      "sha1": "ab3ac19b4c56d16733aa6b0e00d367d2a503ef4b"
+    },
+    {
+      "path": "src/assets/fonts/Mohave-Light.ttf",
+      "sha1": "572628fda3fb4e83fd9d00373ba248813d6f9547"
+    },
+    {
+      "path": "src/assets/fonts/Mohave-Medium.ttf",
+      "sha1": "a4fa669347149d00f29722a22bb814410a698435"
+    },
+    {
+      "path": "src/assets/fonts/Mohave-Regular.ttf",
+      "sha1": "ef3b19bbddafcaab895e4e1704e9eb7b1d8a0285"
+    },
+    {
+      "path": "src/assets/fonts/Mohave-SemiBold.ttf",
+      "sha1": "8fb66acabbff6e4cb5a1d52716ecbf4a3a57517c"
+    },
+    {
+      "path": "src/assets/fonts/Mohave-VariableFont_wght.ttf",
+      "sha1": "383b9dcbba96c58a8a08ece29412a1f4565ecb59"
+    }
+  ]
+}

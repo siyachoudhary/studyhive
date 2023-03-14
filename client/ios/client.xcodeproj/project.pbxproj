@@ -14,6 +14,12 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		7699B88040F8A987B510C191 /* libPods-client-clientTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-client-clientTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		A49684B4EBDD49FF901EE8F4 /* Mohave-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 41BE2BCD8B8D4235AE210F54 /* Mohave-Bold.ttf */; };
+		EAAB5D0DD57C45A5928AA1AD /* Mohave-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E6D28A45EF654376BC3181DB /* Mohave-Light.ttf */; };
+		2E4485751C3A4C52AA2646D2 /* Mohave-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3E33C500ADD94DCD8EEFCC67 /* Mohave-Medium.ttf */; };
+		DB9AA0D40289453F9488EEDA /* Mohave-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A4501A0D73F54D9AAB422B72 /* Mohave-Regular.ttf */; };
+		0D406E5E724C48B888042FF2 /* Mohave-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB24D48977C742B08E1BE754 /* Mohave-SemiBold.ttf */; };
+		B7533EED3DD14EEAB8E485FA /* Mohave-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8051A155F4354199A3A6D790 /* Mohave-VariableFont_wght.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +50,12 @@
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = client/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-client-clientTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-client-clientTests.release.xcconfig"; path = "Target Support Files/Pods-client-clientTests/Pods-client-clientTests.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		41BE2BCD8B8D4235AE210F54 /* Mohave-Bold.ttf */ = {isa = PBXFileReference; name = "Mohave-Bold.ttf"; path = "../src/assets/fonts/Mohave-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		E6D28A45EF654376BC3181DB /* Mohave-Light.ttf */ = {isa = PBXFileReference; name = "Mohave-Light.ttf"; path = "../src/assets/fonts/Mohave-Light.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		3E33C500ADD94DCD8EEFCC67 /* Mohave-Medium.ttf */ = {isa = PBXFileReference; name = "Mohave-Medium.ttf"; path = "../src/assets/fonts/Mohave-Medium.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		A4501A0D73F54D9AAB422B72 /* Mohave-Regular.ttf */ = {isa = PBXFileReference; name = "Mohave-Regular.ttf"; path = "../src/assets/fonts/Mohave-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		CB24D48977C742B08E1BE754 /* Mohave-SemiBold.ttf */ = {isa = PBXFileReference; name = "Mohave-SemiBold.ttf"; path = "../src/assets/fonts/Mohave-SemiBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		8051A155F4354199A3A6D790 /* Mohave-VariableFont_wght.ttf */ = {isa = PBXFileReference; name = "Mohave-VariableFont_wght.ttf"; path = "../src/assets/fonts/Mohave-VariableFont_wght.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +134,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
+				5CA8DD8620D74999B8F55C3A /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -147,6 +160,20 @@
 			);
 			path = Pods;
 			sourceTree = "<group>";
+		};
+		5CA8DD8620D74999B8F55C3A /* Resources */ = {
+			isa = "PBXGroup";
+			children = (
+				41BE2BCD8B8D4235AE210F54 /* Mohave-Bold.ttf */,
+				E6D28A45EF654376BC3181DB /* Mohave-Light.ttf */,
+				3E33C500ADD94DCD8EEFCC67 /* Mohave-Medium.ttf */,
+				A4501A0D73F54D9AAB422B72 /* Mohave-Regular.ttf */,
+				CB24D48977C742B08E1BE754 /* Mohave-SemiBold.ttf */,
+				8051A155F4354199A3A6D790 /* Mohave-VariableFont_wght.ttf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+			path = "";
 		};
 /* End PBXGroup section */
 
@@ -244,6 +271,12 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				A49684B4EBDD49FF901EE8F4 /* Mohave-Bold.ttf in Resources */,
+				EAAB5D0DD57C45A5928AA1AD /* Mohave-Light.ttf in Resources */,
+				2E4485751C3A4C52AA2646D2 /* Mohave-Medium.ttf in Resources */,
+				DB9AA0D40289453F9488EEDA /* Mohave-Regular.ttf in Resources */,
+				0D406E5E724C48B888042FF2 /* Mohave-SemiBold.ttf in Resources */,
+				B7533EED3DD14EEAB8E485FA /* Mohave-VariableFont_wght.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
