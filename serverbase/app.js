@@ -93,7 +93,7 @@ app.post("/login", (request, response) => {
           // check if password matches
           if(!passwordCheck) {
             return response.status(400).send({
-              message: "Passwords does not match",
+              message: "Password does not match",
               error,
             });
           }

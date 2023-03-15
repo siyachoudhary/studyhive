@@ -12,11 +12,6 @@ const SCREENWIDTH = Dimensions.get('window').width;
 
 const SignUp = () => {
     const navigation = useNavigation();
-    // const [name, onChangeName] = React.useState('');
-    // // const [username, onChangeUsername] = React.useState('');
-    // const [email, onChangeEmail] = React.useState('');
-    // const [password, onChangePassword] = React.useState('');
-    // const [confirm, onChangeConfirm] = React.useState('');
 
     const {control, handleSubmit, errors, reset} = useForm({
         'name': '',
@@ -33,39 +28,20 @@ const SignUp = () => {
             const email = data.email
             const password = data.password
 
-            // const configuration = {
-            //     method: "post",
-            //     url: "https://localhost:3000/register",
-            //     data: {
-            //         name,
-            //         email,
-            //         password,
-            //     },
-            // };
-            // axios(configuration)
-            // .then((result) => {
-            //     console.log("registered!")
-            //   })
-            //   .catch((error) => {
-            //     error = new Error();
-            //     console.log("error")
-            //   });
-
             axios
         .post('http://localhost:3000/register', {
             name: name,
-            email: email,
+            email: email.toLowerCase(),
             password: password,
         })
         .then(function (response) {
             // handle success
-            console.log(JSON.stringify(response.data));
+            console.log(response);
         })
         .catch(function (error) {
             // handle error
             console.log(error.message);
         });
-
             // reset()
         }
         

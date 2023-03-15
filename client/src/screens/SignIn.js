@@ -3,33 +3,82 @@ import { SafeAreaView, StyleSheet, View, ImageBackground, Dimensions, Text, Imag
 import { useNavigation } from "@react-navigation/native";
 import { Screen } from "react-native-screens";
 
+import {useForm, Controller} from "react-hook-form"
+import axios from "axios";
+
 const SCREENHEIGHT = Dimensions.get('window').height;
 const SCREENWIDTH = Dimensions.get('window').width;
 
 const SignIn = () => {
     const navigation = useNavigation();
-    const [username, onChangeUsername] = React.useState('');
-    const [password, onChangePassword] = React.useState('');
+
+    const {control, handleSubmit, errors, reset} = useForm({
+        'email': '',
+        'password': '',
+    })
+
+    function submit(data){
+            const email = data.email
+            const password = data.password
+
+        axios
+        .post('http://localhost:3000/login', {
+            email: email.toLowerCase(),
+            password: password,
+        })
+        .then(function (response) {
+            // handle success
+            console.log(JSON.stringify(response.data));
+        })
+        .catch(function (error) {
+            // handle error
+            console.log(error.message);
+        });
+            // reset()
+        
+    }
 
     return(
         <View style={styles.backGround}>
             <Text style={styles.header}>SIGN IN</Text>
-            <Text style={styles.text}>USERNAME:</Text>
-            <TextInput style={[styles.inputBox]}
-                       onChangeText={onChangeUsername}
-                       value={username}/>
-            <Text style={styles.text}>PASSWORD:</Text>
-            <TextInput style={[styles.inputBox]}
-                       onChangeText={onChangePassword}
-                       value={password}
+
+            <Text style={styles.text}>EMAIL:</Text>
+            <Controller
+            control={control}
+            name='email'
+            render={
+                ({field:{onChange, value}})=>(
+                    <TextInput style={[styles.inputBox]}
+                    value={value}
+                    onChangeText={value=>onChange(value)}
+                    // value={email}
+                    />
+                )
+            }> </Controller>
+    
+
+    <Text style={styles.text}>PASSWORD:</Text>
+        <Controller
+                control={control}
+                name='password'
+                render={
+                    ({field:{onChange, value}})=>(
+                        <TextInput style={[styles.inputBox]}
+                        value={value}
+                       onChangeText={value=>onChange(value)}
+                    //    value={password}
                        secureTextEntry={true}/>
+                    )
+                }> </Controller>
+            
+
             <Pressable 
                 style={({pressed}) => [
                 {
                     backgroundColor: pressed ? '#EDA73A': '#ffab00',
                 },
                 styles.button]} 
-                // onPress={onPress}
+                onPress={handleSubmit(submit)}
                 >
             <Text style={styles.buttonText}> CREATE ACCOUNT </Text>
           </Pressable>
