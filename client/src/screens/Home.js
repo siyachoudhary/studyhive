@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, {useEffect} from "react";
 import { SafeAreaView, StyleSheet, View, ImageBackground, Dimensions, Text, Image, Pressable, TextInput, Button} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { Screen } from "react-native-screens";
@@ -12,17 +12,21 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const Home = () => {
     const navigation = useNavigation();
 
-    async function retrieveData(){
-        try {
-            const value = await AsyncStorage.getItem('user')
-            const obj = JSON.parse(value);
-            if(value !== null) {
-              console.log(obj.name)
+    useEffect(()=>{
+        const retrieveData = async () => {
+          try {
+              value = await AsyncStorage.getItem('user')
+              console.log(value)
+              if(value!=undefined){
+                navigation.navigate("Home")
+              }
+            } catch(e) {
+              console.log(e.message)
             }
-          } catch(e) {
-            console.log(e.message)
-          }
-    }
+        }
+    
+        retrieveData()
+      })
 
     return(
         <View>
@@ -43,7 +47,7 @@ const Home = () => {
                     backgroundColor: pressed ? '#EDA73A': '#ffab00',
                 },
                 styles.button]} 
-                onPress={retrieveData}
+                onPress={()=>navigation.navigate("Profile")}
                 >
                     <Text style={styles.buttonText}> START A HIVE{'\n'}SESSION </Text>
                 </Pressable>

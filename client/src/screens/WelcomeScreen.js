@@ -1,7 +1,8 @@
-import * as React from "react";
 import { StyleSheet, View, ImageBackground, Dimensions, Text, Image, Pressable } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 // import { Color, FontFamily, FontSize, Border } from "../GlobalStyles";
+
+import React, {useEffect} from 'react';
 
 const SCREENHEIGHT = Dimensions.get('window').height;
 const SCREENWIDTH = Dimensions.get('window').width;
@@ -10,29 +11,24 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const WelcomeScreen = () => {
   let value = undefined
-  async function retrieveData(){
-    try {
-        value = await AsyncStorage.getItem('user')
-        console.log(value)
-        const obj = JSON.parse(value);
-        if(value !== null) {
-          console.log(obj.name)
-        }
-      } catch(e) {
-        console.log(e.message)
-      }
-  }
-    const navigation = useNavigation();
 
-    async function getStarted(){
-      await retrieveData()
-      console.log(value)
-      if(value==undefined){
-        navigation.navigate("Sign In")
-      }else{
-        navigation.navigate("Home")
-      }
+  useEffect(()=>{
+    const retrieveData = async () => {
+      try {
+          value = await AsyncStorage.getItem('user')
+          console.log(value)
+          if(value!=undefined){
+            navigation.navigate("Home")
+          }
+        } catch(e) {
+          console.log(e.message)
+        }
     }
+
+    retrieveData()
+  })
+
+    const navigation = useNavigation();
 
     return (
       <View>
@@ -43,7 +39,7 @@ const WelcomeScreen = () => {
               backgroundColor: pressed ? '#EDA73A': '#ffab00',
             },
             styles.button]} 
-            onPress={getStarted}
+            onPress={()=>navigation.navigate("Sign In")}
           >
             <Text style={styles.buttonText}> GET STARTED </Text>
           </Pressable>

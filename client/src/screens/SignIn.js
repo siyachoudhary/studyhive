@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, {useState, useEffect, useRef} from 'react';
 import { SafeAreaView, StyleSheet, View, ImageBackground, Dimensions, Text, Image, Pressable, TextInput} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { Screen } from "react-native-screens";
@@ -14,6 +14,9 @@ const SCREENWIDTH = Dimensions.get('window').width;
 const SignIn = () => {
     const navigation = useNavigation();
 
+    const [passErr, setPassErr] = useState("")
+    const [emailErr, setEmailErr] = useState("")
+
     const {control, handleSubmit, errors, reset} = useForm({
         'email': '',
         'password': '',
@@ -25,10 +28,14 @@ const SignIn = () => {
 
             if(email==undefined){
                 console.log("email required")
+                setEmailErr("PLEASE ENTER AN EMAIL")
+                setPassErr("")
                 return
             }
             if(password==undefined){
                 console.log("pasword required")
+                setPassErr("PLEASE ENTER A PASSWORD")
+                setEmailErr("")
                 return
             }
 
@@ -40,9 +47,11 @@ const SignIn = () => {
         .then(function (response) {
             // handle success
             console.log(JSON.stringify(response.data));
-
+            setEmailErr("")
+            setPassErr("")
             storeData(JSON.stringify(response.data))
             navigation.navigate("Home")
+            reset()
         })
         .catch(function (error) {
             // handle error
@@ -50,12 +59,15 @@ const SignIn = () => {
 
             if(error.message=='Request failed with status code 400'){
                 console.log("wrong password")
+                setPassErr("INCORRECT PASSWORD")
+                setEmailErr("")
             }
             if(error.message=='Request failed with status code 404'){
                 console.log("email does not exist")
+                setEmailErr("THIS EMAIL DOES NOT EXIST")
+                setPassErr("")
             }
         });
-            // reset()
         
     }
 
@@ -82,10 +94,12 @@ const SignIn = () => {
                     <TextInput style={[styles.inputBox]}
                     value={value}
                     onChangeText={value=>onChange(value)}
-                    // value={email}
                     />
                 )
             }> </Controller>
+
+    <Text style={[styles.text, {textAlign: "left", fontSize: 20, color:"red"}]}>{emailErr}</Text>
+
     
 
     <Text style={styles.text}>PASSWORD:</Text>
@@ -101,6 +115,9 @@ const SignIn = () => {
                        secureTextEntry={true}/>
                     )
                 }> </Controller>
+
+    <Text style={[styles.text, {textAlign: "left", fontSize: 20, color:"red"}]}>{passErr}</Text>
+
             
 
             <Pressable 
@@ -135,7 +152,7 @@ const styles = StyleSheet.create({
       borderRadius: 6,
       // elevation: 8,
       marginHorizontal: SCREENHEIGHT/9,
-      marginTop: SCREENHEIGHT/2.43,
+      marginTop: SCREENHEIGHT/4,
     },
     header: {
       fontFamily:'Mohave-Bold',

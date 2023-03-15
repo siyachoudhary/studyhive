@@ -12,6 +12,7 @@ import {
   Alert,
   Image,
   StatusBar,
+  Pressable,
 } from 'react-native';
 import {TabView, TabBar} from 'react-native-tab-view';
 import { ScreenStackHeaderRightView } from 'react-native-screens';
@@ -29,7 +30,14 @@ const tab1ItemSize = (SCREENWIDTH - 40) / 3;
 const tab2ItemHeight = (SCREENWIDTH - 50) / 5;
 const tab2ItemWidth = (SCREENWIDTH - 50);
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 const Profile = () => {
+  const [name, setName] = useState("")
+  const [email, setEmail] = useState("")
+  const [user, setUser] = useState("")
+
+
   const navigation = useNavigation();
   /**
    * stats
@@ -128,6 +136,23 @@ const Profile = () => {
   /**
    * effect
    */
+  async function retrieveData(){
+    try {
+        const value = await AsyncStorage.getItem('user')
+        const obj = JSON.parse(value);
+        if(value !== null) {
+          setUser(obj)
+        }
+      } catch(e) {
+        console.log(e.message)
+      }
+  }
+  useEffect(()=>{
+    retrieveData()
+    setName(user.name)
+    setEmail(user.email)
+  })
+
   useEffect(() => {
     scrollY.addListener(({value}) => {
       const curRoute = routes[tabIndex].key;
@@ -213,6 +238,7 @@ const Profile = () => {
       outputRange: [0, -HeaderHeight],
       extrapolate: 'clamp',
     });
+
     return (
       <Animated.View
         {...headerPanResponder.panHandlers}
@@ -223,10 +249,13 @@ const Profile = () => {
           onPress={() => Alert.alert('header Clicked!')}>
           <Text>Scrollable Header</Text>
         </TouchableOpacity> */}
-        <Image source={require('../assets/images/settingsIcon.png')} style={styles.smallimage}></Image>
+        <Pressable
+          onPress={()=>navigation.navigate("Settings")}>
+          <Image source={require('../assets/images/settingsIcon.png')} style={styles.smallimage}></Image>
+        </Pressable>
         <Image source={require('../assets/images/blankProfile.png')} style={styles.image}></Image>
-        <Text style={styles.headertext}>SIYA JARIWALA</Text>
-        <Text style={styles.text}>@siyacj08</Text>
+        <Text style={styles.headertext}>{name}</Text>
+        <Text style={styles.text}>{email}</Text>
       </Animated.View>
     );
   };

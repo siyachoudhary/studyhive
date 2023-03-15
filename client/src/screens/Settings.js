@@ -12,101 +12,99 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const SCREENHEIGHT = Dimensions.get('window').height;
 const SCREENWIDTH = Dimensions.get('window').width;
 
-const SignUp = () => {
+const Settings = () => {
     const navigation = useNavigation();
-
-    const [nameErr, setNameErr] = useState("")
-    const [emailErr, setEmailErr] = useState("")
-    const [passErr, setPassErr] = useState("")
-    const [confirmErr, setConfirmErr] = useState("")
 
     const {control, handleSubmit, errors, reset} = useForm({
         'name': "",
         'email': "",
-        'password': "",
-        'confirm': "",
     })
 
     function submit(data){
-        if(data.password != data.confirm){
-            console.log("passwords do not match")
-            setNameErr("")
-            setEmailErr("")
-            setPassErr("")
-            setConfirmErr("PASSWORDS DO NOT MATCH")
-        }else{
-            const name = data.name
-            const email = data.email
-            const password = data.password
+            let nameUpdate = data.name
+            let emailUpdate = data.email
 
-            if(name==undefined){
-                console.log("name required")
-                setNameErr("NAME IS REQUIRED")
-                setEmailErr("")
-                setPassErr("")
-                setConfirmErr("")
-                return
+            console.log(nameUpdate+" " + emailUpdate)
+            if(nameUpdate==undefined){
+                nameUpdate = name
             }
-            if(email==undefined){
-                console.log("email required")
-                setNameErr("")
-                setEmailErr("EMAIL IS REQUIRED")
-                setPassErr("")
-                setConfirmErr("")
-                return
-            }
-            if(password==undefined){
-                console.log("pasword required")
-                setNameErr("")
-                setEmailErr("")
-                setPassErr("PASSWORD IS REQUIRED")
-                setConfirmErr("")
-                return
+            if(emailUpdate==undefined){
+                emailUpdate = email
             }
 
-            axios
-        .post('http://localhost:3000/register', {
-            name: name,
-            email: email.toLowerCase(),
-            password: password,
+        axios
+        .post(`http://localhost:3000/updateUser/${email}`, {
+            name: nameUpdate,
+            email: emailUpdate.toLowerCase(),
         })
         .then(function (response) {
             // handle success
-            console.log(response);
-            setNameErr("")
-                setEmailErr("")
-                setPassErr("")
-                setConfirmErr("")
+            console.log(JSON.stringify(response.data));
+            
             storeData(JSON.stringify(response.data))
-            navigation.navigate("Home")
-            reset()
+            navigation.navigate("Profile")
         })
         .catch(function (err) {
             // handle error
-            setNameErr("")
-                setEmailErr("THIS EMAIL IS LINKED TO ANOTHER USER")
-                setPassErr("")
-                setConfirmErr("")
             console.log(err.message);
         });
-        }
-        
+            reset()        
     }
+
+    const [name, setName] = useState("")
+    const [email, setEmail] = useState("")
+    const [user, setUser] = useState("")
+
+    async function retrieveData(){
+        try {
+            const value = await AsyncStorage.getItem('user')
+            const obj = JSON.parse(value);
+            if(value !== null) {
+              setUser(obj)
+            }
+          } catch(e) {
+            console.log(e.message)
+          }
+      }
+      useEffect(()=>{
+        retrieveData()
+        setName(user.name)
+        setEmail(user.email)
+      })
 
     const storeData = async (value) => {
         try {
-            console.log(value)
           await AsyncStorage.setItem('user', value)
-          console.log("stored data")
         } catch (e) {
           // saving error
           console.log(e.message)
         }
-      }
+    }
+
+    function logout(){
+        AsyncStorage.removeItem('user')
+        navigation.navigate("Welcome Screen")
+    }
+
+    function deleteProfile(){
+        axios
+        .post(`http://localhost:3000/deleteUser/${email}`)
+        .then(function (response) {
+            // handle success
+            console.log(JSON.stringify(response.data));
+            
+            AsyncStorage.clear
+            navigation.navigate("Welcome Screen")
+        })
+        .catch(function (err) {
+            // handle error
+            console.log(err.message);
+        });
+    }
 
     return (
         <View style={styles.backGround}>
-            <Text style={styles.header}>SIGN UP</Text>
+            <Text style={styles.header}>EDIT INFORMATION</Text>
 
             <Text style={styles.text}>NAME:</Text>
             <Controller
@@ -115,14 +113,12 @@ const SignUp = () => {
             render={
                 ({field:{onChange, value}})=>(
                     <TextInput style={[styles.inputBox]}
-                    value={value}
+                        defaultValue={name}
+                        value={value}
                        onChangeText={value=>onChange(value)}
-                    //    value={name}
-                    //    autoCapitalize='words'
-                       />
+                    />
                 )
             }> </Controller>
-            <Text style={[styles.text, {textAlign: "left", fontSize: 15, color:"red"}]}>{nameErr}</Text>
 
             <Text style={styles.text}>EMAIL:</Text>
             <Controller
@@ -132,15 +128,22 @@ const SignUp = () => {
                 ({field:{onChange, value}})=>(
                     <TextInput style={[styles.inputBox]}
                     value={value}
+                    defaultValue={email}
                     onChangeText={value=>onChange(value)}
-                    // value={email}
                     />
                 )
             }> </Controller>
-            <Text style={[styles.text, {textAlign: "left", fontSize: 15, color:"red"}]}>{emailErr}</Text>
+
+            <Pressable onPress={logout}>
+                <Text style={[styles.text, {textAlign: "center", fontSize: 20}]}>Logout</Text>
+            </Pressable>   
+
+            <Pressable onPress={deleteProfile}>
+                <Text style={[styles.text, {textAlign: "center", fontSize: 20, color:"red"}]}>Delete Profile</Text>
+            </Pressable>  
     
 
-    <Text style={styles.text}>PASSWORD:</Text>
+    {/* <Text style={styles.text}>PASSWORD:</Text>
         <Controller
                 control={control}
                 name='password'
@@ -153,7 +156,6 @@ const SignUp = () => {
                        secureTextEntry={true}/>
                     )
                 }> </Controller>
-                <Text style={[styles.text, {textAlign: "left", fontSize: 15, color:"red"}]}>{passErr}</Text>
             
 
             <Text style={styles.text}>CONFIRM PASSWORD:</Text>
@@ -168,8 +170,7 @@ const SignUp = () => {
                     //    value={confirm}
                        secureTextEntry={true}/>
                     )
-            }> </Controller>
-            <Text style={[styles.text, {textAlign: "left", fontSize: 15, color:"red"}]}>{confirmErr}</Text>
+            }> </Controller> */}
 
             <Pressable 
                 style={({pressed}) => [
@@ -179,12 +180,8 @@ const SignUp = () => {
                 styles.button]} 
                 onPress={handleSubmit(submit)}
                 >
-            <Text style={styles.buttonText}> CREATE ACCOUNT </Text>
+            <Text style={styles.buttonText}> SAVE DATA </Text>
           </Pressable>
-
-            <Pressable onPress={()=>navigation.navigate("Sign In")}>
-                <Text style={[styles.text, {textAlign: "center", fontSize: 16}]}>ALREADY HAVE AN ACCOUNT? SIGN IN</Text>
-            </Pressable>
         </View>
     );
 };
@@ -204,7 +201,7 @@ const styles = StyleSheet.create({
       borderRadius: 6,
       // elevation: 8,
       marginHorizontal: SCREENHEIGHT/9,
-      marginTop: SCREENHEIGHT/20,
+      marginTop: SCREENHEIGHT/9,
     },
     header: {
       fontFamily:'Mohave-Bold',
@@ -215,7 +212,7 @@ const styles = StyleSheet.create({
       color: '#FFFFFF',
       textAlign: 'center',
       marginTop: SCREENHEIGHT/9,
-    //   marginBottom: SCREENHEIGHT/100,
+      marginBottom: SCREENHEIGHT/40,
     },
     inputBox: {
         fontFamily:'Mohave-Light',
@@ -233,7 +230,7 @@ const styles = StyleSheet.create({
         fontFamily:'Mohave-Light',
         fontSize: 20,
         color: '#FFFFFF',
-        marginTop: SCREENHEIGHT/150,   
+        marginTop: SCREENHEIGHT/60,   
         marginHorizontal: SCREENHEIGHT/20,
     }, 
     buttonText: {
@@ -246,4 +243,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default SignUp;
+export default Settings;

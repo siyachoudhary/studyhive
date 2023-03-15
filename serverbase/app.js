@@ -56,7 +56,8 @@ app.post("/register", (request, response) => {
         .then((result) => {
           response.status(201).send({
             message: "User Created Successfully",
-            result,
+            email: request.body.email,
+            name: request.body.name,
           });
         })
         // catch error if the new user wasn't added successfully to the database
@@ -128,6 +129,54 @@ app.post("/login", (request, response) => {
     .catch((e) => {
       response.status(404).send({
         message: "Email not found",
+        e,
+      });
+    });
+});
+
+// login endpoint
+app.post("/updateUser/:email", (request, response) => {
+  // check if email exists
+  User.updateOne({ email: request.params.email }, request.body, {runValidators:true,new:true}) 
+    .then((user) => {
+      const token = jwt.sign(
+        {
+          userId: user._id,
+          userEmail: user.email
+        },
+        "RANDOM-TOKEN",
+        { expiresIn: "24h" }
+      );
+
+      response.status(200).send({
+        message: "data stored successfully",
+        email: request.body.email,
+        name: request.body.name,
+        token,
+      });
+    })
+    .catch((e) => {
+      console.log(e)
+      response.status(404).send({
+        message: "Could not update user",
+        e,
+      });
+    });
+});
+
+// login endpoint
+app.post("/deleteUser/:email", (request, response) => {
+  // check if email exists
+  User.deleteOne({ email: request.params.email }) 
+    .then(() => {
+      response.status(200).send({
+        message: "user deleted successfully",
+      });
+    })
+    .catch((e) => {
+      console.log(e)
+      response.status(404).send({
+        message: "Could not delete user",
         e,
       });
     });
