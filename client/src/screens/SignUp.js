@@ -1,56 +1,150 @@
 import * as React from "react";
-import { SafeAreaView, StyleSheet, View, ImageBackground, Dimensions, Text, Image, Pressable, TextInput} from "react-native";
+
+import axios from "axios";
+import { SafeAreaView, StyleSheet, View, ImageBackground, Dimensions, Text, Image, Pressable, TextInput, Button, Alert} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { Screen } from "react-native-screens";
 // import { Color, FontFamily, FontSize, Border } from "../GlobalStyles";
+import {useForm, Controller} from "react-hook-form"
 
 const SCREENHEIGHT = Dimensions.get('window').height;
 const SCREENWIDTH = Dimensions.get('window').width;
 
 const SignUp = () => {
     const navigation = useNavigation();
-    const [name, onChangeName] = React.useState('');
-    const [username, onChangeUsername] = React.useState('');
-    const [email, onChangeEmail] = React.useState('');
-    const [password, onChangePassword] = React.useState('');
-    const [confirm, onChangeConfirm] = React.useState('');
+    // const [name, onChangeName] = React.useState('');
+    // // const [username, onChangeUsername] = React.useState('');
+    // const [email, onChangeEmail] = React.useState('');
+    // const [password, onChangePassword] = React.useState('');
+    // const [confirm, onChangeConfirm] = React.useState('');
+
+    const {control, handleSubmit, errors, reset} = useForm({
+        'name': '',
+        'email': '',
+        'password': '',
+        'confirm': '',
+    })
+
+    function submit(data){
+        if(data.password != data.confirm){
+            console.log("passwords do not match")
+        }else{
+            const name = data.name
+            const email = data.email
+            const password = data.password
+
+            // const configuration = {
+            //     method: "post",
+            //     url: "https://localhost:3000/register",
+            //     data: {
+            //         name,
+            //         email,
+            //         password,
+            //     },
+            // };
+            // axios(configuration)
+            // .then((result) => {
+            //     console.log("registered!")
+            //   })
+            //   .catch((error) => {
+            //     error = new Error();
+            //     console.log("error")
+            //   });
+
+            axios
+        .post('http://localhost:3000/register', {
+            name: name,
+            email: email,
+            password: password,
+        })
+        .then(function (response) {
+            // handle success
+            console.log(JSON.stringify(response.data));
+        })
+        .catch(function (error) {
+            // handle error
+            console.log(error.message);
+        });
+
+            // reset()
+        }
+        
+    }
 
     return (
         <View style={styles.backGround}>
             <Text style={styles.header}>SIGN UP</Text>
+
             <Text style={styles.text}>NAME:</Text>
-            <TextInput style={[styles.inputBox]}
-                       onChangeText={onChangeName}
-                       value={name}
-                       autoCapitalize='words'/>
-            <Text style={styles.text}>USERNAME:</Text>
-            <TextInput style={[styles.inputBox]}
-                       onChangeText={onChangeUsername}
-                       value={username}/>
+            <Controller
+            control={control}
+            name='name'
+            render={
+                ({field:{onChange, value}})=>(
+                    <TextInput style={[styles.inputBox]}
+                    value={value}
+                       onChangeText={value=>onChange(value)}
+                    //    value={name}
+                    //    autoCapitalize='words'
+                       />
+                )
+            }> </Controller>
+
             <Text style={styles.text}>EMAIL:</Text>
-            <TextInput style={[styles.inputBox]}
-                       onChangeText={onChangeEmail}
-                       value={email}/>
-            <Text style={styles.text}>PASSWORD:</Text>
-            <TextInput style={[styles.inputBox]}
-                       onChangeText={onChangePassword}
-                       value={password}
+            <Controller
+            control={control}
+            name='email'
+            render={
+                ({field:{onChange, value}})=>(
+                    <TextInput style={[styles.inputBox]}
+                    value={value}
+                    onChangeText={value=>onChange(value)}
+                    // value={email}
+                    />
+                )
+            }> </Controller>
+    
+
+    <Text style={styles.text}>PASSWORD:</Text>
+        <Controller
+                control={control}
+                name='password'
+                render={
+                    ({field:{onChange, value}})=>(
+                        <TextInput style={[styles.inputBox]}
+                        value={value}
+                       onChangeText={value=>onChange(value)}
+                    //    value={password}
                        secureTextEntry={true}/>
+                    )
+                }> </Controller>
+            
+
             <Text style={styles.text}>CONFIRM PASSWORD:</Text>
-            <TextInput style={[styles.inputBox]}
-                       onChangeText={onChangeConfirm}
-                       value={confirm}
+            <Controller
+                control={control}
+                name='confirm'
+                render={
+                    ({field:{onChange, value}})=>(
+                        <TextInput style={[styles.inputBox]}
+                        value={value}
+                       onChangeText={value=>onChange(value)}
+                    //    value={confirm}
                        secureTextEntry={true}/>
+                    )
+            }> </Controller>
+
             <Pressable 
                 style={({pressed}) => [
                 {
                     backgroundColor: pressed ? '#EDA73A': '#ffab00',
                 },
                 styles.button]} 
-                // onPress={onPress}
+                onPress={handleSubmit(submit)}
                 >
             <Text style={styles.buttonText}> CREATE ACCOUNT </Text>
           </Pressable>
+
           <Text style={[styles.text, {textAlign: "center", fontSize: 16}]}>ALREADY HAVE AN ACCOUNT? SIGN IN</Text>
         </View>
     );

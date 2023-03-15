@@ -14,6 +14,8 @@ import SignUp from './src/screens/SignUp';
 import SignIn from './src/screens/SignIn';
 import Home from './src/screens/Home';
 
+// import './node_modules/bootstrap/dist/css/bootstrap.min.css';
+
 const Stack = createNativeStackNavigator();
 
 const App = () => {
@@ -24,9 +26,9 @@ const App = () => {
              headerShown: false
          }}>
             {/* <Stack.Screen name='Welcome Screen' component={WelcomeScreen}/> */}
-            {/* <Stack.Screen name='Sign Up' component={SignUp}/> */}
+            <Stack.Screen name='Sign Up' component={SignUp}/>
             {/* <Stack.Screen name='Sign In' component={SignIn}/> */}
-            <Stack.Screen name='Home' component={Home}/>
+            {/* <Stack.Screen name='Home' component={Home}/> */}
       </Stack.Navigator>
    </NavigationContainer>
   )
