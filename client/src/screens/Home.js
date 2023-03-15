@@ -110,5 +110,3 @@ const styles = StyleSheet.create({
         color: '#303030',
     },
 });
-
-export default Home;
