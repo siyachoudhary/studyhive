@@ -21,6 +21,15 @@ const SignIn = () => {
             const email = data.email
             const password = data.password
 
+            if(email==undefined){
+                console.log("email required")
+                return
+            }
+            if(password==undefined){
+                console.log("pasword required")
+                return
+            }
+
         axios
         .post('http://localhost:3000/login', {
             email: email.toLowerCase(),
@@ -29,10 +38,19 @@ const SignIn = () => {
         .then(function (response) {
             // handle success
             console.log(JSON.stringify(response.data));
+
+            navigation.navigate("Home")
         })
         .catch(function (error) {
             // handle error
-            console.log(error.message);
+            // console.log(error.message);
+
+            if(error.message=='Request failed with status code 400'){
+                console.log("wrong password")
+            }
+            if(error.message=='Request failed with status code 404'){
+                console.log("email does not exist")
+            }
         });
             // reset()
         
@@ -82,7 +100,9 @@ const SignIn = () => {
                 >
             <Text style={styles.buttonText}> CREATE ACCOUNT </Text>
           </Pressable>
-          <Text style={[styles.text, {textAlign: "center", fontSize: 16}]}>ALREADY HAVE AN ACCOUNT? SIGN IN</Text>
+            <Pressable onPress={()=>navigation.navigate("Sign Up")}>
+                <Text style={[styles.text, {textAlign: "center", fontSize: 16}]}>DON'T HAVE AN ACCOUNT? SIGN UP</Text>
+            </Pressable>        
         </View>
     );
 };

@@ -14,10 +14,10 @@ const SignUp = () => {
     const navigation = useNavigation();
 
     const {control, handleSubmit, errors, reset} = useForm({
-        'name': '',
-        'email': '',
-        'password': '',
-        'confirm': '',
+        'name': "",
+        'email': "",
+        'password': "",
+        'confirm': "",
     })
 
     function submit(data){
@@ -28,6 +28,19 @@ const SignUp = () => {
             const email = data.email
             const password = data.password
 
+            if(name==undefined){
+                console.log("name required")
+                return
+            }
+            if(password==undefined){
+                console.log("pasword required")
+                return
+            }
+            if(email==undefined){
+                console.log("email required")
+                return
+            }
+
             axios
         .post('http://localhost:3000/register', {
             name: name,
@@ -37,10 +50,11 @@ const SignUp = () => {
         .then(function (response) {
             // handle success
             console.log(response);
+            navigation.navigate("Home")
         })
-        .catch(function (error) {
+        .catch(function (err) {
             // handle error
-            console.log(error.message);
+            console.log(err.message);
         });
             // reset()
         }
@@ -121,7 +135,9 @@ const SignUp = () => {
             <Text style={styles.buttonText}> CREATE ACCOUNT </Text>
           </Pressable>
 
-          <Text style={[styles.text, {textAlign: "center", fontSize: 16}]}>ALREADY HAVE AN ACCOUNT? SIGN IN</Text>
+            <Pressable onPress={()=>navigation.navigate("Sign In")}>
+                <Text style={[styles.text, {textAlign: "center", fontSize: 16}]}>ALREADY HAVE AN ACCOUNT? SIGN IN</Text>
+            </Pressable>
         </View>
     );
 };

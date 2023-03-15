@@ -18,7 +18,7 @@ const WelcomeScreen = () => {
               backgroundColor: pressed ? '#EDA73A': '#ffab00',
             },
             styles.button]} 
-            // onPress={onPress}
+            onPress={()=>navigation.navigate("Sign In")}
           >
             <Text style={styles.buttonText}> GET STARTED </Text>
           </Pressable>
