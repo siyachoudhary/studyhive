@@ -134,7 +134,7 @@ app.post("/login", (request, response) => {
     });
 });
 
-// login endpoint
+// update endpoint
 app.post("/updateUser/:email", (request, response) => {
   // check if email exists
   User.updateOne({ email: request.params.email }, request.body, {runValidators:true,new:true}) 
@@ -164,7 +164,7 @@ app.post("/updateUser/:email", (request, response) => {
     });
 });
 
-// login endpoint
+// delete endpoint
 app.post("/deleteUser/:email", (request, response) => {
   // check if email exists
   User.deleteOne({ email: request.params.email }) 
@@ -177,6 +177,46 @@ app.post("/deleteUser/:email", (request, response) => {
       console.log(e)
       response.status(404).send({
         message: "Could not delete user",
+        e,
+      });
+    });
+});
+
+// friends endpoint
+
+// add friend
+app.post("/addFriends/:email", (request, response) => {
+  // check if email exists
+  User.updateOne({ email: request.params.email}, {$push: {friends: request.body.friend}},) 
+    .then((user) => {
+      response.status(200).send({
+        message: "user friend added successfully",
+        friends: user.friends
+    });
+    })
+    .catch((e) => {
+      console.log(e)
+      response.status(404).send({
+        message: "Could not add user friend",
+        e,
+      });
+    });
+});
+
+//  get all user friends
+app.get("/findFriends/:email", (request, response) => {
+  // check if email exists
+  User.findOne({ email: request.params.email}) 
+    .then((user) => {
+      response.status(200).send({
+        message: "user friends found successfully",
+        friends: user.friends
+      });
+    })
+    .catch((e) => {
+      console.log(e)
+      response.status(404).send({
+        message: "Could not find user friends",
         e,
       });
     });

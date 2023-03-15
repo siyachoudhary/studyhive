@@ -18,6 +18,10 @@ const UserSchema = new mongoose.Schema({
         required: [true, "Please provide a password!"],
         // unique: false,
       },
+
+      friends:{
+        type: Array
+      }
     
   })
 

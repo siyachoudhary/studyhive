@@ -51,6 +51,7 @@ const Profile = () => {
   const [canScroll, setCanScroll] = useState(true);
   const [tab1Data] = useState(Array(30).fill(0));
   const [tab2Data] = useState(Array(30).fill(0));
+  const [tab3Data] = useState(Array(30).fill(0));
 
   /**
    * ref
@@ -151,6 +152,17 @@ const Profile = () => {
     retrieveData()
     setName(user.name)
     setEmail(user.email)
+
+    axios
+        .post(`http://localhost:3000/findFriends/${email}`)
+        .then(function (response) {
+            // handle success
+            console.log(JSON.stringify(response.data));
+        })
+        .catch(function (err) {
+            // handle error
+            console.log(err.message);
+        });
   })
 
   useEffect(() => {
@@ -294,6 +306,25 @@ const Profile = () => {
     );
   };
 
+  const renderTab3Item = ({item, index}) => {
+    return (
+      <View
+        style={{
+          marginHorizontal: tab2ItemWidth/23,
+          marginVertical: tab2ItemWidth/400,
+          padding:tab2ItemWidth/23,
+          width: tab2ItemWidth,
+          height: tab2ItemHeight,
+          backgroundColor: '#aaa',
+          // justifyContent: 'left',
+          // alignItems: 'left',
+        }}>
+        <Text style={[{textAlign: "left"}]}>USER NAME</Text>
+        <Text style={[{textAlign: "left", fontSize: 15}]}>USER EMAIL</Text>
+      </View>
+    );
+  };
+
   const renderLabel = ({route, focused}) => {
     return (
       <Text style={[styles.label, {opacity: focused ? 1 : 0.5}]}>
@@ -317,6 +348,11 @@ const Profile = () => {
         numCols = 1;
         data = tab2Data;
         renderItem = renderTab2Item;
+        break;
+      case 'tab3':
+        numCols = 1;
+        data = tab3Data;
+        renderItem = renderTab3Item;
         break;
       default:
         return null;
