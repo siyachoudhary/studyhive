@@ -6,6 +6,8 @@ import { Screen } from "react-native-screens";
 import {useForm, Controller} from "react-hook-form"
 import axios from "axios";
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 const SCREENHEIGHT = Dimensions.get('window').height;
 const SCREENWIDTH = Dimensions.get('window').width;
 
@@ -39,6 +41,7 @@ const SignIn = () => {
             // handle success
             console.log(JSON.stringify(response.data));
 
+            storeData(JSON.stringify(response.data))
             navigation.navigate("Home")
         })
         .catch(function (error) {
@@ -55,6 +58,16 @@ const SignIn = () => {
             // reset()
         
     }
+
+    const storeData = async (value) => {
+        try {
+          await AsyncStorage.setItem('user', value)
+          console.log("stored data")
+        } catch (e) {
+          // saving error
+          console.log(e.message)
+        }
+      }
 
     return(
         <View style={styles.backGround}>
@@ -98,7 +111,7 @@ const SignIn = () => {
                 styles.button]} 
                 onPress={handleSubmit(submit)}
                 >
-            <Text style={styles.buttonText}> CREATE ACCOUNT </Text>
+            <Text style={styles.buttonText}> SIGN IN </Text>
           </Pressable>
             <Pressable onPress={()=>navigation.navigate("Sign Up")}>
                 <Text style={[styles.text, {textAlign: "center", fontSize: 16}]}>DON'T HAVE AN ACCOUNT? SIGN UP</Text>

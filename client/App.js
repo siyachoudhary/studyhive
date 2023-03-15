@@ -14,11 +14,12 @@ import SignUp from './src/screens/SignUp';
 import SignIn from './src/screens/SignIn';
 import Home from './src/screens/Home';
 
-// import './node_modules/bootstrap/dist/css/bootstrap.min.css';
+// import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Stack = createNativeStackNavigator();
 
 const App = () => {
+
   return (
    <NavigationContainer>
       <Stack.Navigator 

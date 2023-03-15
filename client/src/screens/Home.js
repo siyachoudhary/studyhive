@@ -6,8 +6,23 @@ import { Screen } from "react-native-screens";
 const SCREENHEIGHT = Dimensions.get('window').height;
 const SCREENWIDTH = Dimensions.get('window').width;
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+
 const Home = () => {
     const navigation = useNavigation();
+
+    async function retrieveData(){
+        try {
+            const value = await AsyncStorage.getItem('user')
+            const obj = JSON.parse(value);
+            if(value !== null) {
+              console.log(obj.name)
+            }
+          } catch(e) {
+            console.log(e.message)
+          }
+    }
 
     return(
         <View>
@@ -28,7 +43,7 @@ const Home = () => {
                     backgroundColor: pressed ? '#EDA73A': '#ffab00',
                 },
                 styles.button]} 
-                // onPress={onPress}
+                onPress={retrieveData}
                 >
                     <Text style={styles.buttonText}> START A HIVE{'\n'}SESSION </Text>
                 </Pressable>

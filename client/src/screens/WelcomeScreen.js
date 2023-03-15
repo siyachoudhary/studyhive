@@ -6,9 +6,34 @@ import { useNavigation } from "@react-navigation/native";
 const SCREENHEIGHT = Dimensions.get('window').height;
 const SCREENWIDTH = Dimensions.get('window').width;
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 const WelcomeScreen = () => {
+  let value = undefined
+  async function retrieveData(){
+    try {
+        value = await AsyncStorage.getItem('user')
+        console.log(value)
+        const obj = JSON.parse(value);
+        if(value !== null) {
+          console.log(obj.name)
+        }
+      } catch(e) {
+        console.log(e.message)
+      }
+  }
     const navigation = useNavigation();
-  
+
+    async function getStarted(){
+      await retrieveData()
+      console.log(value)
+      if(value==undefined){
+        navigation.navigate("Sign In")
+      }else{
+        navigation.navigate("Home")
+      }
+    }
+
     return (
       <View>
         <ImageBackground source={require('../assets/images/welcomeScreen2.png')} style={styles.image}>
@@ -18,7 +43,7 @@ const WelcomeScreen = () => {
               backgroundColor: pressed ? '#EDA73A': '#ffab00',
             },
             styles.button]} 
-            onPress={()=>navigation.navigate("Sign In")}
+            onPress={getStarted}
           >
             <Text style={styles.buttonText}> GET STARTED </Text>
           </Pressable>

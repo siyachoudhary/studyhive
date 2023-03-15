@@ -7,6 +7,8 @@ import { Screen } from "react-native-screens";
 // import { Color, FontFamily, FontSize, Border } from "../GlobalStyles";
 import {useForm, Controller} from "react-hook-form"
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 const SCREENHEIGHT = Dimensions.get('window').height;
 const SCREENWIDTH = Dimensions.get('window').width;
 
@@ -50,6 +52,8 @@ const SignUp = () => {
         .then(function (response) {
             // handle success
             console.log(response);
+            
+            storeData(email)
             navigation.navigate("Home")
         })
         .catch(function (err) {
@@ -60,6 +64,16 @@ const SignUp = () => {
         }
         
     }
+
+    const storeData = async (value) => {
+        try {
+          await AsyncStorage.setItem('user', value)
+          console.log("stored data")
+        } catch (e) {
+          // saving error
+          console.log(e.message)
+        }
+      }
 
     return (
         <View style={styles.backGround}>
