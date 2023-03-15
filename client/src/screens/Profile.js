@@ -14,6 +14,7 @@ import {
   StatusBar,
 } from 'react-native';
 import {TabView, TabBar} from 'react-native-tab-view';
+import { ScreenStackHeaderRightView } from 'react-native-screens';
 
 const SCREENHEIGHT = Dimensions.get('window').height;
 const SCREENWIDTH = Dimensions.get('window').width;
@@ -222,6 +223,7 @@ const Profile = () => {
           onPress={() => Alert.alert('header Clicked!')}>
           <Text>Scrollable Header</Text>
         </TouchableOpacity> */}
+        <Image source={require('../assets/images/settingsIcon.png')} style={styles.smallimage}></Image>
         <Image source={require('../assets/images/blankProfile.png')} style={styles.image}></Image>
         <Text style={styles.headertext}>SIYA JARIWALA</Text>
         <Text style={styles.text}>@siyacj08</Text>
@@ -414,9 +416,15 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       width: 150,
       height: 150, 
-      marginTop: SCREENHEIGHT/14,
+      marginTop: SCREENHEIGHT/200,
       borderRadius: 75,
   }, 
+  smallimage: {
+    width: 45,
+    height: 45, 
+    marginTop: SCREENHEIGHT/30,
+    marginLeft: SCREENHEIGHT/2.8,
+  },
   headertext: {
       fontFamily:'Mohave-Bold',
       fontSize: 22,

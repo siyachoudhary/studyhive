@@ -13,6 +13,7 @@ import WelcomeScreen from './src/screens/WelcomeScreen';
 import SignUp from './src/screens/SignUp';
 import SignIn from './src/screens/SignIn';
 import Home from './src/screens/Home';
+import Profile from './src/screens/Profile';
 
 // import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -26,10 +27,11 @@ const App = () => {
          screenOptions={{
              headerShown: false
          }}>
-            <Stack.Screen name='Welcome Screen' component={WelcomeScreen}/>
+            {/* <Stack.Screen name='Welcome Screen' component={WelcomeScreen}/>
             <Stack.Screen name='Sign Up' component={SignUp}/>
             <Stack.Screen name='Sign In' component={SignIn}/>
-            <Stack.Screen name='Home' component={Home}/>
+            <Stack.Screen name='Home' component={Home}/> */}
+            <Stack.Screen name='Profile' component={Profile}/>
       </Stack.Navigator>
    </NavigationContainer>
   )
