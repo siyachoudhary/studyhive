@@ -28,6 +28,7 @@ const SignUp = () => {
     })
 
     function submit(data){
+
         if(data.password != data.confirm){
             console.log("passwords do not match")
             setNameErr("")
@@ -35,9 +36,38 @@ const SignUp = () => {
             setPassErr("")
             setConfirmErr("PASSWORDS DO NOT MATCH")
         }else{
-            const name = data.name
-            const email = data.email
-            const password = data.password
+            let name = data.name
+            let email = data.email
+            let password = data.password
+
+            if (email.includes(' ')) {
+                email = email.trim(); 
+            }
+
+            if ( !email.includes('@')&& !email.includes('.')) {
+                setNameErr("")
+                setEmailErr("PLEASE ENTER A VALID EMAIL")
+                setPassErr("")
+                setConfirmErr("") 
+                return
+            }
+
+            if (password.includes(' ')) {
+                setNameErr("")
+                setEmailErr("")
+                setPassErr("PASSWORD CANNOT CONTAIN ANY SPACES")
+                setConfirmErr("") 
+                return
+            }
+
+            if(password.length<6){
+                setNameErr("")
+                setEmailErr("")
+                setPassErr("PASSWORD MUST BE AT LEAST 6 CHARACTERS LONG")
+                setConfirmErr("")
+                return
+            }
+
 
             if(name==undefined){
                 console.log("name required")
@@ -89,8 +119,7 @@ const SignUp = () => {
                 setConfirmErr("")
             console.log(err.message);
         });
-        }
-        
+    }
     }
 
     const storeData = async (value) => {
@@ -205,6 +234,7 @@ const styles = StyleSheet.create({
       // elevation: 8,
       marginHorizontal: SCREENHEIGHT/9,
       marginTop: SCREENHEIGHT/20,
+      marginBottom: 15
     },
     header: {
       fontFamily:'Mohave-Bold',

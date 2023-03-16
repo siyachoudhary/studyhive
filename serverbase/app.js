@@ -182,8 +182,28 @@ app.post("/deleteUser/:email", (request, response) => {
     });
 });
 
-// friends endpoint
+//  get all user friends
+app.get("/getUsers/:emailStr", (request, response) => {
+  // check if email exists
+  console.log(request.params.emailStr)
+  User.find({ email: request.params.emailStr}) 
+    .then((user) => {
+      console.log(user)
+      response.status(200).send({
+        message: "user friends found successfully",
+        email: user
+      });
+    })
+    .catch((e) => {
+      console.log(e)
+      response.status(404).send({
+        message: "Could not find user friends",
+        e,
+      });
+    });
+});
 
+// friends endpoint
 // add friend
 app.post("/addFriends/:email", (request, response) => {
   // check if email exists
@@ -208,10 +228,26 @@ app.get("/findFriends/:email", (request, response) => {
   // check if email exists
   User.findOne({ email: request.params.email}) 
     .then((user) => {
-      response.status(200).send({
-        message: "user friends found successfully",
-        friends: user.friends
+      response.json(user.friends)
+    })
+    .catch((e) => {
+      console.log(e)
+      response.status(404).send({
+        message: "Could not find user friends",
+        e,
       });
+    });
+});
+
+app.get("/findUser/:_id", (request, response) => {
+  // check if email exists
+  User.findOne({ _id: request.params._id}) 
+    .then((user) => {
+      response.status(200).send({
+        name: user.name,
+        email: user.email,
+        _id: user._id
+    });
     })
     .catch((e) => {
       console.log(e)

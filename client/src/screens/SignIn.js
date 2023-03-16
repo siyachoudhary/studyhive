@@ -23,8 +23,13 @@ const SignIn = () => {
     })
 
     function submit(data){
-            const email = data.email
+            let email = data.email
             const password = data.password
+
+            if (email.includes(' ')) {
+                email = email.trim(); 
+            }
+
 
             if(email==undefined){
                 console.log("email required")
@@ -98,7 +103,7 @@ const SignIn = () => {
                 )
             }> </Controller>
 
-    <Text style={[styles.text, {textAlign: "left", fontSize: 20, color:"red"}]}>{emailErr}</Text>
+    <Text style={[styles.text, {textAlign: "left", fontSize: 15, color:"red"}]}>{emailErr}</Text>
 
     
 
@@ -116,7 +121,7 @@ const SignIn = () => {
                     )
                 }> </Controller>
 
-    <Text style={[styles.text, {textAlign: "left", fontSize: 20, color:"red"}]}>{passErr}</Text>
+    <Text style={[styles.text, {textAlign: "left", fontSize: 15, color:"red"}]}>{passErr}</Text>
 
             
 
@@ -153,6 +158,7 @@ const styles = StyleSheet.create({
       // elevation: 8,
       marginHorizontal: SCREENHEIGHT/9,
       marginTop: SCREENHEIGHT/4,
+      marginBottom: 15
     },
     header: {
       fontFamily:'Mohave-Bold',
@@ -181,7 +187,7 @@ const styles = StyleSheet.create({
         fontFamily:'Mohave-Light',
         fontSize: 20,
         color: '#FFFFFF',
-        marginTop: SCREENHEIGHT/60,   
+        marginTop: SCREENHEIGHT/150,   
         marginHorizontal: SCREENHEIGHT/20,
     }, 
     buttonText: {

@@ -17,6 +17,8 @@ import {
 import {TabView, TabBar} from 'react-native-tab-view';
 import { ScreenStackHeaderRightView } from 'react-native-screens';
 
+import axios from 'axios';
+
 const SCREENHEIGHT = Dimensions.get('window').height;
 const SCREENWIDTH = Dimensions.get('window').width;
 
@@ -35,7 +37,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const Profile = () => {
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
-  const [user, setUser] = useState("")
+  const [user, setUser] = useState(null)
 
 
   const navigation = useNavigation();
@@ -51,7 +53,8 @@ const Profile = () => {
   const [canScroll, setCanScroll] = useState(true);
   const [tab1Data] = useState(Array(30).fill(0));
   const [tab2Data] = useState(Array(30).fill(0));
-  const [tab3Data] = useState(Array(30).fill(0));
+  const [tab3Data, setTab3Data] = useState([]);
+  const dataFetchedRef = useRef(false);
 
   /**
    * ref
@@ -137,33 +140,65 @@ const Profile = () => {
   /**
    * effect
    */
+
   async function retrieveData(){
     try {
         const value = await AsyncStorage.getItem('user')
         const obj = JSON.parse(value);
+        // console.log("user value:" + value)
         if(value !== null) {
           setUser(obj)
+          setName(user.name)
+          setEmail(user.email)
         }
       } catch(e) {
         console.log(e.message)
       }
   }
-  useEffect(()=>{
-    retrieveData()
-    setName(user.name)
-    setEmail(user.email)
 
-    axios
-        .post(`http://localhost:3000/findFriends/${email}`)
-        .then(function (response) {
+  let friendsFound = false;
+
+  useEffect(()=>{
+    if (dataFetchedRef.current) return;
+       retrieveData()
+       if(!friendsFound){
+        getUserFriends()
+       }
+  })
+
+  const getUserFriends = async ()=>{
+    if(email!=""){
+     await axios
+        .get(`http://localhost:3000/findFriends/${email}`)
+        .then(function (res) {
             // handle success
-            console.log(JSON.stringify(response.data));
+            // console.log("res.data:" + res.data)
+              getUserNames(res.data)
+              // setTab3Data(res.data)
+          dataFetchedRef.current = true;
         })
         .catch(function (err) {
             // handle error
-            console.log(err.message);
+            console.log("error: "+err.message);
         });
-  })
+      }
+  }
+
+  const getUserNames = async(data)=>{
+    const friends = [];
+    for(var i = 0; i<data.length; i++){
+      await axios
+        .get(`http://localhost:3000/findUser/${data[i]}`)
+        .then(function (res) {
+            friends.push(res.data)
+        })
+        .catch(function (err) {
+            // handle error
+            console.log("error: "+err.message);
+        });
+    }
+    setTab3Data(friends)
+  }
 
   useEffect(() => {
     scrollY.addListener(({value}) => {
@@ -308,7 +343,18 @@ const Profile = () => {
 
   const renderTab3Item = ({item, index}) => {
     return (
-      <View
+      <View>
+        {index==0?
+          <Pressable style={{
+            marginHorizontal: tab2ItemWidth/23,
+            marginVertical: tab2ItemWidth/400,
+            marginBottom: 10
+          }}>
+            <Text style={{color:"white", fontSize:20, backgroundColor: "grey", padding: 20}}>+ ADD FRIENDS</Text>
+          </Pressable>: null
+          }
+
+        <View
         style={{
           marginHorizontal: tab2ItemWidth/23,
           marginVertical: tab2ItemWidth/400,
@@ -319,8 +365,11 @@ const Profile = () => {
           // justifyContent: 'left',
           // alignItems: 'left',
         }}>
-        <Text style={[{textAlign: "left"}]}>USER NAME</Text>
-        <Text style={[{textAlign: "left", fontSize: 15}]}>USER EMAIL</Text>
+
+        <Text style={[{textAlign: "left"}]}>{item.name}</Text>
+        <Text style={[{textAlign: "left", fontSize: 15}]}>{item.email}</Text>
+        
+      </View>
       </View>
     );
   };

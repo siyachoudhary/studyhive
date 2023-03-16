@@ -24,7 +24,13 @@ const Settings = () => {
             let nameUpdate = data.name
             let emailUpdate = data.email
 
-            console.log(nameUpdate+" " + emailUpdate)
+            if(emailUpdate!=undefined){
+                if (emailUpdate.includes(' ')) {
+                    emailUpdate = emailUpdate.trim(); 
+                }
+            }
+
+            // console.log(nameUpdate+" " + emailUpdate)
             if(nameUpdate==undefined){
                 nameUpdate = name
             }
@@ -39,7 +45,7 @@ const Settings = () => {
         })
         .then(function (response) {
             // handle success
-            console.log(JSON.stringify(response.data));
+            // console.log(JSON.stringify(response.data));
             
             storeData(JSON.stringify(response.data))
             navigation.navigate("Profile")
@@ -91,7 +97,7 @@ const Settings = () => {
         .post(`http://localhost:3000/deleteUser/${email}`)
         .then(function (response) {
             // handle success
-            console.log(JSON.stringify(response.data));
+            // console.log(JSON.stringify(response.data));
             
             AsyncStorage.clear
             navigation.navigate("Welcome Screen")
@@ -135,11 +141,11 @@ const Settings = () => {
             }> </Controller>
 
             <Pressable onPress={logout}>
-                <Text style={[styles.text, {textAlign: "center", fontSize: 20}]}>Logout</Text>
+                <Text style={[styles.text, {textAlign: "center", fontSize: 25,  marginTop: SCREENHEIGHT/3}]}>LOGOUT</Text>
             </Pressable>   
 
             <Pressable onPress={deleteProfile}>
-                <Text style={[styles.text, {textAlign: "center", fontSize: 20, color:"red"}]}>Delete Profile</Text>
+                <Text style={[styles.text, {textAlign: "center", fontSize: 25, color:"red", marginTop: 10}]}>DELETE PROFILE</Text>
             </Pressable>  
     
 
@@ -201,7 +207,7 @@ const styles = StyleSheet.create({
       borderRadius: 6,
       // elevation: 8,
       marginHorizontal: SCREENHEIGHT/9,
-      marginTop: SCREENHEIGHT/9,
+      marginTop: SCREENHEIGHT/25,
     },
     header: {
       fontFamily:'Mohave-Bold',
