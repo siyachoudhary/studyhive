@@ -44,11 +44,11 @@ const AddFriends = () => {
       <View style={styles.container}>
         <Text style={styles.header}>FIND FRIENDS</Text>
         <TextInput style={[styles.inputBox]}
-            value={searchTxt}
-            onChangeText={setSearchTxt}
+            // value={value}
+            onChangeText={(value) => setSearchTxt(value)}
         />
 
-            <ScrollView>
+            <ScrollView style={styles.scrollingView} contentContainerStyle={{ flexGrow: 1 }}>
             {list.map((listItem) => {
                 // console.log(listItem)
                     return (
@@ -78,6 +78,13 @@ const AddFriends = () => {
       resizeMode: 'cover',
       height: SCREENHEIGHT,
       width: SCREENWIDTH,
+    },
+    scrollingView:{
+        marginTop: SCREENHEIGHT/500,   
+        marginHorizontal: SCREENHEIGHT/20,
+        height: SCREENHEIGHT,
+        backgroundColor: "#aaa"
+        
     },
     button: {
       alignItems: 'center',
