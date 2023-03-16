@@ -6,6 +6,9 @@ import {useForm, Controller} from "react-hook-form"
 import DatePicker from 'react-native-date-picker'
 import { getCalendarDateString } from "react-native-calendars/src/services";
 
+import axios from "axios";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 // import { Color, FontFamily, FontSize, Border } from "../GlobalStyles";
 
 const SCREENHEIGHT = Dimensions.get('window').height;
@@ -19,6 +22,9 @@ const AddTask = () => {
     const [isEnabled, setIsEnabled] = React.useState(false);
     const toggleSwitch = () => setIsEnabled(previousState => !previousState);
   
+    const [titleErr, setTitleErr] = React.useState("");
+    const [dateErr, setDateErr] = React.useState("");
+
     const {control, handleSubmit, errors, reset} = useForm({
         'title': "",
         'notes': "",
@@ -26,6 +32,71 @@ const AddTask = () => {
         'date': date1,
         'doRemind': false,
     })
+
+    function submit(data){
+        let date = date1;
+        console.log(date);
+        var day = ('0' + date.getDate()).slice(-2);
+        var month = ('0' + (date.getMonth()+1)).slice(-2); 
+        var year = date.getFullYear();
+        console.log(`${year}-` + month + `-` + day)
+        let newTask = {
+            title: data.title, 
+            subject: data.subject,
+            notes: data.notes, 
+            date: `${year}-${month}-${day}`, 
+            doRemind: data.doRemind
+        }
+
+        if(newTask.title==undefined || newTask.title == ''){
+            console.log("title required")
+            setTitleErr("PLEASE ENTER AN TITLE FOR YOUR TASK")
+            setDateErr("")
+            return
+        }
+        if(newTask.date==undefined){
+            console.log("date required")
+            setDateErr("PLEASE ENTER A DUE DATE FOR YOUR TASK")
+            setTitleErr("")
+            return
+        }
+
+        // axios
+        // .post('http://localhost:3000/login', {
+        //     title: title,
+        //     notes: notes,
+        //     subject: subject, 
+        //     date: date, 
+        //     doRemind: doRemind
+        // })
+        // .then(function (response) {
+        //     // handle success
+        //     console.log(JSON.stringify(response.data));
+        //     setTitleErr("")
+        //     setDateErr("")
+        //     storeData(JSON.stringify(response.data))
+        //     navigation.navigate("CalendarPage")
+        //     reset()
+        // })
+        // .catch(function (error) {
+        //     // handle error
+        //     console.log(error.message);
+        // });
+        setTitleErr("")
+        setDateErr("")
+        storeData(JSON.stringify(newTask))
+        navigation.navigate("CalendarPage")
+    }
+
+    const storeData = async (value) => {
+        try {
+          await AsyncStorage.setItem('newTask', value)
+          console.log("stored data")
+        } catch (e) {
+          // saving error
+          console.log(e.message)
+        }
+    }
 
     return (
         <View style={styles.backGround}>
@@ -97,7 +168,7 @@ const AddTask = () => {
                     date={date1}
                     onConfirm={(date1) => {
                       setOpen(false)
-                      setDate(date1)
+                      setDate1(date1)
                     }}
                     onCancel={() => {
                       setOpen(false)
@@ -130,7 +201,7 @@ const AddTask = () => {
                     backgroundColor: pressed ? '#EDA73A': '#ffab00',
                 },
                 styles.button]} 
-                // onPress={onPress}
+                onPress={handleSubmit(submit)}
             >
                 <Text style={styles.buttonText}> ADD TASK </Text>
             </Pressable>
@@ -141,7 +212,7 @@ const AddTask = () => {
                         backgroundColor: pressed ? '#EDA73A': '#ffab00',
                     },
                     styles.button, {marginTop: SCREENHEIGHT/40}]} 
-                    // onPress={onPress}
+                    onPress={()=>navigation.navigate("CalendarPage")}
                     >
                 <Text style={[styles.buttonText]}> BACK TO CALENDAR </Text>
             </Pressable>
