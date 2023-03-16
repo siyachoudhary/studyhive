@@ -10,6 +10,7 @@ const SCREENWIDTH = Dimensions.get('window').width;
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ScrollView, TextInput } from 'react-native-gesture-handler';
 import axios from 'axios';
+import Animated from 'react-native-reanimated';
 
 const AddFriends = () => {
     const [searchTxt, setSearchTxt] = useState("")
@@ -52,9 +53,26 @@ const AddFriends = () => {
             {list.map((listItem) => {
                 // console.log(listItem)
                     return (
-                    <View>
-                        <Text style={styles.text}>{listItem.name}</Text>
-                    </View>
+                        <Animated.View
+                        
+                        >
+                            <View
+                                style={{
+                                marginHorizontal: (SCREENWIDTH - 50)/23,
+                                marginVertical: (SCREENWIDTH - 50)/400,
+                                padding:(SCREENWIDTH - 50)/23,
+                                width: (SCREENWIDTH - 50),
+                                height: (SCREENWIDTH - 50) / 5,
+                                backgroundColor: '#aaa',
+                                // justifyContent: 'left',
+                                // alignItems: 'left',
+                                }}>
+                        
+                                <Text style={[{textAlign: "left"}]}>{listItem.name}</Text>
+                                <Text style={[{textAlign: "left", fontSize: 15}]}>{listItem.email}</Text>
+                            
+                        </View>
+                      </Animated.View>
                     );
                 })}
             </ScrollView>
