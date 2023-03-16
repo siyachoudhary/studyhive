@@ -16,7 +16,7 @@ const Home = () => {
         const retrieveData = async () => {
           try {
               value = await AsyncStorage.getItem('user')
-              console.log(value)
+              // console.log(value)
               if(value!=undefined){
                 navigation.navigate("Home")
               }

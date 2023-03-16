@@ -87,7 +87,7 @@ const AddFriends = () => {
       borderRadius: 6,
       // elevation: 8,
       marginHorizontal: SCREENWIDTH/10,
-      marginTop: SCREENHEIGHT/1.75,
+      marginTop: SCREENHEIGHT/1.8,
     },
     buttonText: {
       fontFamily:'Mohave-Bold',
