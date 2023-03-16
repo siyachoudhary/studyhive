@@ -16,9 +16,6 @@ import SignUp from './src/screens/SignUp';
 import SignIn from './src/screens/SignIn';
 import Home from './src/screens/Home';
 import Profile from './src/screens/Profile';
-import Settings from './src/screens/Settings';
-
-import { InitNavigator } from './CustomNavigation';
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
