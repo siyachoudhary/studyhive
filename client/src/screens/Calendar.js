@@ -7,11 +7,11 @@ import {
   TouchableOpacity
 } from "react-native"
 import { Calendar, CalendarUtils } from "react-native-calendars"
-import testIDs from "../testIDs"
+// import testIDs from "../testIDs"
 
 const INITIAL_DATE = "2022-07-06"
 
-const Calendar = () => {
+const CalendarPage = () => {
   const [selected, setSelected] = useState(INITIAL_DATE)
   const [currentMonth, setCurrentMonth] = useState(INITIAL_DATE)
 
@@ -45,7 +45,7 @@ const Calendar = () => {
       <Fragment>
         <Text style={styles.text}>Calendar with selectable date</Text>
         <Calendar
-          testID={testIDs.calendars.FIRST}
+          // testID={testIDs.calendars.FIRST}
           enableSwipeMonths
           current={INITIAL_DATE}
           style={styles.calendar}
@@ -517,7 +517,7 @@ const Calendar = () => {
         <Text style={styles.text}>Calendar with custom header component</Text>
         <Calendar
           initialDate={INITIAL_DATE}
-          testID={testIDs.calendars.LAST}
+          // testID={testIDs.calendars.LAST}
           style={[styles.calendar, styles.customCalendar]}
           customHeader={CustomHeader}
         />
@@ -569,14 +569,14 @@ const Calendar = () => {
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
-      testID={testIDs.calendars.CONTAINER}
+      // testID={testIDs.calendars.CONTAINER}
     >
       {renderExamples()}
     </ScrollView>
   )
 }
 
-export default Calendar;
+export default CalendarPage;
 
 const styles = StyleSheet.create({
   calendar: {

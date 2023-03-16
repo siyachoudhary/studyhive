@@ -6,6 +6,8 @@ import Profile from "./src/screens/Profile";
 import Home from "./src/screens/Home";
 import Settings from "./src/screens/Settings";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import CalendarPage from "./src/screens/Calendar";
+import AddFriends from "./src/screens/AddFriends";
 
 
 const Tab = createBottomTabNavigator();  // creates object for Stack Navigator
@@ -26,6 +28,7 @@ const InitNavigator = () => {
           }}>
             <Tab.Screen name="Home" component={Home} />
             <Tab.Screen name="Profile" component={SettingsNavigator} />
+            <Tab.Screen name="Calendar" component={CalendarPage} />
             </Tab.Navigator>
         // {/* </NavigationContainer> */}
     );
@@ -44,6 +47,7 @@ const InitNavigator = () => {
         }}>
            <Stack.Screen name='Profile' component={Profile}/>
            <Stack.Screen name='Settings' component={Settings}/>
+           <Stack.Screen name='AddFriend' component={AddFriends}/>
      </Stack.Navigator> 
         // {/* </NavigationContainer> */}
     );

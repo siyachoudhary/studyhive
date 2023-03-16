@@ -201,16 +201,13 @@ app.post("/deleteUser/:email", (request, response) => {
 });
 
 //  get all user friends
-app.get("/getUsers/:emailStr", (request, response) => {
-  console.log(request.params.emailStr)
- 
-  User.find({ $text: { $search: "test"} })
+app.get("/getUsers/:emailStr", (request, response) => { 
+  User.find({ $text: { $search: request.params.emailStr} })
     .then((user) => {
       console.log(user)
-      // response.status(200).send({
-      //   message: "found successfully",
-      //   email: user
-      // });
+      response.status(200).send({
+        users: user
+      });
     })
     .catch((e) => {
       console.log(e)

@@ -17,7 +17,10 @@ import SignIn from './src/screens/SignIn';
 import Home from './src/screens/Home';
 import Profile from './src/screens/Profile';
 
+import { InitNavigator } from './CustomNavigation';
+
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import CalendarPage from './src/screens/Calendar';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -41,7 +44,6 @@ const App = () => {
               <Stack.Screen name='Sign Up' component={SignUp}/>
               <Stack.Screen name='Sign In' component={SignIn}/>
               <Stack.Screen name='Home' component={InitNavigator}/>
-              {/* <Stack.Screen name='Profile' component={Profile}/> */}
               {/* <Stack.Screen name='Settings' component={Settings}/> */}
         </Stack.Navigator> 
 
