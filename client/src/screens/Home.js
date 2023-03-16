@@ -53,6 +53,7 @@ const Home = () => {
                 </Pressable>
                 <Text style={[styles.text, {fontWeight: '500', marginTop: SCREENHEIGHT/20, fontSize: 30}]}>LET'S GET BEE-ZY!</Text>
             </ImageBackground>
+            
         </View>
     );
 }

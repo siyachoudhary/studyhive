@@ -141,11 +141,11 @@ const Settings = () => {
             }> </Controller>
 
             <Pressable onPress={logout}>
-                <Text style={[styles.text, {textAlign: "center", fontSize: 25,  marginTop: SCREENHEIGHT/3}]}>LOGOUT</Text>
+                <Text style={[styles.text, {textAlign: "center", fontSize: 20,  marginTop: SCREENHEIGHT/4}]}>LOGOUT</Text>
             </Pressable>   
 
             <Pressable onPress={deleteProfile}>
-                <Text style={[styles.text, {textAlign: "center", fontSize: 25, color:"red", marginTop: 10}]}>DELETE PROFILE</Text>
+                <Text style={[styles.text, {textAlign: "center", fontSize: 20, color:"red", marginTop: 10}]}>DELETE PROFILE</Text>
             </Pressable>  
     
 
