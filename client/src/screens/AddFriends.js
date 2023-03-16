@@ -46,7 +46,7 @@ const AddFriends = () => {
         <TextInput style={[styles.inputBox]}
             value={searchTxt}
             onChangeText={setSearchTxt}
-            />
+        />
 
             <ScrollView>
             {list.map((listItem) => {

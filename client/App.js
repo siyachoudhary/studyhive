@@ -19,10 +19,8 @@ import Profile from './src/screens/Profile';
 
 import { InitNavigator } from './CustomNavigation';
 
-import { InitNavigator } from './CustomNavigation';
-
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import CalendarPage from './src/screens/Calendar';
+// import CalendarPage from './src/screens/Calendar';
 import CalendarPage from './src/screens/CalendarPage';
 import AddTask from './src/screens/AddTask';
 import PomodoroTimer from './src/screens/PomodoroTimer';
