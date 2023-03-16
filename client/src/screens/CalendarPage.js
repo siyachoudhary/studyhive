@@ -1,10 +1,12 @@
 import React, { Component } from "react"
-import { Alert, StyleSheet, Text, View, TouchableOpacity } from "react-native"
+import { Alert, StyleSheet, Text, View, TouchableOpacity, Image, Pressable, Dimensions} from "react-native"
 import { Agenda } from "react-native-calendars"
 import testIDs from "../testIDs"
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { SlideOutDown } from "react-native-reanimated";
 
+const SCREENHEIGHT = Dimensions.get('window').height;
+const SCREENWIDTH = Dimensions.get('window').width;
 const date1 = new Date();
 let dayy = date1.getDate() + 1;
 let month = date1.getMonth() + 1;
@@ -51,6 +53,7 @@ export default class CalendarPage extends Component {
 
   render() {
     return (
+      <View style={{flex: 1 }} >
         <Agenda
           testID={testIDs.agenda.CONTAINER}
           items={this.state.items}
@@ -87,6 +90,19 @@ export default class CalendarPage extends Component {
           // reservationsKeyExtractor={this.reservationsKeyExtractor}
           showClosingKnob={true}
         />
+        <View style={{backgroundColor: "#292929"}}>
+          <Pressable 
+                    style={({pressed}) => [
+                    {
+                        backgroundColor: pressed ? '#EDA73A': '#ffab00',
+                    },
+                    styles.button]} 
+                    onPress={()=>this.props.navigation.navigate("AddTask")}
+                >
+                    <Text style={styles.buttonText}> ADD TASK </Text>
+            </Pressable>
+        </View>
+      </View>
     )
   }
 
@@ -203,5 +219,23 @@ const styles = StyleSheet.create({
     height: 15,
     flex: 1,
     paddingTop: 30
-  }
+  }, 
+  button: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 7,
+    paddingHorizontal: 10,
+    borderRadius: 6,
+    // elevation: 8,
+    marginHorizontal: SCREENHEIGHT/9,
+    marginVertical: SCREENHEIGHT/100,
+  },
+  buttonText: {
+    fontFamily:'Mohave-Bold',
+    fontSize: 15,
+    fontWeight: 'bold',
+    // lineHeight: 25,
+    letterSpacing: 1,
+    color: '#303030',
+}
 })
