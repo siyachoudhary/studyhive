@@ -15,6 +15,9 @@ const SCREENWIDTH = Dimensions.get('window').width;
 const Settings = () => {
     const navigation = useNavigation();
 
+    const [nameErr, setNameErr] = useState("")
+    const [emailErr, setEmailErr] = useState("")
+
     const {control, handleSubmit, errors, reset} = useForm({
         'name': "",
         'email': "",
@@ -38,6 +41,18 @@ const Settings = () => {
                 emailUpdate = email
             }
 
+            axios
+        .post(`http://localhost:3000/checkDuplicates/${email}`)
+        .then(function (response) {
+            setEmailErr("YOUR SUGGESTED EMAIL WAS BEING USED BY ANOTHER USER")
+            setNameErr("")
+            return
+        })
+        .catch(function (err) {
+            // handle error
+            console.log("no duplicates found");
+        });
+
         axios
         .post(`http://localhost:3000/updateUser/${email}`, {
             name: nameUpdate,
@@ -46,7 +61,8 @@ const Settings = () => {
         .then(function (response) {
             // handle success
             // console.log(JSON.stringify(response.data));
-            
+            setEmailErr("")
+            setNameErr("")
             storeData(JSON.stringify(response.data))
             navigation.navigate("Profile")
         })
@@ -125,6 +141,7 @@ const Settings = () => {
                     />
                 )
             }> </Controller>
+            <Text style={[styles.text, {textAlign: "left", fontSize: 15, color:"red"}]}>{nameErr}</Text>
 
             <Text style={styles.text}>EMAIL:</Text>
             <Controller
@@ -139,6 +156,7 @@ const Settings = () => {
                     />
                 )
             }> </Controller>
+            <Text style={[styles.text, {textAlign: "left", fontSize: 15, color:"red"}]}>{emailErr}</Text>
 
             <Pressable onPress={logout}>
                 <Text style={[styles.text, {textAlign: "center", fontSize: 20,  marginTop: SCREENHEIGHT/4}]}>LOGOUT</Text>

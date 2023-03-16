@@ -165,6 +165,24 @@ app.post("/updateUser/:email", (request, response) => {
 });
 
 // delete endpoint
+app.post("/checkDuplicates/:email", (request, response) => {
+  // check if email exists
+  User.findOne({ email: request.params.email }) 
+    .then(() => {
+      response.status(200).send({
+        message: "user found successfully",
+      });
+    })
+    .catch((e) => {
+      console.log(e)
+      response.status(404).send({
+        message: "user not found, proceed",
+        e,
+      });
+    });
+});
+
+// delete endpoint
 app.post("/deleteUser/:email", (request, response) => {
   // check if email exists
   User.deleteOne({ email: request.params.email }) 
@@ -184,20 +202,20 @@ app.post("/deleteUser/:email", (request, response) => {
 
 //  get all user friends
 app.get("/getUsers/:emailStr", (request, response) => {
-  // check if email exists
   console.log(request.params.emailStr)
-  User.find({ email: request.params.emailStr}) 
+ 
+  User.find({ $text: { $search: "test"} })
     .then((user) => {
       console.log(user)
-      response.status(200).send({
-        message: "user friends found successfully",
-        email: user
-      });
+      // response.status(200).send({
+      //   message: "found successfully",
+      //   email: user
+      // });
     })
     .catch((e) => {
       console.log(e)
       response.status(404).send({
-        message: "Could not find user friends",
+        message: "Could not find",
         e,
       });
     });
