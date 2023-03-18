@@ -159,8 +159,8 @@ const Profile = () => {
   let friendsFound = false;
 
   useEffect(()=>{
+    retrieveData()
     if (dataFetchedRef.current) return;
-       retrieveData()
        if(!friendsFound){
         getUserFriends()
        }
@@ -349,7 +349,7 @@ const Profile = () => {
             marginHorizontal: tab2ItemWidth/23,
             marginVertical: tab2ItemWidth/400,
             marginBottom: 10
-          }} onPress={()=>navigation.navigate("AddFriend")}>
+          }} onPress={()=>navigation.navigate("AddProfile")}>
             <Text style={{color:"white", fontSize:20, backgroundColor: "grey", padding: 20}}>+ ADD FRIENDS</Text>
           </Pressable>: null
           }

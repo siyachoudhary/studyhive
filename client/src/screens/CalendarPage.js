@@ -97,7 +97,7 @@ export default class CalendarPage extends Component {
                         backgroundColor: pressed ? '#EDA73A': '#ffab00',
                     },
                     styles.button]} 
-                    onPress={()=>this.props.navigation.navigate("AddTask")}
+                    onPress={()=>this.props.navigation.navigate("Tasks")}
                 >
                     <Text style={styles.buttonText}> ADD TASK </Text>
             </Pressable>

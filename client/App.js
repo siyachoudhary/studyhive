@@ -49,9 +49,9 @@ const App = () => {
               <Stack.Screen name='Home' component={InitNavigator}/>
               <Stack.Screen name='Profile' component={Profile}/>
               {/* <Stack.Screen name='Settings' component={Settings}/> */}
-              <Stack.Screen name='CalendarPage' component={CalendarPage}/>
+              {/* <Stack.Screen name='CalendarPage' component={CalendarPage}/>
               <Stack.Screen name='AddTask' component={AddTask}/>
-              <Stack.Screen name='Pomodoro Timer' component={PomodoroTimer}/>
+              <Stack.Screen name='Pomodoro Timer' component={PomodoroTimer}/> */}
         </Stack.Navigator> 
 
    </NavigationContainer>

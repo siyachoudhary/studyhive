@@ -85,7 +85,7 @@ const AddTask = () => {
         setTitleErr("")
         setDateErr("")
         storeData(JSON.stringify(newTask))
-        navigation.navigate("CalendarPage")
+        navigation.navigate("Calendar")
     }
 
     const storeData = async (value) => {
@@ -212,7 +212,7 @@ const AddTask = () => {
                         backgroundColor: pressed ? '#EDA73A': '#ffab00',
                     },
                     styles.button, {marginTop: SCREENHEIGHT/40}]} 
-                    onPress={()=>navigation.navigate("CalendarPage")}
+                    onPress={()=>navigation.navigate("Calendar")}
                     >
                 <Text style={[styles.buttonText]}> BACK TO CALENDAR </Text>
             </Pressable>

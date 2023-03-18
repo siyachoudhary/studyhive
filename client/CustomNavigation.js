@@ -31,9 +31,9 @@ const InitNavigator = () => {
           }}>
             <Tab.Screen name="Home" component={Home} />
             <Tab.Screen name="Profile" component={SettingsNavigator} />
-            <Tab.Screen name="CalendarPage" component={CalendarPage} />
-            <Tab.Screen name="AddTask" component={AddTask} />
-            <Tab.Screen name="Pomodoro Timer" component={PomodoroTimer} />
+            <Tab.Screen name="Calendar" component={CalendarPage} />
+            <Tab.Screen name="Tasks" component={AddTask} />
+            <Tab.Screen name="Pomodoro" component={PomodoroTimer} />
             </Tab.Navigator>
         // {/* </NavigationContainer> */}
     );
