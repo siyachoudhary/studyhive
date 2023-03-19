@@ -35,6 +35,8 @@ const tab2ItemWidth = (SCREENWIDTH - 50);
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Profile = () => {
+  const baseURL = "http://192.168.1.79:3000/"
+
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
   const [user, setUser] = useState(null)
@@ -169,7 +171,7 @@ const Profile = () => {
   const getUserFriends = async ()=>{
     if(email!=""){
      await axios
-        .get(`http://localhost:3000/findFriends/${email}`)
+        .get(`${baseURL}findFriends/${email}`)
         .then(function (res) {
             // handle success
             // console.log("res.data:" + res.data)
@@ -188,7 +190,7 @@ const Profile = () => {
     const friends = [];
     for(var i = 0; i<data.length; i++){
       await axios
-        .get(`http://localhost:3000/findUser/${data[i]}`)
+        .get(`${baseURL}findUser/${data[i]}`)
         .then(function (res) {
             friends.push(res.data)
         })

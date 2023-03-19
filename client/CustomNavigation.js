@@ -52,7 +52,7 @@ const InitNavigator = () => {
         screenOptions={{
             headerShown: false
         }}>
-           <Stack.Screen name='Profile' component={Profile}/>
+           <Stack.Screen name='profileScreen' component={Profile}/>
            <Stack.Screen name='Settings' component={Settings}/>
            <Stack.Screen name='AddFriend' component={AddFriends}/>
      </Stack.Navigator> 

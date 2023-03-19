@@ -10,6 +10,7 @@ const SCREENWIDTH = Dimensions.get('window').width;
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const WelcomeScreen = () => {
+  
   let value = undefined
 
   useEffect(()=>{
@@ -18,7 +19,7 @@ const WelcomeScreen = () => {
           value = await AsyncStorage.getItem('user')
           console.log(value)
           if(value!=undefined){
-            navigation.navigate("Home")
+            navigation.navigate("HomeFirst")
           }
         } catch(e) {
           console.log(e.message)

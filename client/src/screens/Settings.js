@@ -13,6 +13,8 @@ const SCREENHEIGHT = Dimensions.get('window').height;
 const SCREENWIDTH = Dimensions.get('window').width;
 
 const Settings = () => {
+    const baseURL = "http://192.168.1.79:3000/"
+
     const navigation = useNavigation();
 
     const [nameErr, setNameErr] = useState("")
@@ -42,7 +44,7 @@ const Settings = () => {
             }
 
             axios
-        .post(`http://localhost:3000/checkDuplicates/${email}`)
+        .post(`${baseURL}checkDuplicates/${email}`)
         .then(function (response) {
             setEmailErr("YOUR SUGGESTED EMAIL WAS BEING USED BY ANOTHER USER")
             setNameErr("")
@@ -54,7 +56,7 @@ const Settings = () => {
         });
 
         axios
-        .post(`http://localhost:3000/updateUser/${email}`, {
+        .post(`${baseURL}updateUser/${email}`, {
             name: nameUpdate,
             email: emailUpdate.toLowerCase(),
         })
@@ -64,7 +66,7 @@ const Settings = () => {
             setEmailErr("")
             setNameErr("")
             storeData(JSON.stringify(response.data))
-            navigation.navigate("Profile")
+            navigation.navigate("profileScreen")
         })
         .catch(function (err) {
             // handle error
@@ -110,7 +112,7 @@ const Settings = () => {
 
     function deleteProfile(){
         axios
-        .post(`http://localhost:3000/deleteUser/${email}`)
+        .post(`${baseURL}deleteUser/${email}`)
         .then(function (response) {
             // handle success
             // console.log(JSON.stringify(response.data));

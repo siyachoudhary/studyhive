@@ -13,6 +13,7 @@ import axios from 'axios';
 import Animated from 'react-native-reanimated';
 
 const AddFriends = () => {
+  const baseURL = "http://192.168.1.79:3000/"
     const [searchTxt, setSearchTxt] = useState("")
   
     const [list,setList] = useState([])
@@ -25,7 +26,7 @@ const AddFriends = () => {
 
     const getData = async () =>{
         await axios
-        .get(`http://localhost:3000/getUsers/${searchTxt}`)
+        .get(`${baseURL}getUsers/${searchTxt}`)
         .then(function (res) {
             // console.log(res.data.users.length)
             // console.log(res.data.users)
@@ -83,7 +84,7 @@ const AddFriends = () => {
                     backgroundColor: pressed ? '#EDA73A': '#ffab00',
                 },
                 styles.button]} 
-                onPress={()=>navigate.navigate("Profile")}
+                onPress={()=>navigate.navigate("profileScreen")}
                 >
             <Text style={styles.buttonText}> BACK TO PROFILE </Text>
           </Pressable>

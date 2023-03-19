@@ -13,6 +13,8 @@ const SCREENHEIGHT = Dimensions.get('window').height;
 const SCREENWIDTH = Dimensions.get('window').width;
 
 const SignUp = () => {
+    const baseURL = "http://192.168.1.79:3000/"
+
     const navigation = useNavigation();
 
     const [nameErr, setNameErr] = useState("")
@@ -95,7 +97,7 @@ const SignUp = () => {
             }
 
             axios
-        .post('http://localhost:3000/register', {
+        .post(`${baseURL}register`, {
             name: name,
             email: email.toLowerCase(),
             password: password,
@@ -108,7 +110,7 @@ const SignUp = () => {
                 setPassErr("")
                 setConfirmErr("")
             storeData(JSON.stringify(response.data))
-            navigation.navigate("Home")
+            navigation.navigate("HomeFirst")
             reset()
         })
         .catch(function (err) {

@@ -45,8 +45,8 @@ const App = () => {
               <Stack.Screen name='Welcome Screen' component={WelcomeScreen}/>
               <Stack.Screen name='Sign Up' component={SignUp}/>
               <Stack.Screen name='Sign In' component={SignIn}/>
-              <Stack.Screen name='Home' component={InitNavigator}/>
-              <Stack.Screen name='Profile' component={Profile}/>
+              <Stack.Screen name='HomeFirst' component={InitNavigator}/>
+              {/* <Stack.Screen name='Profile' component={Profile}/> */}
               {/* <Stack.Screen name='Settings' component={Settings}/> */}
               {/* <Stack.Screen name='CalendarPage' component={CalendarPage}/>
               <Stack.Screen name='AddTask' component={AddTask}/>

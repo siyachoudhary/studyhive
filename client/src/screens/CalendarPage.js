@@ -11,7 +11,7 @@ const date1 = new Date();
 let dayy = date1.getDate() + 1;
 let month = date1.getMonth() + 1;
 let year = date1.getFullYear();
-let arr = {"2023-03-16": [{"day": "2023-03-16", "name": "Computer Science Project Due"}], "2023-03-17": [{"day": "2023-03-17", "name": "Work On Debate Speeches"}, {"day": "2023-03-17", "name": "Math Homework Due"}], "2023-03-19": [{"day": "2023-03-19","name": "English Prospectus"}]
+let arr = {"2023-03-18": [{"day": "2023-03-18", "name": "Computer Science Project Due"}], "2023-03-17": [{"day": "2023-03-17", "name": "Work On Debate Speeches"}, {"day": "2023-03-17", "name": "Math Homework Due"}], "2023-03-19": [{"day": "2023-03-19","name": "English Prospectus"}]
 };
 let userObject;
 console.log(Object.keys(arr).length);

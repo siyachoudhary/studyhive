@@ -12,6 +12,7 @@ const SCREENHEIGHT = Dimensions.get('window').height;
 const SCREENWIDTH = Dimensions.get('window').width;
 
 const SignIn = () => {
+    const baseURL = "http://192.168.1.79:3000/"
     const navigation = useNavigation();
 
     const [passErr, setPassErr] = useState("")
@@ -45,7 +46,7 @@ const SignIn = () => {
             }
 
         axios
-        .post('http://localhost:3000/login', {
+        .post(`${baseURL}login`, {
             email: email.toLowerCase(),
             password: password,
         })
@@ -55,7 +56,7 @@ const SignIn = () => {
             setEmailErr("")
             setPassErr("")
             storeData(JSON.stringify(response.data))
-            navigation.navigate("Home")
+            navigation.navigate("HomeFirst")
             reset()
         })
         .catch(function (error) {
