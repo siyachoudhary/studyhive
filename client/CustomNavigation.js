@@ -1,6 +1,5 @@
 import React from "react";
 ;
-import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Profile from "./src/screens/Profile";
 import Home from "./src/screens/Home";
@@ -10,9 +9,6 @@ import CalendarPage from "./src/screens/CalendarPage";
 import AddTask from "./src/screens/AddTask";
 import PomodoroTimer from './src/screens/PomodoroTimer';
 import AddFriends from "./src/screens/AddFriends";
-import AddTask from "./src/screens/AddTask";
-import Timer from "./src/timer";
-import PomodoroTimer from './src/screens/PomodoroTimer';
 
 
 const Tab = createBottomTabNavigator();  // creates object for Stack Navigator
