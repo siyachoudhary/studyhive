@@ -235,7 +235,7 @@ const styles = StyleSheet.create({
       borderRadius: 6,
       // elevation: 8,
       marginHorizontal: SCREENHEIGHT/9,
-      marginTop: SCREENHEIGHT/12,
+      marginTop: SCREENHEIGHT/25,
     },
     header: {
       fontFamily:'Mohave-Medium',
