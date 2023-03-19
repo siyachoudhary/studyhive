@@ -212,7 +212,7 @@ const AddTask = () => {
                         backgroundColor: pressed ? '#EDA73A': '#ffab00',
                     },
                     styles.button, {marginTop: SCREENHEIGHT/40}]} 
-                    onPress={()=>navigation.navigate("Calendar")}
+                    onPress={()=>navigation.navigate("calendarScreen")}
                     >
                 <Text style={[styles.buttonText]}> BACK TO CALENDAR </Text>
             </Pressable>

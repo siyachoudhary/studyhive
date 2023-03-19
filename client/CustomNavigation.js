@@ -16,7 +16,6 @@ const Tab = createBottomTabNavigator();  // creates object for Stack Navigator
 
 const InitNavigator = () => {
     return (
-        // <NavigationContainer>
             <Tab.Navigator 
             initialRouteName="Home" 
             screenOptions={{
@@ -29,11 +28,9 @@ const InitNavigator = () => {
           }}>
             <Tab.Screen name="Home" component={Home} />
             <Tab.Screen name="Profile" component={SettingsNavigator} />
-            <Tab.Screen name="Calendar" component={CalendarPage} />
-            <Tab.Screen name="Tasks" component={AddTask} />
+            <Tab.Screen name="Calendar" component={TasksNavigator} />
             <Tab.Screen name="Pomodoro" component={PomodoroTimer} />
             </Tab.Navigator>
-        // {/* </NavigationContainer> */}
     );
   }
 
@@ -43,7 +40,6 @@ const InitNavigator = () => {
 
   const SettingsNavigator = () => {
     return (
-        // <NavigationContainer>
         <Stack.Navigator 
         screenOptions={{
             headerShown: false
@@ -52,8 +48,23 @@ const InitNavigator = () => {
            <Stack.Screen name='Settings' component={Settings}/>
            <Stack.Screen name='AddFriend' component={AddFriends}/>
      </Stack.Navigator> 
-        // {/* </NavigationContainer> */}
     );
   }
 
   export {SettingsNavigator}
+
+  const Stack2 = createNativeStackNavigator();
+
+  const TasksNavigator = () => {
+    return (
+        <Stack2.Navigator 
+        screenOptions={{
+            headerShown: false
+        }}>
+           <Stack2.Screen name='calendarScreen' component={CalendarPage}/>
+           <Stack2.Screen name='Tasks' component={AddTask}/>
+     </Stack2.Navigator> 
+    );
+  }
+
+  export {TasksNavigator}
