@@ -7,6 +7,8 @@ import Home from "./src/screens/Home";
 import Settings from "./src/screens/Settings";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import CalendarPage from "./src/screens/CalendarPage";
+import AddTask from "./src/screens/AddTask";
+import PomodoroTimer from './src/screens/PomodoroTimer';
 import AddFriends from "./src/screens/AddFriends";
 import AddTask from "./src/screens/AddTask";
 import Timer from "./src/timer";
