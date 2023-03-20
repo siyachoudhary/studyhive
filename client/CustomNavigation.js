@@ -6,8 +6,6 @@ import Home from "./src/screens/Home";
 import Settings from "./src/screens/Settings";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import CalendarPage from "./src/screens/CalendarPage";
-import AddTask from "./src/screens/AddTask";
-import PomodoroTimer from './src/screens/PomodoroTimer';
 import AddFriends from "./src/screens/AddFriends";
 
 
@@ -28,7 +26,8 @@ const InitNavigator = () => {
           }}>
             <Tab.Screen name="Home" component={Home} />
             <Tab.Screen name="Profile" component={SettingsNavigator} />
-            <Tab.Screen name="Calendar" component={TasksNavigator} />
+            <Tab.Screen name="Calendar" component={TaskNavigator} />
+            {/* <Tab.Screen name="Tasks" component={AddTask} /> */}
             <Tab.Screen name="Pomodoro" component={PomodoroTimer} />
             </Tab.Navigator>
     );
