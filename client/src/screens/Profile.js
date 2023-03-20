@@ -343,6 +343,25 @@ const Profile = () => {
     );
   };
 
+  const removeFriend=(friendId)=>{
+    console.log(friendId._id)
+    axios
+        .post(`${baseURL}removeFriend/${email}`, {
+          friend: friendId._id
+        })
+        .then(function (response) {
+          console.log(`${friendId._id} removed`)
+          getUserFriends()
+          friends.remove(friendId)
+          return
+        })
+        .catch(function (err) {
+            // handle error
+            console.log("no duplicates found");
+        });
+    // console.log(friendId)
+  }
+
   const renderTab3Item = ({item, index}) => {
     return (
       <View>
@@ -357,19 +376,31 @@ const Profile = () => {
           }
 
         <View
-        style={{
-          marginHorizontal: tab2ItemWidth/23,
-          marginVertical: tab2ItemWidth/400,
-          padding:tab2ItemWidth/23,
-          width: tab2ItemWidth,
-          height: tab2ItemHeight,
-          backgroundColor: '#aaa',
-          // justifyContent: 'left',
-          // alignItems: 'left',
-        }}>
+          style={{
+            marginHorizontal: tab2ItemWidth/23,
+            marginVertical: tab2ItemWidth/400,
+            padding:tab2ItemWidth/23,
+            width: tab2ItemWidth,
+            height: tab2ItemHeight,
+            backgroundColor: '#aaa',
+            flexDirection: "row"
+          }}>
 
-        <Text style={[{textAlign: "left"}]}>{item.name}</Text>
-        <Text style={[{textAlign: "left", fontSize: 15}]}>{item.email}</Text>
+          <View>
+            <Text style={[{textAlign: "left"}]}>{item.name}</Text>
+            <Text style={[{textAlign: "left", fontSize: 15}]}>{item.email}</Text>
+          </View>
+
+          <Pressable 
+                  style={({pressed}) => [
+                  {
+                      backgroundColor: pressed ? '#EDA73A': '#ffab00',
+                  },
+                  styles.button]} 
+                  onPress={()=>removeFriend(item)}
+                  >
+              <Text style={styles.buttonText}> Remove Friend </Text>
+          </Pressable>
         
       </View>
       </View>
@@ -526,6 +557,17 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     position: 'absolute',
     backgroundColor: "#2F2F2F",
+  },
+  button: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 7,
+    paddingHorizontal: 10,
+    borderRadius: 6,
+    // // elevation: 8,
+    // marginHorizontal: SCREENHEIGHT/9,
+    // marginTop: SCREENHEIGHT/4,
+    // marginBottom: 15
   },
   image: {
       justifyContent: 'center',
