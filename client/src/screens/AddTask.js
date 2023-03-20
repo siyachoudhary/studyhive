@@ -86,7 +86,7 @@ const AddTask = () => {
         setTitleErr("")
         setDateErr("")
         storeData(JSON.stringify(newTask))
-        navigation.navigate("Calendar")
+        navigation.navigate("calendarScreen")
     }
 
     const storeData = async (value) => {
