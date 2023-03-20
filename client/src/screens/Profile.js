@@ -615,6 +615,14 @@ const styles = StyleSheet.create({
     // marginTop: 10,
   },
   indicator: {backgroundColor: '#FFFFFF'},
+  buttonText: {
+    fontFamily:'Mohave-Bold',
+    fontSize: 15,
+    fontWeight: 'bold',
+    // lineHeight: 25,
+    letterSpacing: 1,
+    color: '#303030',
+},
 });
 
 export default Profile;
