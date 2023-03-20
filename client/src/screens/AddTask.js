@@ -24,6 +24,7 @@ const AddTask = () => {
   
     const [titleErr, setTitleErr] = React.useState("");
     const [dateErr, setDateErr] = React.useState("");
+    
 
     const {control, handleSubmit, errors, reset} = useForm({
         'title': "",
@@ -116,6 +117,7 @@ const AddTask = () => {
                        />
                 )
             }> </Controller>
+            <Text style={[styles.text, {textAlign: "left", fontSize: 15, color:"red"}]}>{titleErr}</Text>
 
             <Text style={styles.text}>NOTES:</Text>
             <Controller
@@ -176,8 +178,9 @@ const AddTask = () => {
                   />
                 )}> 
             </Controller>
+            <Text style={[styles.text, {textAlign: "left", fontSize: 15, color:"red"}]}>{dateErr}</Text>
 
-            <View style={{ flexDirection: "row" }}>
+            <View style={{ flexDirection: "row", marginTop: -SCREENHEIGHT/30}}>
                 <Text style={[styles.text, {marginTop: SCREENHEIGHT/25}]}>REMINDER NOTIFICATION:</Text>
                 <Controller
                     control={control}
@@ -263,7 +266,7 @@ const styles = StyleSheet.create({
         fontFamily:'Mohave-Light',
         fontSize: 20,
         color: '#FFFFFF',
-        marginTop: SCREENHEIGHT/60,   
+        marginTop: SCREENHEIGHT/150,   
         marginHorizontal: SCREENHEIGHT/20,
     }, 
     buttonText: {
