@@ -238,6 +238,25 @@ app.post("/addFriends/:email", (request, response) => {
     });
 });
 
+// remove friend
+app.post("/removeFriend/:email", (request, response) => {
+  // check if email exists
+  User.updateOne({ email: request.params.email}, {$pull: {friends: request.body.friend}},) 
+    .then((user) => {
+      response.status(200).send({
+        message: "user friend removed successfully",
+        friends: user.friends
+    });
+    })
+    .catch((e) => {
+      console.log(e)
+      response.status(404).send({
+        message: "Could not remove user friend",
+        e,
+      });
+    });
+});
+
 //  get all user friends
 app.get("/findFriends/:email", (request, response) => {
   // check if email exists
