@@ -358,7 +358,7 @@ const Profile = () => {
         })
         .catch(function (err) {
             // handle error
-            console.log("no duplicates found");
+            console.log("error removing friend");
         });
     // console.log(friendId)
   }
