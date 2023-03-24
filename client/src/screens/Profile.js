@@ -347,9 +347,8 @@ const Profile = () => {
   const removeFriend=(friendId)=>{
     console.log(friendId._id)
     axios
-        .post(`${baseURL}removeFriend/${email}`, {
+        .post(`${baseURL}removeFriend/${user._id}`, {
           friend: friendId._id,
-          myId: user._id
         })
         .then(function (response) {
           console.log(`${friendId._id} removed`)

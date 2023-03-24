@@ -244,11 +244,11 @@ app.post("/addFriends/:_id", (request, response) => {
 });
 
 // remove friend
-app.post("/removeFriend/:email", (request, response) => {
+app.post("/removeFriend/:_id", (request, response) => {
   // check if email exists
-  User.updateOne({ email: request.params.email}, {$pull: {friends: request.body.friend}},) 
+  User.updateOne({ _id: request.params._id}, {$pull: {friends: request.body.friend}},) 
     .then((user) => {
-      User.updateOne({ _id: request.body.friend}, {$pull: {friends: request.body.myId}},) 
+      User.updateOne({ _id: request.body.friend}, {$pull: {friends: request.params._id}},) 
       .then((user) => {
         response.status(200).send({
           message: "user friend removed successfully",
