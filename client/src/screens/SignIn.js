@@ -1,7 +1,6 @@
-import React, {useState, useEffect, useRef} from 'react';
-import { SafeAreaView, StyleSheet, View, ImageBackground, Dimensions, Text, Image, Pressable, TextInput} from "react-native";
+import React, {useState} from 'react';
+import {StyleSheet, View, Dimensions, Text, Pressable, TextInput} from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { Screen } from "react-native-screens";
 
 import {useForm, Controller} from "react-hook-form"
 import axios from "axios";

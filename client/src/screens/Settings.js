@@ -1,10 +1,8 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState, useEffect} from 'react';
 
 import axios from "axios";
-import { SafeAreaView, StyleSheet, View, ImageBackground, Dimensions, Text, Image, Pressable, TextInput, Button, Alert} from "react-native";
+import {StyleSheet, View, Dimensions, Text, Pressable, TextInput} from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { Screen } from "react-native-screens";
-// import { Color, FontFamily, FontSize, Border } from "../GlobalStyles";
 import {useForm, Controller} from "react-hook-form"
 
 import AsyncStorage from '@react-native-async-storage/async-storage';

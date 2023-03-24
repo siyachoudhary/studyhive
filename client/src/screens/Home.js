@@ -1,7 +1,6 @@
 import React, {useEffect} from "react";
-import { SafeAreaView, StyleSheet, View, ImageBackground, Dimensions, Text, Image, Pressable, TextInput, Button} from "react-native";
+import {StyleSheet, View, ImageBackground, Dimensions, Text, Pressable} from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { Screen } from "react-native-screens";
 
 const SCREENHEIGHT = Dimensions.get('window').height;
 const SCREENWIDTH = Dimensions.get('window').width;

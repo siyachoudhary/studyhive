@@ -1,15 +1,11 @@
 import * as React from "react";
-import { SafeAreaView, StyleSheet, View, ImageBackground, Dimensions, Text, Image, Pressable, TextInput, Switch} from "react-native";
+import {StyleSheet, View, Dimensions, Text, Pressable, TextInput, Switch} from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { Screen } from "react-native-screens";
 import {useForm, Controller} from "react-hook-form"
 import DatePicker from 'react-native-date-picker'
-import { getCalendarDateString } from "react-native-calendars/src/services";
 
-import axios from "axios";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-// import { Color, FontFamily, FontSize, Border } from "../GlobalStyles";
 
 const SCREENHEIGHT = Dimensions.get('window').height;
 const SCREENWIDTH = Dimensions.get('window').width;

@@ -1,12 +1,10 @@
 import React, { Component } from "react"
-import { Alert, StyleSheet, Text, View, TouchableOpacity, Image, Pressable, Dimensions} from "react-native"
+import { Alert, StyleSheet, Text, View, TouchableOpacity, Pressable, Dimensions} from "react-native"
 import { Agenda } from "react-native-calendars"
 import testIDs from "../testIDs"
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { SlideOutDown } from "react-native-reanimated";
 
 const SCREENHEIGHT = Dimensions.get('window').height;
-const SCREENWIDTH = Dimensions.get('window').width;
 const date1 = new Date();
 let dayy = date1.getDate() + 1;
 let month = date1.getMonth() + 1;

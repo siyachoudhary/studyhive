@@ -8,14 +8,11 @@ import {
   Animated,
   PanResponder,
   Platform,
-  TouchableOpacity,
-  Alert,
   Image,
   StatusBar,
   Pressable,
 } from 'react-native';
 import {TabView, TabBar} from 'react-native-tab-view';
-import { ScreenStackHeaderRightView } from 'react-native-screens';
 
 import axios from 'axios';
 

@@ -1,13 +1,11 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState, useEffect} from 'react';
 
-import { StyleSheet, View, ImageBackground, Dimensions, Text, Image, Pressable } from "react-native";
+import { StyleSheet, View, Dimensions, Text, Pressable } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-// import { Color, FontFamily, FontSize, Border } from "../GlobalStyles";
 
 const SCREENHEIGHT = Dimensions.get('window').height;
 const SCREENWIDTH = Dimensions.get('window').width;
 
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ScrollView, TextInput } from 'react-native-gesture-handler';
 import axios from 'axios';
 import Animated from 'react-native-reanimated';
