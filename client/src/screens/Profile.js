@@ -166,6 +166,7 @@ const Profile = () => {
        if(!friendsFound){
         getUserFriends()
        }
+
   })
 
   const getUserFriends = async ()=>{
@@ -347,7 +348,8 @@ const Profile = () => {
     console.log(friendId._id)
     axios
         .post(`${baseURL}removeFriend/${email}`, {
-          friend: friendId._id
+          friend: friendId._id,
+          myId: user._id
         })
         .then(function (response) {
           console.log(`${friendId._id} removed`)

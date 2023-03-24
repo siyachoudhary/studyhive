@@ -58,6 +58,7 @@ app.post("/register", (request, response) => {
             message: "User Created Successfully",
             email: request.body.email,
             name: request.body.name,
+            _id: result._id
           });
         })
         // catch error if the new user wasn't added successfully to the database
@@ -114,6 +115,7 @@ app.post("/login", (request, response) => {
             message: "Login Successful",
             email: user.email,
             name: user.name,
+            _id: user._id,
             token,
           });
         })
@@ -220,13 +222,16 @@ app.get("/getUsers/:emailStr", (request, response) => {
 
 // friends endpoint
 // add friend
-app.post("/addFriends/:email", (request, response) => {
+app.post("/addFriends/:_id", (request, response) => {
   // check if email exists
-  User.updateOne({ email: request.params.email}, {$push: {friends: request.body.friend}},) 
+  User.updateOne({ _id: request.params._id}, {$push: {friends: request.body.friend}},) 
     .then((user) => {
-      response.status(200).send({
-        message: "user friend added successfully",
-        friends: user.friends
+      User.updateOne({ _id: request.body.friend}, {$push: {friends: request.params._id}},) 
+      .then((user) => {
+        response.status(200).send({
+          message: "user friend added successfully",
+          friends: user.friends
+      })
     });
     })
     .catch((e) => {
@@ -243,9 +248,12 @@ app.post("/removeFriend/:email", (request, response) => {
   // check if email exists
   User.updateOne({ email: request.params.email}, {$pull: {friends: request.body.friend}},) 
     .then((user) => {
-      response.status(200).send({
-        message: "user friend removed successfully",
-        friends: user.friends
+      User.updateOne({ _id: request.body.friend}, {$pull: {friends: request.body.myId}},) 
+      .then((user) => {
+        response.status(200).send({
+          message: "user friend removed successfully",
+          friends: user.friends
+      });
     });
     })
     .catch((e) => {
