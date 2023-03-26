@@ -6,26 +6,17 @@
  */
 import 'react-native-gesture-handler';
 
-import { View, Text} from 'react-native'
 import React from 'react'
 import {createNativeStackNavigator} from "@react-navigation/native-stack"
-import { NavigationContainer, NavigationHelpersContext } from '@react-navigation/native';
-//  import StackNavigator from './StackNavigator';
+import { NavigationContainer } from '@react-navigation/native';
 import WelcomeScreen from './src/screens/WelcomeScreen';
 import SignUp from './src/screens/SignUp';
 import SignIn from './src/screens/SignIn';
-import Home from './src/screens/Home';
-import Profile from './src/screens/Profile';
 
 import { InitNavigator } from './CustomNavigation';
 
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import CalendarPage from './src/screens/CalendarPage';
-import AddTask from './src/screens/AddTask';
-import PomodoroTimer from './src/screens/PomodoroTimer';
 
 const Stack = createNativeStackNavigator();
-const Tab = createBottomTabNavigator();
 
 const App = () => {
 
