@@ -6,6 +6,7 @@ import { useNavigation } from "@react-navigation/native";
 import {useForm, Controller} from "react-hook-form"
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const SCREENHEIGHT = Dimensions.get('window').height;
 const SCREENWIDTH = Dimensions.get('window').width;
@@ -13,9 +14,24 @@ const SCREENWIDTH = Dimensions.get('window').width;
 const Requests = () => {
     const baseURL = "http://192.168.1.79:3000/"
     const navigate = useNavigation()
-    
+
+    const accept = () =>{
+        console.log("pressed")
+    }
+
     return (
         <View style={styles.container}>
+            <ScrollView style={styles.scrollingView}>
+                <View style={{flexDirection: "row", marginVertical: 10}}>
+                    <Text style={styles.invite}>INVITATION</Text>
+                    <Pressable onPress={accept} style={({pressed}) => [
+                        {
+                            backgroundColor: pressed ? '#EDA73A': '#ffab00',
+                        }, styles.button2]}>
+                        <Text style={styles.buttonText2}>Accept Request</Text>
+                    </Pressable>
+                </View>
+            </ScrollView>
             <Pressable 
                 style={({pressed}) => [
                 {
@@ -37,14 +53,8 @@ const styles = StyleSheet.create({
       width: SCREENWIDTH,
     },
     scrollingView:{
-        // marginTop: SCREENHEIGHT/500,
-        // backgroundColor: "#aaa",
-        // height: SCREENHEIGHT,
         padding:(SCREENWIDTH - 50)/12,
-        transform: [{translateY: 220}],
-        top: 0,
-        zIndex: 1,
-        position: 'absolute',
+        marginTop: 50,
         width: '100%',
     },
     button: {
@@ -107,8 +117,6 @@ const styles = StyleSheet.create({
         borderRadius: 6,
         position: 'absolute',
         right: 10,
-        top: 10,
-        bottom: 10
       },
       buttonText2: {
         fontFamily:'Mohave-Bold',
@@ -118,6 +126,13 @@ const styles = StyleSheet.create({
         letterSpacing: 1,
         color: '#303030',
     },
+    invite:{
+        color: 'white',
+        fontFamily:'Mohave-Bold',
+        fontSize: 15,
+        fontWeight: 'bold',
+        letterSpacing: 1,
+    }
   });
 
 export default Requests;
