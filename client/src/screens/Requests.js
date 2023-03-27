@@ -15,6 +15,47 @@ const Requests = () => {
     const baseURL = "http://192.168.1.85:3000/"
     const navigate = useNavigation()
 
+    const [user, setUser] = useState(null)
+
+    async function retrieveData(){
+        try {
+            const value = await AsyncStorage.getItem('user')
+            const obj = JSON.parse(value);
+            // console.log("user value:" + value)
+            if(value !== null) {
+              setUser(obj)
+            }
+          } catch(e) {
+            console.log(e.message)
+          }
+      }
+    
+      let friendsFound = false;
+    
+      useEffect(()=>{
+        retrieveData()
+        if (dataFetchedRef.current) return;
+           if(!friendsFound){
+            getUserFriends()
+           }
+      })
+
+    const getUserFriends = async ()=>{
+    
+        if(user._id!=""){
+         await axios
+            .get(`${baseURL}getFriendReqs/${user._id}`)
+            .then(function (res) {
+            //       getUserNames(res.data)
+            //   dataFetchedRef.current = true;
+            })
+            .catch(function (err) {
+                // handle error
+                console.log("error: "+err.message);
+            });
+          }
+      }
+
     const accept = () =>{
         console.log("pressed")
     }
