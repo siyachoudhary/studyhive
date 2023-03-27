@@ -560,6 +560,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     position: 'absolute',
     backgroundColor: "#2F2F2F",
+    paddingTop: 50
   },
   button: {
     alignItems: 'center',
