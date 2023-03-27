@@ -222,11 +222,12 @@ app.get("/getUsers/:emailStr", (request, response) => {
 });
 
 app.post("/addFriendReq/:_id", (request, response) => {
-  // check if email exists
+  // request.params._id is the person who the friend request is being sent to
+  // request.body.friendReq is the id of the person sending request
   User.updateOne({ _id: request.params._id}, {$push: {friendReqs: request.body.friendReq}},) 
     .then((user) => {
         response.status(200).send({
-          message: "user friend request sent successfully"
+          message: "user friend request sent successfully",
     });
     })
     .catch((e) => {
