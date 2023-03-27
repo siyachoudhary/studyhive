@@ -52,26 +52,32 @@ const AddFriends = () => {
             {list.map((listItem) => {
                 // console.log(listItem)
                     return (
-                        <Animated.View
-                        
-                        >
                             <View
                                 style={{
                                 marginHorizontal: (SCREENWIDTH - 50)/23,
-                                marginVertical: (SCREENWIDTH - 50)/400,
+                                marginVertical: (SCREENWIDTH - 50)/100,
                                 padding:(SCREENWIDTH - 50)/23,
-                                width: (SCREENWIDTH - 50),
-                                height: (SCREENWIDTH - 50) / 5,
                                 backgroundColor: '#aaa',
-                                // justifyContent: 'left',
-                                // alignItems: 'left',
-                                }}>
-                        
-                                <Text style={[{textAlign: "left"}]}>{listItem.name}</Text>
-                                <Text style={[{textAlign: "left", fontSize: 15}]}>{listItem.email}</Text>
+                                flexDirection: "row"
+                            }}>
+
+                                <View>
+                                  <Text style={[{textAlign: "left"}]}>{listItem.name}</Text>
+                                  <Text style={[{textAlign: "left", fontSize: 15}]}>{listItem.email}</Text>
+                                </View>
+
+                                <Pressable 
+                                        style={({pressed}) => [
+                                        {
+                                            backgroundColor: pressed ? '#EDA73A': '#ffab00',
+                                        },
+                                        styles.button2]} 
+                                        onPress={()=>removeFriend(item)}
+                                        >
+                                    <Text style={styles.buttonText2}> Send Request </Text>
+                                </Pressable>
                             
                         </View>
-                      </Animated.View>
                     );
                 })}
             </ScrollView>
@@ -97,11 +103,15 @@ const AddFriends = () => {
       width: SCREENWIDTH,
     },
     scrollingView:{
-        marginTop: SCREENHEIGHT/500,   
-        marginHorizontal: SCREENHEIGHT/20,
-        height: SCREENHEIGHT,
-        backgroundColor: "#aaa"
-        
+        // marginTop: SCREENHEIGHT/500,
+        // backgroundColor: "#aaa",
+        // height: SCREENHEIGHT,
+        padding:(SCREENWIDTH - 50)/12,
+        transform: [{translateY: 220}],
+        top: 0,
+        zIndex: 1,
+        position: 'absolute',
+        width: '100%',
     },
     button: {
       alignItems: 'center',
@@ -155,6 +165,25 @@ const AddFriends = () => {
         marginTop: SCREENHEIGHT/9,
         marginBottom: SCREENHEIGHT/40,
       },
+      button2: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingVertical: 7,
+        paddingHorizontal: 10,
+        borderRadius: 6,
+        position: 'absolute',
+        right: 10,
+        top: 10,
+        bottom: 10
+      },
+      buttonText2: {
+        fontFamily:'Mohave-Bold',
+        fontSize: 15,
+        fontWeight: 'bold',
+        // lineHeight: 25,
+        letterSpacing: 1,
+        color: '#303030',
+    },
   });
   
   export default AddFriends;

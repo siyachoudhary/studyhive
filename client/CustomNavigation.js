@@ -9,7 +9,7 @@ import CalendarPage from "./src/screens/CalendarPage";
 import AddFriends from "./src/screens/AddFriends";
 import AddTask from "./src/screens/AddTask";
 import PomodoroTimer from './src/screens/PomodoroTimer';
-
+import Requests from './src/screens/Requests';
 const Tab = createBottomTabNavigator();  // creates object for Stack Navigator
 
 
@@ -46,6 +46,7 @@ const InitNavigator = () => {
         }}>
            <Stack.Screen name='profileScreen' component={Profile}/>
            <Stack.Screen name='Settings' component={Settings}/>
+           <Stack.Screen name='Requests' component={Requests}/>
            <Stack.Screen name='AddFriend' component={AddFriends}/>
      </Stack.Navigator> 
     );

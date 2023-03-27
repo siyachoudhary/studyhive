@@ -163,7 +163,6 @@ const Profile = () => {
        if(!friendsFound){
         getUserFriends()
        }
-
   })
 
   const getUserFriends = async ()=>{
@@ -296,10 +295,16 @@ const Profile = () => {
           onPress={() => Alert.alert('header Clicked!')}>
           <Text>Scrollable Header</Text>
         </TouchableOpacity> */}
-        <Pressable
-          onPress={()=>navigation.navigate("Settings")}>
-          <Image source={require('../assets/images/settingsIcon.png')} style={styles.smallimage}></Image>
-        </Pressable>
+        <View style={{position: "absolute",top: 50}}>
+          <Pressable
+            onPress={()=>navigation.navigate("Requests")} style={styles.requests}>
+            <Image source={require('../assets/images/inbox.png')} style={styles.smallimage2}></Image>
+          </Pressable>
+          <Pressable
+            onPress={()=>navigation.navigate("Settings")} style={styles.settings}>
+            <Image source={require('../assets/images/settingsIcon.png')} style={styles.smallimage}></Image>
+          </Pressable>
+        </View>
         <Image source={require('../assets/images/blankProfile.png')} style={styles.image}></Image>
         <Text style={styles.headertext}>{name}</Text>
         <Text style={styles.text}>{email}</Text>
@@ -562,10 +567,10 @@ const styles = StyleSheet.create({
     paddingVertical: 7,
     paddingHorizontal: 10,
     borderRadius: 6,
-    // // elevation: 8,
-    // marginHorizontal: SCREENHEIGHT/9,
-    // marginTop: SCREENHEIGHT/4,
-    // marginBottom: 15
+    position: 'absolute',
+    right: 10,
+    top: 10,
+    bottom: 10
   },
   image: {
       justifyContent: 'center',
@@ -575,11 +580,16 @@ const styles = StyleSheet.create({
       marginTop: SCREENHEIGHT/200,
       borderRadius: 75,
   }, 
+  smallimage2: {
+    width: 45,
+    height: 45, 
+    marginLeft: SCREENHEIGHT/100,
+  },
   smallimage: {
     width: 45,
     height: 45, 
-    marginTop: SCREENHEIGHT/30,
     marginLeft: SCREENHEIGHT/2.8,
+    top: -40
   },
   headertext: {
       fontFamily:'Mohave-Bold',
@@ -621,6 +631,12 @@ const styles = StyleSheet.create({
     letterSpacing: 1,
     color: '#303030',
 },
+requests:{
+  
+},
+settings:{
+  
+}
 });
 
 export default Profile;
