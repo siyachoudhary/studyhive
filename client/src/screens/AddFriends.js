@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 
 import { StyleSheet, View, Dimensions, Text, Pressable } from "react-native";
 import { useNavigation } from "@react-navigation/native";
@@ -9,35 +9,66 @@ const SCREENWIDTH = Dimensions.get('window').width;
 import { ScrollView, TextInput } from 'react-native-gesture-handler';
 import axios from 'axios';
 import Animated from 'react-native-reanimated';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const AddFriends = () => {
-  const baseURL = "http://192.168.1.79:3000/"
+  const baseURL = "http://192.168.1.85:3000/"
     const [searchTxt, setSearchTxt] = useState("")
   
     const [list,setList] = useState([])
 
     const navigate = useNavigation()
 
+    const dataFetchedRef = useRef(false);
+    const [user, setUser] = useState(null)
+
+    async function retrieveData(){
+        try {
+            const value = await AsyncStorage.getItem('user')
+            const obj = JSON.parse(value);
+            if(value !== null) {
+              setUser(obj)
+              dataFetchedRef.current= true
+            }
+          } catch(e) {
+            console.log(e.message)
+          }
+      }
+
+    useEffect(()=>{
+      retrieveData()
+      if (dataFetchedRef.current) return;
+    })
+
     useEffect(()=>{
         getData()
-    })
+    }, [searchTxt])
 
     const getData = async () =>{
         await axios
         .get(`${baseURL}getUsers/${searchTxt}`)
         .then(function (res) {
-            // console.log(res.data.users.length)
-            // console.log(res.data.users)
             setList(res.data.users)
-            // for(var i = 0; i<res.data.users.length; i++){
-            //     setList(pets => [...pets, res.data.users[i]])
-            // //     console.log(res.data.users[i])
-            // }
         })
         .catch(function (err) {
             // handle error
             console.log("error: "+ err.message);
         });
+    }
+
+    const sendRequest = async (friendReqId)=>{
+      console.log(friendReqId._id)
+      await axios
+      .post(`${baseURL}addFriendReq/${friendReqId._id}`, {
+        "friendReq": user._id
+      })
+      .then(function (res) {
+          console.log(res.data)
+      })
+      .catch(function (err) {
+          // handle error
+          console.log("error: "+ err.message);
+      });
     }
 
     return (
@@ -72,9 +103,9 @@ const AddFriends = () => {
                                             backgroundColor: pressed ? '#EDA73A': '#ffab00',
                                         },
                                         styles.button2]} 
-                                        onPress={()=>removeFriend(item)}
+                                        onPress={()=>sendRequest(listItem)}
                                         >
-                                    <Text style={styles.buttonText2}> Send Request </Text>
+                                    <Text style={styles.buttonText2}> Request </Text>
                                 </Pressable>
                             
                         </View>

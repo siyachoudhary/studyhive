@@ -240,6 +240,7 @@ app.get("/getFriendReqs/:_id", (request, response) => {
 app.post("/addFriendReq/:_id", (request, response) => {
   // request.params._id is the person who the friend request is being sent to
   // request.body.friendReq is the id of the person sending request
+  console.log(request.params._id + " adding "+request.body.friendReq)
   User.updateOne({ _id: request.params._id}, {$push: {friendReqs: request.body.friendReq}},) 
     .then((user) => {
         response.status(200).send({

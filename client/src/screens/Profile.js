@@ -389,8 +389,8 @@ const Profile = () => {
           }}>
 
           <View>
-            <Text style={[{textAlign: "left"}]}>{item.name}</Text>
-            <Text style={[{textAlign: "left", fontSize: 15}]}>{item.email}</Text>
+            <Text style={[{textAlign: "left"}, styles.invite]}>{item.name}</Text>
+            <Text style={[{textAlign: "left", fontSize: 15}, styles.invite]}>{item.email}</Text>
           </View>
 
           <Pressable 
@@ -634,11 +634,12 @@ const styles = StyleSheet.create({
     letterSpacing: 1,
     color: '#303030',
 },
-requests:{
-  
-},
-settings:{
-  
+invite:{
+  // color: 'white',
+  fontFamily:'Mohave-Bold',
+  fontSize: 15,
+  fontWeight: 'bold',
+  letterSpacing: 1,
 }
 });
 

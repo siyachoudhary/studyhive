@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 
 import axios from "axios";
 import {StyleSheet, View, Dimensions, Text, Pressable, TextInput} from "react-native";
@@ -14,14 +14,15 @@ const SCREENWIDTH = Dimensions.get('window').width;
 const Requests = () => {
     const baseURL = "http://192.168.1.85:3000/"
     const navigate = useNavigation()
-
+    const dataFetchedRef = useRef(false);
     const [user, setUser] = useState(null)
+
+    const [reqsData, setReqsData] = useState([]);
 
     async function retrieveData(){
         try {
             const value = await AsyncStorage.getItem('user')
             const obj = JSON.parse(value);
-            // console.log("user value:" + value)
             if(value !== null) {
               setUser(obj)
             }
@@ -41,19 +42,35 @@ const Requests = () => {
       })
 
     const getUserFriends = async ()=>{
-    
-        if(user._id!=""){
+        if(user!=null){
          await axios
             .get(`${baseURL}getFriendReqs/${user._id}`)
             .then(function (res) {
-            //       getUserNames(res.data)
-            //   dataFetchedRef.current = true;
+                getUserNames(res.data.users)
+                dataFetchedRef.current = true;
             })
             .catch(function (err) {
                 // handle error
                 console.log("error: "+err.message);
             });
           }
+      }
+
+      const getUserNames = async(data)=>{
+        const friends = [];
+        for(var i = 0; i<data.length; i++){
+          await axios
+            .get(`${baseURL}findUser/${data[i]}`)
+            .then(function (res) {
+                friends.push(res.data)
+            })
+            .catch(function (err) {
+                // handle error
+                console.log("error: "+err.message);
+            });
+        }
+        friendsFound=true
+        setReqsData(friends)
       }
 
     const accept = () =>{
@@ -63,15 +80,30 @@ const Requests = () => {
     return (
         <View style={styles.container}>
             <ScrollView style={styles.scrollingView}>
-                <View style={{flexDirection: "row", marginVertical: 10}}>
-                    <Text style={styles.invite}>INVITATION</Text>
-                    <Pressable onPress={accept} style={({pressed}) => [
-                        {
-                            backgroundColor: pressed ? '#EDA73A': '#ffab00',
-                        }, styles.button2]}>
-                        <Text style={styles.buttonText2}>Accept Request</Text>
-                    </Pressable>
-                </View>
+            {reqsData.map((listItem) => {
+                    return (
+                        <View style={{flexDirection: "row", marginVertical: 10}}>
+                            <View>
+                                <Text style={styles.invite}>{listItem.name}</Text>
+                                <Text style={styles.invite}>{listItem.email}</Text>
+                            </View>
+                        
+                        <Pressable onPress={accept} style={({pressed}) => [
+                            {
+                                backgroundColor: pressed ? '#EDA73A': '#ffab00',
+                            }, styles.button2]}>
+                            <Text style={styles.buttonText2}>Accept</Text>
+                        </Pressable>
+                        <Pressable onPress={accept} style={({pressed}) => [
+                            {
+                                backgroundColor: pressed ? '#EDA73A': '#ffab00',
+                            }, styles.button3]}>
+                            <Text style={styles.buttonText2}>X</Text>
+                        </Pressable>
+                    </View>
+                    );
+                })}
+                
             </ScrollView>
             <Pressable 
                 style={({pressed}) => [
@@ -157,7 +189,16 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         borderRadius: 6,
         position: 'absolute',
-        right: 10,
+        right: 40,
+      },
+      button3: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingVertical: 7,
+        paddingHorizontal: 10,
+        borderRadius: 6,
+        position: 'absolute',
+        right: 0,
       },
       buttonText2: {
         fontFamily:'Mohave-Bold',
