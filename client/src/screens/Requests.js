@@ -74,7 +74,11 @@ const Requests = () => {
       }
 
     const accept = () =>{
-        console.log("pressed")
+        console.log("accept pressed")
+    }
+
+    const decline = () => {
+        console.log("decline pressed")
     }
 
     return (
@@ -82,10 +86,10 @@ const Requests = () => {
             <ScrollView style={styles.scrollingView}>
             {reqsData.map((listItem) => {
                     return (
-                        <View style={{flexDirection: "row", marginVertical: 10}}>
+                        <View style={{flexDirection: "row", marginVertical: 10, backgroundColor: '#aaa', padding: 10}} key={listItem._id}>
                             <View>
-                                <Text style={styles.invite}>{listItem.name}</Text>
-                                <Text style={styles.invite}>{listItem.email}</Text>
+                                <Text style={styles.buttonText2}>{listItem.name}</Text>
+                                <Text style={styles.buttonText3}>{listItem.email}</Text>
                             </View>
                         
                         <Pressable onPress={accept} style={({pressed}) => [
@@ -94,7 +98,7 @@ const Requests = () => {
                             }, styles.button2]}>
                             <Text style={styles.buttonText2}>Accept</Text>
                         </Pressable>
-                        <Pressable onPress={accept} style={({pressed}) => [
+                        <Pressable onPress={decline} style={({pressed}) => [
                             {
                                 backgroundColor: pressed ? '#EDA73A': '#ffab00',
                             }, styles.button3]}>
@@ -129,6 +133,8 @@ const styles = StyleSheet.create({
         padding:(SCREENWIDTH - 50)/12,
         marginTop: 50,
         width: '100%',
+        position: 'absolute',
+        height: '90%'
     },
     button: {
       alignItems: 'center',
@@ -136,9 +142,8 @@ const styles = StyleSheet.create({
       paddingVertical: 7,
       paddingHorizontal: 10,
       borderRadius: 6,
-      // elevation: 8,
       marginHorizontal: SCREENWIDTH/10,
-      marginTop: SCREENHEIGHT/1.8,
+        marginTop: SCREENHEIGHT/1.2,
     },
     buttonText: {
       fontFamily:'Mohave-Bold',
@@ -189,7 +194,9 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         borderRadius: 6,
         position: 'absolute',
-        right: 40,
+        right: 50,
+        top: 10,
+        bottom: 10
       },
       button3: {
         alignItems: 'center',
@@ -198,23 +205,24 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         borderRadius: 6,
         position: 'absolute',
-        right: 0,
+        right: 10,
+        top: 10,
+        bottom: 10
       },
       buttonText2: {
         fontFamily:'Mohave-Bold',
         fontSize: 15,
         fontWeight: 'bold',
-        // lineHeight: 25,
         letterSpacing: 1,
         color: '#303030',
     },
-    invite:{
-        color: 'white',
+    buttonText3: {
         fontFamily:'Mohave-Bold',
-        fontSize: 15,
-        fontWeight: 'bold',
+        fontSize: 14,
+        fontWeight: '500',
         letterSpacing: 1,
-    }
+        color: '#303030',
+    },
   });
 
 export default Requests;

@@ -370,7 +370,8 @@ const Profile = () => {
           <Pressable style={{
             marginHorizontal: tab2ItemWidth/23,
             marginVertical: tab2ItemWidth/400,
-            marginBottom: 10
+            marginBottom: 10,
+            borderRadius: 10
           }} onPress={()=>navigation.navigate("AddFriend")}>
             <Text style={{color:"white", fontSize:20, backgroundColor: "grey", padding: 20}}>+ ADD FRIENDS</Text>
           </Pressable>: null
@@ -385,12 +386,13 @@ const Profile = () => {
             width: tab2ItemWidth,
             height: tab2ItemHeight,
             backgroundColor: '#aaa',
-            flexDirection: "row"
+            flexDirection: "row",
+            borderRadius: 10
           }}>
 
           <View>
-            <Text style={[{textAlign: "left"}, styles.invite]}>{item.name}</Text>
-            <Text style={[{textAlign: "left", fontSize: 15}, styles.invite]}>{item.email}</Text>
+            <Text style={[{textAlign: "left"}, styles.buttonText2]}>{item.name}</Text>
+            <Text style={[{textAlign: "left", fontSize: 15}, styles.buttonText3]}>{item.email}</Text>
           </View>
 
           <Pressable 
@@ -436,7 +438,6 @@ const Profile = () => {
       case 'tab3':
         numCols = 1;
         {tab3Data.length>0?data = tab3Data:data=" "}
-        
         renderItem = renderTab3Item;
         break;
       default:
@@ -634,13 +635,20 @@ const styles = StyleSheet.create({
     letterSpacing: 1,
     color: '#303030',
 },
-invite:{
-  // color: 'white',
+buttonText2: {
   fontFamily:'Mohave-Bold',
   fontSize: 15,
   fontWeight: 'bold',
   letterSpacing: 1,
-}
+  color: '#303030',
+},
+buttonText3: {
+  fontFamily:'Mohave-Bold',
+  fontSize: 14,
+  fontWeight: '500',
+  letterSpacing: 1,
+  color: '#303030',
+},
 });
 
 export default Profile;

@@ -41,6 +41,7 @@ const AddFriends = () => {
     })
 
     useEffect(()=>{
+      console.log("searching")
         getData()
     }, [searchTxt])
 
@@ -83,7 +84,7 @@ const AddFriends = () => {
             {list.map((listItem) => {
                 // console.log(listItem)
                     return (
-                            <View
+                            <View key={listItem._id}
                                 style={{
                                 marginHorizontal: (SCREENWIDTH - 50)/23,
                                 marginVertical: (SCREENWIDTH - 50)/100,
@@ -93,8 +94,8 @@ const AddFriends = () => {
                             }}>
 
                                 <View>
-                                  <Text style={[{textAlign: "left"}]}>{listItem.name}</Text>
-                                  <Text style={[{textAlign: "left", fontSize: 15}]}>{listItem.email}</Text>
+                                  <Text style={[{textAlign: "left"}, styles.buttonText2]}>{listItem.name}</Text>
+                                  <Text style={[{textAlign: "left"}, styles.buttonText3]}>{listItem.email}</Text>
                                 </View>
 
                                 <Pressable 
@@ -105,7 +106,7 @@ const AddFriends = () => {
                                         styles.button2]} 
                                         onPress={()=>sendRequest(listItem)}
                                         >
-                                    <Text style={styles.buttonText2}> Request </Text>
+                                    <Text style={styles.buttonText2}> Send Request </Text>
                                 </Pressable>
                             
                         </View>
@@ -211,10 +212,16 @@ const AddFriends = () => {
         fontFamily:'Mohave-Bold',
         fontSize: 15,
         fontWeight: 'bold',
-        // lineHeight: 25,
         letterSpacing: 1,
         color: '#303030',
-    },
+      },
+      buttonText3: {
+        fontFamily:'Mohave-Bold',
+        fontSize: 14,
+        fontWeight: '500',
+        letterSpacing: 1,
+        color: '#303030',
+      },
   });
   
   export default AddFriends;
