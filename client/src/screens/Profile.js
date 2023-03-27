@@ -32,7 +32,7 @@ const tab2ItemWidth = (SCREENWIDTH - 50);
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Profile = () => {
-  const baseURL = "http://192.168.1.79:3000/"
+  const baseURL = "http://192.168.1.85:3000/"
 
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
@@ -166,14 +166,12 @@ const Profile = () => {
   })
 
   const getUserFriends = async ()=>{
+    
     if(email!=""){
      await axios
         .get(`${baseURL}findFriends/${email}`)
         .then(function (res) {
-            // handle success
-            // console.log("res.data:" + res.data)
               getUserNames(res.data)
-              // setTab3Data(res.data)
           dataFetchedRef.current = true;
         })
         .catch(function (err) {
@@ -378,6 +376,7 @@ const Profile = () => {
           </Pressable>: null
           }
 
+        {item!=" "?
         <View
           style={{
             marginHorizontal: tab2ItemWidth/23,
@@ -404,8 +403,8 @@ const Profile = () => {
                   >
               <Text style={styles.buttonText}> Remove Friend </Text>
           </Pressable>
-        
-      </View>
+      </View>:null
+  }
       </View>
     );
   };
@@ -436,13 +435,15 @@ const Profile = () => {
         break;
       case 'tab3':
         numCols = 1;
-        data = tab3Data;
+        {tab3Data.length>0?data = tab3Data:data=" "}
+        
         renderItem = renderTab3Item;
         break;
       default:
         return null;
     }
     return (
+      <View>
       <Animated.FlatList
         // scrollEnabled={canScroll}
         {...listPanResponder.panHandlers}
@@ -487,6 +488,7 @@ const Profile = () => {
         showsVerticalScrollIndicator={false}
         keyExtractor={(item, index) => index.toString()}
       />
+      </View>
     );
   };
 

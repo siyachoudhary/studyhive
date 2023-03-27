@@ -80,6 +80,7 @@ app.post("/register", (request, response) => {
 
 // login endpoint
 app.post("/login", (request, response) => {
+  console.log(request.body.email)
   // check if email exists
   User.findOne({ email: request.body.email })
 
@@ -215,6 +216,23 @@ app.get("/getUsers/:emailStr", (request, response) => {
       console.log(e)
       response.status(404).send({
         message: "Could not find",
+        e,
+      });
+    });
+});
+
+app.post("/addFriendReq/:_id", (request, response) => {
+  // check if email exists
+  User.updateOne({ _id: request.params._id}, {$push: {friendReqs: request.body.friendReq}},) 
+    .then((user) => {
+        response.status(200).send({
+          message: "user friend request sent successfully"
+    });
+    })
+    .catch((e) => {
+      console.log(e)
+      response.status(404).send({
+        message: "Could not add user friend",
         e,
       });
     });
