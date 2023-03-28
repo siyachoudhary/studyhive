@@ -87,8 +87,18 @@ const Requests = () => {
             });
     }
 
-    const decline = () => {
-        console.log("decline pressed")
+    const decline = async (item) => {
+        await axios
+            .post(`${baseURL}declineFriends/${user._id}`,{
+                friend: item
+            })
+            .then(function (res) {
+                getUserFriends()
+            })
+            .catch(function (err) {
+                // handle error
+                console.log("error: "+err.message);
+            });
     }
 
     return (
@@ -112,7 +122,7 @@ const Requests = () => {
                             }, styles.button2]}>
                             <Text style={styles.buttonText2}>Accept</Text>
                         </Pressable>
-                        <Pressable onPress={decline} style={({pressed}) => [
+                        <Pressable onPress={()=>decline(listItem._id)} style={({pressed}) => [
                             {
                                 backgroundColor: pressed ? '#EDA73A': '#ffab00',
                             }, styles.button3]}>

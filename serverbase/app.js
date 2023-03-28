@@ -288,6 +288,27 @@ app.post("/addFriends/:_id", (request, response) => {
     });
 });
 
+app.post("/declineFriends/:_id", (request, response) => {
+  // check if email exists
+        User.updateOne({ _id: request.body.friend}, {$pull: {pendingReqs: request.params._id}},) 
+      .then((user) => {
+        User.updateOne({ _id: request.params._id}, {$pull: {friendReqs: request.body.friend}},) 
+      .then((user) => {
+        response.status(200).send({
+          message: "user friend added successfully",
+          friends: user.friends
+      })
+      })
+      })
+    .catch((e) => {
+      console.log(e)
+      response.status(404).send({
+        message: "Could not add user friend",
+        e,
+      });
+    });
+});
+
 // remove friend
 app.post("/removeFriend/:_id", (request, response) => {
   // check if email exists
