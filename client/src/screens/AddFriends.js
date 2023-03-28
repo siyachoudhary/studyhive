@@ -41,7 +41,6 @@ const AddFriends = () => {
     })
 
     useEffect(()=>{
-      console.log("searching")
         getData()
     }, [searchTxt])
 
@@ -79,7 +78,12 @@ const AddFriends = () => {
             .then(function (res) {
               filtered = data2
               for(var i = 0; i<res.data.users.length; i++){
-                filtered = filtered.filter(friendUser => friendUser._id != res.data.users[i])
+                // filtered = filtered.filter(friendUser => friendUser._id != res.data.users[i])
+                filtered.forEach(friendUser => {
+                  if(friendUser._id == res.data.users[i]){
+                    friendUser['userType'] = "pending"
+                  }
+                });
               }
               getReqs(filtered)
             })
@@ -94,8 +98,14 @@ const AddFriends = () => {
             .then(function (res) {
               filtered = data3
               for(var i = 0; i<res.data.users.length; i++){
-                filtered = filtered.filter(friendUser => friendUser._id != res.data.users[i])
+                // filtered = filtered.filter(friendUser => friendUser._id != res.data.users[i])
+                filtered.forEach(friendUser => {
+                  if(friendUser._id == res.data.users[i]){
+                    friendUser['userType'] = "inbox"
+                  }
+                });
               }
+
               setList(filtered)
             })
             .catch(function (err) {
@@ -110,7 +120,6 @@ const AddFriends = () => {
         "friendReq": user._id
       })
       .then(function (res) {
-          console.log(res.data)
           getData()
       })
       .catch(function (err) {
@@ -119,9 +128,38 @@ const AddFriends = () => {
       });
     }
 
+    const accept = async (item) =>{
+      await axios
+          .post(`${baseURL}addFriends/${user._id}`,{
+              friend: item
+          })
+          .then(function (res) {
+              getData()
+          })
+          .catch(function (err) {
+              // handle error
+              console.log("error: "+err.message);
+          });
+  }
+
+  const decline = async (item) => {
+      await axios
+          .post(`${baseURL}declineFriends/${item}`,{
+              friend: user._id
+          })
+          .then(function (res) {
+              getData()
+              console.log(res.data)
+          })
+          .catch(function (err) {
+              // handle error
+              console.log("error: "+err.message);
+          });
+  }
+
     return (
       <View style={styles.container}>
-        <Text style={styles.header}>FIND FRIENDS</Text>
+        <Text style={styles.header}>ADD FRIENDS</Text>
         <TextInput style={[styles.inputBox]}
             // value={value}
             onChangeText={(value) => setSearchTxt(value)}
@@ -129,7 +167,7 @@ const AddFriends = () => {
 
             <ScrollView style={styles.scrollingView} contentContainerStyle={{ flexGrow: 1 }}>
             {list.length == 0?
-                <Text style={styles.noReqsText}>NO RESULTS</Text>:null}
+                <Text style={styles.noReqsText}>NO RESULTS. TRY SEARCHING FOR OTHER USERS</Text>:null}
             {list.map((listItem) => {
                 // console.log(listItem)
                     return (
@@ -147,16 +185,43 @@ const AddFriends = () => {
                                   <Text style={[{textAlign: "left"}, styles.buttonText3]}>{listItem.email}</Text>
                                 </View>
 
+                              {listItem.userType == "inbox"?
+                              <Pressable 
+                                style={({pressed}) => [
+                                {
+                                    backgroundColor: pressed ? '#EDA73A': '#ffab00',
+                                },
+                                styles.button2]} 
+                                onPress={()=>accept(listItem._id)}
+                                >
+                                <Text style={styles.buttonText2}> Add Friend </Text>
+                                </Pressable>:
+
+                                listItem.userType == "pending"?
+
                                 <Pressable 
-                                        style={({pressed}) => [
-                                        {
-                                            backgroundColor: pressed ? '#EDA73A': '#ffab00',
-                                        },
-                                        styles.button2]} 
-                                        onPress={()=>sendRequest(listItem)}
-                                        >
-                                    <Text style={styles.buttonText2}> Send Request </Text>
-                                </Pressable>
+                                style={({pressed}) => [
+                                {
+                                    backgroundColor: pressed ? '#EDA73A': '#ffab00',
+                                },
+                                styles.button2]} 
+                                onPress={()=>decline(listItem._id)}
+                                >
+                                  <Text style={styles.buttonText2}> Revoke Request </Text>
+                              </Pressable>:
+                        
+                                <Pressable 
+                                style={({pressed}) => [
+                                {
+                                    backgroundColor: pressed ? '#EDA73A': '#ffab00',
+                                },
+                                styles.button2]} 
+                                onPress={()=>sendRequest(listItem)}
+                                >
+                                  <Text style={styles.buttonText2}> Send Request </Text>
+                              </Pressable>
+                              }
+                                
                             
                         </View>
                     );

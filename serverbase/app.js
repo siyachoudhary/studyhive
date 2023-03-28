@@ -311,7 +311,7 @@ app.post("/declineFriends/:_id", (request, response) => {
         User.updateOne({ _id: request.params._id}, {$pull: {friendReqs: request.body.friend}},) 
       .then((user) => {
         response.status(200).send({
-          message: "user friend added successfully",
+          message: "user request revoked successfully",
           friends: user.friends
       })
       })
