@@ -49,7 +49,8 @@ const AddFriends = () => {
         await axios
         .get(`${baseURL}getUsers/${searchTxt}`)
         .then(function (res) {
-            setList(res.data.users)
+            // setList(res.data.users)
+            setList(res.data.users.filter(friendUser => friendUser._id != user._id))
         })
         .catch(function (err) {
             // handle error

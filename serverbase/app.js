@@ -243,14 +243,17 @@ app.post("/addFriendReq/:_id", (request, response) => {
   console.log(request.params._id + " adding "+request.body.friendReq)
   User.updateOne({ _id: request.params._id}, {$push: {friendReqs: request.body.friendReq}},) 
     .then((user) => {
-        response.status(200).send({
-          message: "user friend request sent successfully",
-    });
+      User.updateOne({ _id: request.body.friendReq}, {$push: {pendingReqs: request.params._id}},) 
+      .then((user) => {
+          response.status(200).send({
+            message: "user friend request sent successfully",
+      });
+      })
     })
     .catch((e) => {
       console.log(e)
       response.status(404).send({
-        message: "Could not add user friend",
+        message: "Could not add user friend request",
         e,
       });
     });
