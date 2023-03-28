@@ -166,13 +166,12 @@ const Profile = () => {
   })
 
   const getUserFriends = async ()=>{
-    
     if(email!=""){
      await axios
         .get(`${baseURL}findFriends/${email}`)
         .then(function (res) {
               getUserNames(res.data)
-          dataFetchedRef.current = true;
+              dataFetchedRef.current = true;
         })
         .catch(function (err) {
             // handle error

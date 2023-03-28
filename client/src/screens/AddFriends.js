@@ -43,18 +43,36 @@ const AddFriends = () => {
     useEffect(()=>{
       console.log("searching")
         getData()
+        // getFriends()
     }, [searchTxt])
 
     const getData = async () =>{
+      if(user!=null){
         await axios
         .get(`${baseURL}getUsers/${searchTxt}`)
         .then(function (res) {
-            // setList(res.data.users)
-            setList(res.data.users.filter(friendUser => friendUser._id != user._id))
+            getFriends(res.data.users.filter(friendUser => friendUser._id != user._id))
+        })
+        .catch(function (err) {
+            console.log("error: "+ err.message);
+        });
+      }
+    }
+
+    const getFriends = async(data1)=>{
+      await axios
+        .get(`${baseURL}findFriends/${user.email}`)
+        .then(function (res) {
+          filtered = data1
+          console.log(filtered)
+          for(var i = 0; i<res.data.length; i++){
+            filtered = filtered.filter(friendUser => friendUser._id != res.data[i])
+          }
+          setList(filtered)
         })
         .catch(function (err) {
             // handle error
-            console.log("error: "+ err.message);
+            console.log("error: "+err.message);
         });
     }
 
