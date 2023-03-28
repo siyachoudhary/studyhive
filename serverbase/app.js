@@ -205,7 +205,7 @@ app.post("/deleteUser/:email", (request, response) => {
 
 //  get all user friends
 app.get("/getUsers/:emailStr", (request, response) => { 
-  User.find({ $text: { $search: request.params.emailStr} })
+  User.find({$or: [{name: {$regex: request.params.emailStr, $options: "i"}}, {email: {$regex: request.params.emailStr, $options: "i"}}]})
     .then((user) => {
       console.log(user)
       response.status(200).send({

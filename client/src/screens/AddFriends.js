@@ -140,10 +140,11 @@ const AddFriends = () => {
         // height: SCREENHEIGHT,
         padding:(SCREENWIDTH - 50)/12,
         transform: [{translateY: 220}],
-        top: 0,
+        top: 10,
         zIndex: 1,
         position: 'absolute',
         width: '100%',
+        bottom: 350
     },
     button: {
       alignItems: 'center',
