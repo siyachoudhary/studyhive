@@ -64,16 +64,49 @@ const AddFriends = () => {
         .get(`${baseURL}findFriends/${user.email}`)
         .then(function (res) {
           filtered = data1
-          console.log(filtered)
           for(var i = 0; i<res.data.length; i++){
             filtered = filtered.filter(friendUser => friendUser._id != res.data[i])
           }
-          setList(filtered)
+          getPendings(filtered)
         })
         .catch(function (err) {
             // handle error
             console.log("error: "+err.message);
         });
+    }
+
+    const getPendings = async(data2)=>{
+      await axios
+            .get(`${baseURL}getPendings/${user._id}`)
+            .then(function (res) {
+              filtered = data2
+              for(var i = 0; i<res.data.users.length; i++){
+                console.log(res.data.users[i])
+                filtered = filtered.filter(friendUser => friendUser._id != res.data.users[i])
+              }
+              getReqs(filtered)
+            })
+            .catch(function (err) {
+                // handle error
+                console.log("error: "+err.message);
+            });
+    }
+
+    const getReqs = async(data3) =>{
+      await axios
+            .get(`${baseURL}getFriendReqs/${user._id}`)
+            .then(function (res) {
+              filtered = data3
+              for(var i = 0; i<res.data.users.length; i++){
+                console.log(res.data.users[i])
+                filtered = filtered.filter(friendUser => friendUser._id != res.data.users[i])
+              }
+              setList(filtered)
+            })
+            .catch(function (err) {
+                // handle error
+                console.log("error: "+err.message);
+            });
     }
 
     const sendRequest = async (friendReqId)=>{
@@ -84,6 +117,7 @@ const AddFriends = () => {
       })
       .then(function (res) {
           console.log(res.data)
+          getData()
       })
       .catch(function (err) {
           // handle error

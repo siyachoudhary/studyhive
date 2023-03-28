@@ -237,6 +237,22 @@ app.get("/getFriendReqs/:_id", (request, response) => {
     });
 });
 
+app.get("/getPendings/:_id", (request, response) => { 
+  User.findOne({ _id: request.params._id }) 
+    .then((user) => {
+      response.status(200).send({
+        users: user.pendingReqs
+      });
+    })
+    .catch((e) => {
+      console.log(e)
+      response.status(404).send({
+        message: "user not found, proceed",
+        e,
+      });
+    });
+});
+
 app.post("/addFriendReq/:_id", (request, response) => {
   // request.params._id is the person who the friend request is being sent to
   // request.body.friendReq is the id of the person sending request

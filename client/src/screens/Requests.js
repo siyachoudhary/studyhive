@@ -155,10 +155,10 @@ const styles = StyleSheet.create({
     },
     scrollingView:{
         padding:(SCREENWIDTH - 50)/12,
-        marginTop: 50,
+        marginTop: 150,
         width: '100%',
         position: 'absolute',
-        height: '90%'
+        height: '80%'
     },
     button: {
       alignItems: 'center',
