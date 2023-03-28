@@ -267,9 +267,15 @@ app.post("/addFriends/:_id", (request, response) => {
     .then((user) => {
       User.updateOne({ _id: request.body.friend}, {$push: {friends: request.params._id}},) 
       .then((user) => {
+        User.updateOne({ _id: request.body.friend}, {$pull: {pendingReqs: request.params._id}},) 
+      .then((user) => {
+        User.updateOne({ _id: request.params._id}, {$pull: {friendReqs: request.body.friend}},) 
+      .then((user) => {
         response.status(200).send({
           message: "user friend added successfully",
           friends: user.friends
+      })
+      })
       })
     });
     })

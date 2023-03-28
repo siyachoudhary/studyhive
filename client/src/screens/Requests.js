@@ -73,8 +73,18 @@ const Requests = () => {
         setReqsData(friends)
       }
 
-    const accept = () =>{
-        console.log("accept pressed")
+    const accept = async (item) =>{
+        await axios
+            .post(`${baseURL}addFriends/${user._id}`,{
+                friend: item
+            })
+            .then(function (res) {
+                getUserFriends()
+            })
+            .catch(function (err) {
+                // handle error
+                console.log("error: "+err.message);
+            });
     }
 
     const decline = () => {
@@ -83,7 +93,11 @@ const Requests = () => {
 
     return (
         <View style={styles.container}>
+            <Text style={styles.header}>FRIEND REQUESTS</Text>
+            {reqsData.length == 0?
+                <Text style={styles.noReqsText}>YOU HAVE NO PENDING REQUESTS!</Text>:null}
             <ScrollView style={styles.scrollingView}>
+                
             {reqsData.map((listItem) => {
                     return (
                         <View style={{flexDirection: "row", marginVertical: 10, backgroundColor: '#aaa', padding: 10}} key={listItem._id}>
@@ -92,7 +106,7 @@ const Requests = () => {
                                 <Text style={styles.buttonText3}>{listItem.email}</Text>
                             </View>
                         
-                        <Pressable onPress={accept} style={({pressed}) => [
+                        <Pressable onPress={()=>accept(listItem._id)} style={({pressed}) => [
                             {
                                 backgroundColor: pressed ? '#EDA73A': '#ffab00',
                             }, styles.button2]}>
@@ -142,8 +156,10 @@ const styles = StyleSheet.create({
       paddingVertical: 7,
       paddingHorizontal: 10,
       borderRadius: 6,
-      marginHorizontal: SCREENWIDTH/10,
-        marginTop: SCREENHEIGHT/1.2,
+      position: 'absolute',
+      bottom: 30,
+      left: 30,
+      right: 30
     },
     buttonText: {
       fontFamily:'Mohave-Bold',
@@ -185,7 +201,6 @@ const styles = StyleSheet.create({
         color: '#FFFFFF',
         textAlign: 'center',
         marginTop: SCREENHEIGHT/9,
-        marginBottom: SCREENHEIGHT/40,
       },
       button2: {
         alignItems: 'center',
@@ -223,6 +238,15 @@ const styles = StyleSheet.create({
         letterSpacing: 1,
         color: '#303030',
     },
+    noReqsText:{
+        fontFamily:'Mohave-Bold',
+        fontSize: 25,
+        marginTop: 5,
+        marginHorizontal: 20,
+        textAlign: 'center',
+        color: 'white',
+        fontWeight: 500
+    }
   });
 
 export default Requests;

@@ -371,7 +371,6 @@ const Profile = () => {
             marginHorizontal: tab2ItemWidth/23,
             marginVertical: tab2ItemWidth/400,
             marginBottom: 10,
-            borderRadius: 10
           }} onPress={()=>navigation.navigate("AddFriend")}>
             <Text style={{color:"white", fontSize:20, backgroundColor: "grey", padding: 20}}>+ ADD FRIENDS</Text>
           </Pressable>: null
@@ -387,7 +386,6 @@ const Profile = () => {
             height: tab2ItemHeight,
             backgroundColor: '#aaa',
             flexDirection: "row",
-            borderRadius: 10
           }}>
 
           <View>
