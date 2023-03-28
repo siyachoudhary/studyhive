@@ -13,7 +13,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const AddFriends = () => {
   const baseURL = "http://192.168.1.85:3000/"
-    const [searchTxt, setSearchTxt] = useState("")
+    const [searchTxt, setSearchTxt] = useState(".")
   
     const [list,setList] = useState([])
 
@@ -43,7 +43,6 @@ const AddFriends = () => {
     useEffect(()=>{
       console.log("searching")
         getData()
-        // getFriends()
     }, [searchTxt])
 
     const getData = async () =>{
@@ -70,7 +69,6 @@ const AddFriends = () => {
           getPendings(filtered)
         })
         .catch(function (err) {
-            // handle error
             console.log("error: "+err.message);
         });
     }
@@ -81,13 +79,11 @@ const AddFriends = () => {
             .then(function (res) {
               filtered = data2
               for(var i = 0; i<res.data.users.length; i++){
-                console.log(res.data.users[i])
                 filtered = filtered.filter(friendUser => friendUser._id != res.data.users[i])
               }
               getReqs(filtered)
             })
             .catch(function (err) {
-                // handle error
                 console.log("error: "+err.message);
             });
     }
@@ -98,13 +94,11 @@ const AddFriends = () => {
             .then(function (res) {
               filtered = data3
               for(var i = 0; i<res.data.users.length; i++){
-                console.log(res.data.users[i])
                 filtered = filtered.filter(friendUser => friendUser._id != res.data.users[i])
               }
               setList(filtered)
             })
             .catch(function (err) {
-                // handle error
                 console.log("error: "+err.message);
             });
     }
@@ -134,6 +128,8 @@ const AddFriends = () => {
         />
 
             <ScrollView style={styles.scrollingView} contentContainerStyle={{ flexGrow: 1 }}>
+            {list.length == 0?
+                <Text style={styles.noReqsText}>NO RESULTS</Text>:null}
             {list.map((listItem) => {
                 // console.log(listItem)
                     return (
@@ -188,9 +184,6 @@ const AddFriends = () => {
       width: SCREENWIDTH,
     },
     scrollingView:{
-        // marginTop: SCREENHEIGHT/500,
-        // backgroundColor: "#aaa",
-        // height: SCREENHEIGHT,
         padding:(SCREENWIDTH - 50)/12,
         transform: [{translateY: 220}],
         top: 10,
@@ -244,7 +237,6 @@ const AddFriends = () => {
         fontFamily:'Mohave-Bold',
         fontSize: 45,
         fontWeight: 'bold',
-        // lineHeight: 25,
         letterSpacing: 1,
         color: '#FFFFFF',
         textAlign: 'center',
@@ -276,6 +268,15 @@ const AddFriends = () => {
         letterSpacing: 1,
         color: '#303030',
       },
+      noReqsText:{
+        fontFamily:'Mohave-Bold',
+        fontSize: 25,
+        marginTop: 5,
+        marginHorizontal: 20,
+        textAlign: 'center',
+        color: 'white',
+        fontWeight: 500
+    }
   });
   
   export default AddFriends;
