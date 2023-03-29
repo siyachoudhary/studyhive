@@ -28,7 +28,7 @@ const InitNavigator = () => {
             <Tab.Screen name="Home" component={Home} />
             <Tab.Screen name="Profile" component={SettingsNavigator} />
             <Tab.Screen name="Calendar" component={TasksNavigator} />
-            {/* <Tab.Screen name="Tasks" component={AddTask} /> */}
+            {/* <Tab.Screen name="Hive" component={CallNavigator} /> */}
             <Tab.Screen name="Pomodoro" component={PomodoroTimer} />
             </Tab.Navigator>
     );
@@ -69,3 +69,42 @@ const InitNavigator = () => {
   }
 
   export {TasksNavigator}
+
+//   // import React from "react";
+// import "react-native-gesture-handler";
+// import { NavigationContainer } from "@react-navigation/native";
+// import { createStackNavigator } from "@react-navigation/stack";
+// import { SCREEN_NAMES } from "./src/navigators/screenNames";
+// import Join from "./src/screens/join";
+// import Meeting from "./src/screens/meeting";
+// import { LogBox } from "react-native";
+// // import ParticipantStatsViewer from "./src/screens/meeting/Components/ParticipantStatsViewer";
+// LogBox.ignoreLogs(["Warning: ..."]);
+// LogBox.ignoreAllLogs();
+
+// const RootStack = createStackNavigator();
+
+// export default function CallNavigator() {
+//   return (
+//     <NavigationContainer>
+//       <RootStack.Navigator
+//         screenOptions={{
+//           animationEnabled: false,
+//           presentation: "modal",
+//         }}
+//         initialRouteName={SCREEN_NAMES.Join}
+//       >
+//         <RootStack.Screen
+//           name={SCREEN_NAMES.Join}
+//           component={Join}
+//           options={{ headerShown: false }}
+//         />
+//         <RootStack.Screen
+//           name={SCREEN_NAMES.Meeting}
+//           component={Meeting}
+//           options={{ headerShown: false }}
+//         />
+//       </RootStack.Navigator>
+//     </NavigationContainer>
+//   );
+// }

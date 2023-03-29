@@ -35,8 +35,16 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>Camera permission description</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string></string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Microphone permission description</string>
+	<key>RTCAppGroupIdentifier</key>
+	<string>group.com.example.broadcastScreen</string>
+	<key>RTCScreenSharingExtension</key>
+	<string>org.reactjs.RNCodeSample.broadcastscreen</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Mohave-VariableFont_wght.ttf</string>
