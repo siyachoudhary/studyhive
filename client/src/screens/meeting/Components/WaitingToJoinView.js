@@ -1,4 +1,4 @@
-import { ROBOTO_FONTS } from "../../../styles/fonts";
+// import { ROBOTO_FONTS } from "../../../styles/fonts";
 import { convertRFValue } from "../../../styles/spacing";
 import React from "react";
 import { Text, View } from "react-native";
@@ -29,7 +29,7 @@ export default function WaitingToJoinView() {
         style={{
           fontSize: convertRFValue(18),
           color: colors.primary[100],
-          fontFamily: ROBOTO_FONTS.RobotoBold,
+          // fontFamily: ROBOTO_FONTS.RobotoBold,
           marginTop: 28,
         }}
       >

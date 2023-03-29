@@ -18,10 +18,10 @@ import colors from "../../styles/colors";
 import { createMeeting, getToken, validateMeeting } from "../../api/api";
 import { SCREEN_NAMES } from "../../navigators/screenNames";
 import { useFocusEffect } from "@react-navigation/native";
-import Toast from "react-native-simple-toast";
+// import Toast from "react-native-simple-toast";
 import Menu from "../../components/Menu";
 import MenuItem from "../meeting/Components/MenuItem";
-import { ROBOTO_FONTS } from "../../styles/fonts";
+// import { ROBOTO_FONTS } from "../../styles/fonts";
 
 export default function Join({ navigation }) {
   const [tracks, setTrack] = useState("");
@@ -252,7 +252,7 @@ export default function Join({ navigation }) {
                     style={{
                       color: colors.primary["100"],
                       fontSize: 16,
-                      fontFamily: ROBOTO_FONTS.RobotoBold,
+                      // fontFamily: ROBOTO_FONTS.RobotoBold,
                     }}
                   >
                     {meetingType.value}
@@ -294,7 +294,7 @@ export default function Join({ navigation }) {
                   text={"Join a meeting"}
                   onPress={async () => {
                     if (name.length <= 0) {
-                      Toast.show("Please enter your name");
+                      // Toast.show("Please enter your name");
                       return;
                     }
                     const token = await getToken();
@@ -330,7 +330,7 @@ export default function Join({ navigation }) {
                     style={{
                       color: colors.primary["100"],
                       fontSize: 16,
-                      fontFamily: ROBOTO_FONTS.RobotoBold,
+                      // fontFamily: ROBOTO_FONTS.RobotoBold,
                     }}
                   >
                     {meetingType.value}
@@ -378,11 +378,11 @@ export default function Join({ navigation }) {
                   text={"Join a meeting"}
                   onPress={async () => {
                     if (name.trim().length <= 0) {
-                      Toast.show("Please enter your name");
+                      // Toast.show("Please enter your name");
                       return;
                     }
                     if (meetingId.trim().length <= 0) {
-                      Toast.show("Please enter meetingId");
+                      // Toast.show("Please enter meetingId");
 
                       return;
                     }

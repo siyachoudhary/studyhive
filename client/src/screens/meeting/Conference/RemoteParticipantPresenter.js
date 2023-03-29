@@ -7,7 +7,7 @@ import {
 } from "@videosdk.live/react-native-sdk";
 import colors from "../../../styles/colors";
 import { convertRFValue } from "../../../styles/spacing";
-import { ROBOTO_FONTS } from "../../../styles/fonts";
+// import { ROBOTO_FONTS } from "../../../styles/fonts";
 import { ScreenShare } from "../../../assets/icons";
 
 export default function RemoteParticipantPresenter({ presenterId }) {
@@ -58,7 +58,7 @@ export default function RemoteParticipantPresenter({ presenterId }) {
           <Text
             style={{
               color: "white",
-              fontFamily: ROBOTO_FONTS.RobotoRegular,
+              // fontFamily: ROBOTO_FONTS.RobotoRegular,
               fontSize: convertRFValue(12),
               marginLeft: 10,
             }}

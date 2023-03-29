@@ -34,8 +34,8 @@ import IconContainer from "../../../components/IconContainer";
 import LocalParticipantPresenter from "../Components/LocalParticipantPresenter";
 import Menu from "../../../components/Menu";
 import MenuItem from "../Components/MenuItem";
-import { ROBOTO_FONTS } from "../../../styles/fonts";
-import Toast from "react-native-simple-toast";
+// import { ROBOTO_FONTS } from "../../../styles/fonts";
+// import Toast from "react-native-simple-toast";
 import BottomSheet from "../../../components/BottomSheet";
 import ParticipantListViewer from "../Components/ParticipantListViewer";
 import ChatViewer from "../Components/ChatViewer";
@@ -82,7 +82,7 @@ export default function ConferenceMeetingViewer() {
     onError: (data) => {
       const { code, message } = data;
 
-      Toast.show(`Error: ${code}: ${message}`);
+      // Toast.show(`Error: ${code}: ${message}`);
     },
   });
 
@@ -208,7 +208,7 @@ export default function ConferenceMeetingViewer() {
             <Text
               style={{
                 fontSize: 16,
-                fontFamily: ROBOTO_FONTS.RobotoBold,
+                // fontFamily: ROBOTO_FONTS.RobotoBold,
                 color: colors.primary[100],
               }}
             >
@@ -256,7 +256,7 @@ export default function ConferenceMeetingViewer() {
                 fontSize: convertRFValue(14),
                 color: colors.primary[100],
                 marginLeft: 4,
-                fontFamily: ROBOTO_FONTS.RobotoMedium,
+                // fontFamily: ROBOTO_FONTS.RobotoMedium,
               }}
             >
               {participants ? [...participants.keys()].length : 1}

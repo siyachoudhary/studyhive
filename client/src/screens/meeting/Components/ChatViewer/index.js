@@ -13,7 +13,7 @@ import Hyperlink from "react-native-hyperlink";
 import moment from "moment";
 import { usePubSub } from "@videosdk.live/react-native-sdk";
 import colors from "../../../../styles/colors";
-import { ROBOTO_FONTS } from "../../../../styles/fonts";
+// import { ROBOTO_FONTS } from "../../../../styles/fonts";
 import { convertRFValue } from "../../../../styles/spacing";
 
 const ChatViewer = ({}) => {
@@ -61,7 +61,7 @@ const ChatViewer = ({}) => {
           style={{
             fontSize: 18,
             color: colors.primary[100],
-            fontFamily: ROBOTO_FONTS.RobotoBold,
+            // fontFamily: ROBOTO_FONTS.RobotoBold,
           }}
         >
           Chat
@@ -101,7 +101,7 @@ const ChatViewer = ({}) => {
                   <Text
                     style={{
                       fontSize: convertRFValue(12),
-                      fontFamily: ROBOTO_FONTS.Roboto,
+                      // fontFamily: ROBOTO_FONTS.Roboto,
                       color: "#9A9FA5",
                       fontWeight: "bold",
                     }}
@@ -117,7 +117,7 @@ const ChatViewer = ({}) => {
                       style={{
                         fontSize: convertRFValue(14),
                         color: "white",
-                        fontFamily: ROBOTO_FONTS.RobotoMedium,
+                        // fontFamily: ROBOTO_FONTS.RobotoMedium,
                         // marginTop: 8,
                       }}
                     >
@@ -128,7 +128,7 @@ const ChatViewer = ({}) => {
                     style={{
                       color: "grey",
                       fontSize: convertRFValue(10),
-                      fontFamily: ROBOTO_FONTS.Roboto,
+                      // fontFamily: ROBOTO_FONTS.Roboto,
                       alignSelf: "flex-end",
                       marginTop: 4,
                     }}

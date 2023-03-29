@@ -8,7 +8,7 @@ import {
 import MeetingContainer from "./MeetingContainer";
 import { SCREEN_NAMES } from "../../navigators/screenNames";
 
-export default function ({ navigation, route }) {
+export default function Meeting({ navigation, route }) {
   const token = route.params.token;
   const meetingId = route.params.meetingId;
   const micEnabled = route.params.micEnabled;

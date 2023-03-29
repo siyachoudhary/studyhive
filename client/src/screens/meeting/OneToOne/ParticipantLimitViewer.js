@@ -1,4 +1,4 @@
-import { ROBOTO_FONTS } from "../../../styles/fonts";
+// import { ROBOTO_FONTS } from "../../../styles/fonts";
 import React from "react";
 import { convertRFValue } from "../../../styles/spacing";
 import { Text, View } from "react-native";
@@ -22,7 +22,7 @@ export default function ParticipantLimitViewer() {
         style={{
           fontSize: convertRFValue(24),
           color: colors.primary[100],
-          fontFamily: ROBOTO_FONTS.RobotoBold,
+          // fontFamily: ROBOTO_FONTS.RobotoBold,
         }}
       >
         OOPS !!
@@ -31,7 +31,7 @@ export default function ParticipantLimitViewer() {
         style={{
           fontSize: convertRFValue(12),
           color: colors.primary[100],
-          fontFamily: ROBOTO_FONTS.RobotoBold,
+          // fontFamily: ROBOTO_FONTS.RobotoBold,
           textAlign: "center",
           marginTop: 20,
         }}
@@ -42,7 +42,7 @@ export default function ParticipantLimitViewer() {
         style={{
           fontSize: convertRFValue(12),
           color: colors.primary[400],
-          fontFamily: ROBOTO_FONTS.RobotoMedium,
+          // fontFamily: ROBOTO_FONTS.RobotoMedium,
           marginTop: 10,
         }}
       >
@@ -61,7 +61,7 @@ export default function ParticipantLimitViewer() {
           marginTop: 30,
         }}
         textStyle={{
-          fontFamily: ROBOTO_FONTS.RobotoBold,
+          // fontFamily: ROBOTO_FONTS.RobotoBold,
         }}
       />
     </View>

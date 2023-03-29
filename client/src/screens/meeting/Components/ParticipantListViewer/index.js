@@ -2,7 +2,7 @@ import React from "react";
 import ParticipantListItem from "./ParticipantListItem";
 import { FlatList, View, Text } from "react-native";
 import colors from "../../../../styles/colors";
-import { ROBOTO_FONTS } from "../../../../styles/fonts";
+// import { ROBOTO_FONTS } from "../../../../styles/fonts";
 function ParticipantListViewer({ participantIds }) {
   return (
     <View
@@ -24,7 +24,7 @@ function ParticipantListViewer({ participantIds }) {
           style={{
             fontSize: 18,
             color: colors.primary[100],
-            fontFamily: ROBOTO_FONTS.RobotoBold,
+            // fontFamily: ROBOTO_FONTS.RobotoBold,
           }}
         >
           Participants ({participantIds.length})

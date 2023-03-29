@@ -38,8 +38,8 @@ import MiniView from "./MiniView";
 import LocalParticipantPresenter from "../Components/LocalParticipantPresenter";
 import Menu from "../../../components/Menu";
 import MenuItem from "../Components/MenuItem";
-import { ROBOTO_FONTS } from "../../../styles/fonts";
-import Toast from "react-native-simple-toast";
+// import { ROBOTO_FONTS } from "../../../styles/fonts";
+// import Toast from "react-native-simple-toast";
 import BottomSheet from "../../../components/BottomSheet";
 import ParticipantListViewer from "../Components/ParticipantListViewer";
 import ChatViewer from "../Components/ChatViewer";
@@ -73,7 +73,7 @@ export default function OneToOneMeetingViewer() {
   } = useMeeting({
     onError: (data) => {
       const { code, message } = data;
-      Toast.show(`Error: ${code}: ${message}`);
+      // Toast.show(`Error: ${code}: ${message}`);
     },
   });
 
@@ -175,7 +175,7 @@ export default function OneToOneMeetingViewer() {
             <Text
               style={{
                 fontSize: 16,
-                fontFamily: ROBOTO_FONTS.RobotoBold,
+                // fontFamily: ROBOTO_FONTS.RobotoBold,
                 color: colors.primary[100],
               }}
             >
@@ -190,7 +190,7 @@ export default function OneToOneMeetingViewer() {
               }}
               onPress={() => {
                 Clipboard.setString(meetingId);
-                Toast.show("Meeting Id copied Successfully");
+                // Toast.show("Meeting Id copied Successfully");
               }}
             >
               <Copy fill={colors.primary[100]} width={18} height={18} />

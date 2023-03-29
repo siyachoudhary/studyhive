@@ -11,7 +11,7 @@ const SCREENHEIGHT = Dimensions.get('window').height;
 const SCREENWIDTH = Dimensions.get('window').width;
 
 const Settings = () => {
-    const baseURL = "http://192.168.1.85:3000/"
+    const baseURL = "http://192.168.1.87:3000/"
 
     const navigation = useNavigation();
 

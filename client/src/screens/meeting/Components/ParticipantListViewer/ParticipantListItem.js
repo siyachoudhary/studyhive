@@ -8,7 +8,7 @@ import {
   VideoOn,
   Person,
 } from "../../../../assets/icons";
-import { ROBOTO_FONTS } from "../../../../styles/fonts";
+// import { ROBOTO_FONTS } from "../../../../styles/fonts";
 import colors from "../../../../styles/colors";
 import { useParticipant } from "@videosdk.live/react-native-sdk";
 
@@ -75,7 +75,7 @@ function ParticipantListItem({ participantId }) {
             style={{
               fontSize: convertRFValue(14),
               color: colors.primary[100],
-              fontFamily: ROBOTO_FONTS.RobotoMedium,
+              // fontFamily: ROBOTO_FONTS.RobotoMedium,
             }}
           >
             {isLocal ? "You" : displayName || ""}

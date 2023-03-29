@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import colors from "../../../styles/colors";
-import { ROBOTO_FONTS } from "../../../styles/fonts";
+// import { ROBOTO_FONTS } from "../../../styles/fonts";
 import { convertRFValue } from "../../../styles/spacing";
 
 export default function MenuItem({ title, description, icon, onPress }) {
@@ -32,7 +32,7 @@ export default function MenuItem({ title, description, icon, onPress }) {
         >
           <Text
             style={{
-              fontFamily: ROBOTO_FONTS.RobotoMedium,
+              // fontFamily: ROBOTO_FONTS.RobotoMedium,
               color: colors.primary[100],
               fontSize: convertRFValue(12),
             }}
@@ -43,7 +43,7 @@ export default function MenuItem({ title, description, icon, onPress }) {
           {description && (
             <Text
               style={{
-                fontFamily: ROBOTO_FONTS.Roboto,
+                // fontFamily: ROBOTO_FONTS.Roboto,
                 color: colors.primary[400],
                 fontSize: convertRFValue(12),
               }}
