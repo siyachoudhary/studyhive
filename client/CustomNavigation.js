@@ -76,7 +76,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { SCREEN_NAMES } from "./src/navigators/screenNames";
 import Join from "./src/screens/join";
-// import Meeting from "./src/screens/meeting";
+import Meeting from "./src/screens/meeting";
 import { LogBox } from "react-native";
 // import ParticipantStatsViewer from "./src/screens/meeting/Components/ParticipantStatsViewer";
 LogBox.ignoreLogs(["Warning: ..."]);
@@ -98,11 +98,11 @@ export default function CallNavigator() {
           component={Join}
           options={{ headerShown: false }}
         />
-        {/* <RootStack.Screen
+        <RootStack.Screen
           name={SCREEN_NAMES.Meeting}
           component={Meeting}
           options={{ headerShown: false }}
-        /> */}
+        />
       </RootStack.Navigator>
   );
 }
