@@ -584,7 +584,7 @@ const styles = StyleSheet.create({
   smallimage2: {
     width: 45,
     height: 45, 
-    marginLeft: SCREENHEIGHT/100,
+    marginLeft: SCREENHEIGHT/1000,
   },
   smallimage: {
     width: 45,

@@ -46,7 +46,7 @@ const Home = () => {
                     backgroundColor: pressed ? '#EDA73A': '#ffab00',
                 },
                 styles.button]} 
-                // onPress={}
+                onPress={navigation.navigate("Hive Session")}
                 >
                     <Text style={styles.buttonText}> START A HIVE{'\n'}SESSION </Text>
                 </Pressable>
