@@ -12,6 +12,7 @@ import PomodoroTimer from './src/screens/PomodoroTimer';
 import Requests from './src/screens/Requests';
 const Tab = createBottomTabNavigator();  // creates object for Stack Navigator
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+// https://oblador.github.io/react-native-vector-icons/ -> link for materialIcons icons
 
 const InitNavigator = () => {
     return (
