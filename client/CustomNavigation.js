@@ -34,21 +34,21 @@ const InitNavigator = () => {
             }}/>
             <Tab.Screen name="Calendar" component={TasksNavigator} 
             options={{
-              tabBarLabel: 'calendar',
+              tabBarLabel: 'Calendar',
               tabBarIcon: ({ focused, color, size }) => (
-                  <MaterialIcons name={'list-alt'} size={25} color={focused?'#ffab00':'white'} />
+                  <MaterialIcons name={'date-range'} size={25} color={focused?'#ffab00':'white'} />
               ),
             }}/>
             <Tab.Screen name="Hive Session" component={CallNavigator} 
             options={{
-              tabBarLabel: 'hive',
+              tabBarLabel: 'Hive Session',
               tabBarIcon: ({ focused, color, size }) => (
                   <MaterialIcons name={'groups'} size={25} color={focused?'#ffab00':'white'}/>
               ),
             }}/>
             <Tab.Screen name="Profile" component={SettingsNavigator} 
             options={{
-              tabBarLabel: 'profile',
+              tabBarLabel: 'Profile',
               tabBarIcon: ({ focused, color, size }) => (
                   <MaterialIcons name={'person'} size={25} color={focused?'#ffab00':'white'}/>
               ),
