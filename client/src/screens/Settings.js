@@ -165,36 +165,6 @@ const Settings = () => {
             <Pressable onPress={deleteProfile}>
                 <Text style={[styles.text, {textAlign: "center", fontSize: 20, color:"red", marginTop: 10}]}>DELETE PROFILE</Text>
             </Pressable>  
-    
-
-    {/* <Text style={styles.text}>PASSWORD:</Text>
-        <Controller
-                control={control}
-                name='password'
-                render={
-                    ({field:{onChange, value}})=>(
-                        <TextInput style={[styles.inputBox]}
-                        value={value}
-                       onChangeText={value=>onChange(value)}
-                    //    value={password}
-                       secureTextEntry={true}/>
-                    )
-                }> </Controller>
-            
-
-            <Text style={styles.text}>CONFIRM PASSWORD:</Text>
-            <Controller
-                control={control}
-                name='confirm'
-                render={
-                    ({field:{onChange, value}})=>(
-                        <TextInput style={[styles.inputBox]}
-                        value={value}
-                       onChangeText={value=>onChange(value)}
-                    //    value={confirm}
-                       secureTextEntry={true}/>
-                    )
-            }> </Controller> */}
 
             <Pressable 
                 style={({pressed}) => [

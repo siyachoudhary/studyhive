@@ -12,7 +12,7 @@ import Animated from 'react-native-reanimated';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const AddFriends = () => {
-  const baseURL = "http://192.168.1.87:3000/"
+  const baseURL = "http://192.168.1.90:3000/"
     const [searchTxt, setSearchTxt] = useState(".")
   
     const [list,setList] = useState([])
