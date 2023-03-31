@@ -25,7 +25,25 @@ const InitNavigator = () => {
             tabBarHideOnKeyboard: true,
             tabBarStyle: { backgroundColor: 'black' },
           }}>
-            <Tab.Screen name="Home" component={Home} />
+            <Tab.Screen name="Home" component={Home} 
+            options={{
+              tabBarLabel: 'Home',
+              tabBarIcon: ({ focused, color, size }) => (
+                <Image
+                  source={
+                    // focused
+                    // ?
+                     require('./src/assets/images/settingsIcon.png')
+                      // : require('./src/assets/images/settingsIcon.png')
+                  }
+                  style={{
+                    width: 10,
+                    height: 10,
+                    borderRadius: 10,
+                  }}
+                />
+              ),
+            }}/>
             <Tab.Screen name="Calendar" component={TasksNavigator} />
             <Tab.Screen name="Hive Session" component={CallNavigator} />
             <Tab.Screen name="Profile" component={SettingsNavigator} />
@@ -76,8 +94,9 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { SCREEN_NAMES } from "./src/navigators/screenNames";
 import Join from "./src/screens/join";
-import Meeting from "./src/screens/meeting";
+// import Meeting from "./src/screens/meeting";
 import { LogBox } from "react-native";
+import { Image } from "react-native-svg";
 // import ParticipantStatsViewer from "./src/screens/meeting/Components/ParticipantStatsViewer";
 LogBox.ignoreLogs(["Warning: ..."]);
 LogBox.ignoreAllLogs();
@@ -98,11 +117,11 @@ export default function CallNavigator() {
           component={Join}
           options={{ headerShown: false }}
         />
-        <RootStack.Screen
+        {/* <RootStack.Screen
           name={SCREEN_NAMES.Meeting}
           component={Meeting}
           options={{ headerShown: false }}
-        />
+        /> */}
       </RootStack.Navigator>
   );
 }
