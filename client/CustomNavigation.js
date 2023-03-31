@@ -11,7 +11,7 @@ import AddTask from "./src/screens/AddTask";
 import PomodoroTimer from './src/screens/PomodoroTimer';
 import Requests from './src/screens/Requests';
 const Tab = createBottomTabNavigator();  // creates object for Stack Navigator
-
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 const InitNavigator = () => {
     return (
@@ -23,30 +23,36 @@ const InitNavigator = () => {
             tabBarActiveTintColor: '#ffab00',
             tabBarInactiveTintColor: 'white',
             tabBarHideOnKeyboard: true,
-            tabBarStyle: { backgroundColor: 'black' },
+            tabBarStyle: { backgroundColor: 'black', padding:7, height:85},
           }}>
             <Tab.Screen name="Home" component={Home} 
             options={{
               tabBarLabel: 'Home',
               tabBarIcon: ({ focused, color, size }) => (
-                <Image
-                  source={
-                    // focused
-                    // ?
-                     require('./src/assets/images/settingsIcon.png')
-                      // : require('./src/assets/images/settingsIcon.png')
-                  }
-                  style={{
-                    width: 10,
-                    height: 10,
-                    borderRadius: 10,
-                  }}
-                />
+                  <MaterialIcons name={'home'} size={25} color={focused?'#ffab00':'white'}/>
               ),
             }}/>
-            <Tab.Screen name="Calendar" component={TasksNavigator} />
-            <Tab.Screen name="Hive Session" component={CallNavigator} />
-            <Tab.Screen name="Profile" component={SettingsNavigator} />
+            <Tab.Screen name="Calendar" component={TasksNavigator} 
+            options={{
+              tabBarLabel: 'calendar',
+              tabBarIcon: ({ focused, color, size }) => (
+                  <MaterialIcons name={'list-alt'} size={25} color={focused?'#ffab00':'white'} />
+              ),
+            }}/>
+            <Tab.Screen name="Hive Session" component={CallNavigator} 
+            options={{
+              tabBarLabel: 'hive',
+              tabBarIcon: ({ focused, color, size }) => (
+                  <MaterialIcons name={'groups'} size={25} color={focused?'#ffab00':'white'}/>
+              ),
+            }}/>
+            <Tab.Screen name="Profile" component={SettingsNavigator} 
+            options={{
+              tabBarLabel: 'profile',
+              tabBarIcon: ({ focused, color, size }) => (
+                  <MaterialIcons name={'person'} size={25} color={focused?'#ffab00':'white'}/>
+              ),
+            }}/>
             {/* <Tab.Screen name="Pomodoro" component={PomodoroTimer} /> */}
             </Tab.Navigator>
     );
@@ -95,7 +101,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { SCREEN_NAMES } from "./src/navigators/screenNames";
 import Join from "./src/screens/join";
 // import Meeting from "./src/screens/meeting";
-import { LogBox } from "react-native";
+import { LogBox, Text } from "react-native";
 import { Image } from "react-native-svg";
 // import ParticipantStatsViewer from "./src/screens/meeting/Components/ParticipantStatsViewer";
 LogBox.ignoreLogs(["Warning: ..."]);
