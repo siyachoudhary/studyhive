@@ -32,8 +32,9 @@ const tab2ItemWidth = (SCREENWIDTH - 50);
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Profile = () => {
-  const baseURL = "http://192.168.1.90:3000/"
-
+  const baseURL = "http://localhost:3000"
+  // const baseURL = "http://192.168.1.79:3000/"
+  
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
   const [user, setUser] = useState(null)

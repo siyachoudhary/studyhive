@@ -111,12 +111,13 @@ export default class CalendarPage extends Component {
               console.log(userObject);
               console.log(Object.keys(arr).length)
               for (let i = 0; i < Object.keys(arr).length; i++) {
-                console.log(i)
+                console.log(i + 'hello')
                 // console.log(arr[Object.keys(arr)[i]][0].day);
                 // console.log(arr[Object.keys(arr)[0]][0]);
                 let daynum = arr[Object.keys(arr)[i]][0].day;
                 for (let j = 0; j < arr[daynum].length; j++) {
                   if(daynum == userObject.date && arr[daynum][j].name == userObject.title){
+                    console.log("same")
                     return;
                   }
                 }
@@ -138,8 +139,9 @@ export default class CalendarPage extends Component {
   }
 
   loadItems = day => {
+    console.log("rerendering");
+
     this.retrieveData()
-    console.log(arr);
     const items = this.state.items || {}
 
     setTimeout(() => {
