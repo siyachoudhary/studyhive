@@ -96,6 +96,7 @@ export default function Join({ navigation }) {
       style={{
         flex: 1,
         backgroundColor: colors.primary["900"],
+        backgroundColor:'#2F2F2F'
       }}
     >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -220,9 +221,12 @@ export default function Join({ navigation }) {
                 <>
                   <Button
                     text={"Create a meeting"}
+                    backgroundColor={"#ffab00"}
+                    color={'#2F2F2F'}
                     onPress={() => {
                       setisVisibleCreateMeetingContainer(true);
                     }}
+                    
                   />
                   <Button
                     text={"Join a meeting"}
@@ -291,7 +295,9 @@ export default function Join({ navigation }) {
                   setValue={setName}
                 />
                 <Button
-                  text={"Join a meeting"}
+                  text={"Enter Meeting"}
+                  backgroundColor={'#ffab00'}
+                  color={'#2F2F2F'}
                   onPress={async () => {
                     if (name.length <= 0) {
                       // Toast.show("Please enter your name");
@@ -307,7 +313,15 @@ export default function Join({ navigation }) {
                       micEnabled: micOn,
                       webcamEnabled: videoOn,
                       meetingType: meetingType.key,
-                    });
+                    }
+                    );
+                  }}
+                />
+                <Button
+                  text={"Go Back"}
+                  backgroundColor={'#2F2F2F'}
+                  onPress={() => {
+                    setisVisibleCreateMeetingContainer(false);
                   }}
                 />
               </>
@@ -376,6 +390,7 @@ export default function Join({ navigation }) {
                 />
                 <Button
                   text={"Join a meeting"}
+                  backgroundColor={'#ffab00'}
                   onPress={async () => {
                     if (name.trim().length <= 0) {
                       // Toast.show("Please enter your name");
@@ -402,6 +417,13 @@ export default function Join({ navigation }) {
                         meetingType: meetingType.key,
                       });
                     }
+                  }}
+                />
+                <Button
+                  text={"Go Back"}
+                  backgroundColor={'#2F2F2F'}
+                  onPress={() => {
+                    setisVisibleJoinMeetingContainer(false);
                   }}
                 />
               </>
