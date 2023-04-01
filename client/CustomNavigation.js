@@ -13,7 +13,6 @@ import Requests from './src/screens/Requests';
 const Tab = createBottomTabNavigator();  // creates object for Stack Navigator
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 // https://oblador.github.io/react-native-vector-icons/ -> link for materialIcons icons
-
 const InitNavigator = () => {
     return (
             <Tab.Navigator 
@@ -101,7 +100,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { SCREEN_NAMES } from "./src/navigators/screenNames";
 import Join from "./src/screens/join";
-// import Meeting from "./src/screens/meeting";
+import Meeting from "./src/screens/meeting";
 import { LogBox, Text } from "react-native";
 import { Image } from "react-native-svg";
 // import ParticipantStatsViewer from "./src/screens/meeting/Components/ParticipantStatsViewer";

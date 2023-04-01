@@ -44,6 +44,7 @@ target 'client' do
   )
 
   pod 'react-native-webrtc', :path => '../node_modules/@videosdk.live/react-native-webrtc'
+
   # pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
 
