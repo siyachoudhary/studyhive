@@ -221,7 +221,7 @@ export default function Join({ navigation }) {
                 <>
                   <Button
                     text={"Create a meeting"}
-                    backgroundColor={"blue"}
+                    backgroundColor={"#ffab00"}
                     color={'#2F2F2F'}
                     onPress={() => {
                       console.log("creating meeting")
