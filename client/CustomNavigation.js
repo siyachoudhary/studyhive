@@ -123,11 +123,11 @@ export default function CallNavigator() {
           component={Join}
           options={{ headerShown: false }}
         />
-        {/* <RootStack.Screen
+        <RootStack.Screen
           name={SCREEN_NAMES.Meeting}
           component={Meeting}
           options={{ headerShown: false }}
-        /> */}
+        />
       </RootStack.Navigator>
   );
 }

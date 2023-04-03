@@ -129,6 +129,8 @@ const Settings = () => {
         <View style={styles.backGround}>
             <Text style={styles.header}>EDIT INFORMATION</Text>
 
+            
+
             <Text style={styles.text}>NAME:</Text>
             <Controller
             control={control}

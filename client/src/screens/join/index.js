@@ -221,9 +221,10 @@ export default function Join({ navigation }) {
                 <>
                   <Button
                     text={"Create a meeting"}
-                    backgroundColor={"#ffab00"}
+                    backgroundColor={"blue"}
                     color={'#2F2F2F'}
                     onPress={() => {
+                      console.log("creating meeting")
                       setisVisibleCreateMeetingContainer(true);
                     }}
                     
@@ -297,7 +298,6 @@ export default function Join({ navigation }) {
                 <Button
                   text={"Enter Meeting"}
                   backgroundColor={'#ffab00'}
-                  color={'#2F2F2F'}
                   onPress={async () => {
                     if (name.length <= 0) {
                       // Toast.show("Please enter your name");
@@ -305,6 +305,7 @@ export default function Join({ navigation }) {
                     }
                     const token = await getToken();
                     let meetingId = await createMeeting({ token: token });
+                    console.log("token: "+token)
                     disposeVideoTrack();
                     navigation.navigate(SCREEN_NAMES.Meeting, {
                       name: name.trim(),
@@ -406,7 +407,9 @@ export default function Join({ navigation }) {
                       token: token,
                       meetingId: meetingId.trim(),
                     });
+                    
                     if (valid) {
+                      console.log("joining with: "+token)
                       disposeVideoTrack();
                       navigation.navigate(SCREEN_NAMES.Meeting, {
                         name: name.trim(),

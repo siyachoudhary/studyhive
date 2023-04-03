@@ -11,8 +11,8 @@ const SCREENHEIGHT = Dimensions.get('window').height;
 const SCREENWIDTH = Dimensions.get('window').width;
 
 const SignIn = () => {
-    // const baseURL = "http://192.168.1.79:3000/"
-    const baseURL = "http://localhost:3000"
+    const baseURL = "http://192.168.1.90:3000/"
+    // const baseURL = "http://localhost:3000"
     
     const navigation = useNavigation();
 
@@ -24,7 +24,8 @@ const SignIn = () => {
         'password': '',
     })
 
-    function submit(data){
+    async function submit(data){
+        console.log("log in: " +baseURL)
             let email = data.email
             const password = data.password
 
@@ -46,10 +47,10 @@ const SignIn = () => {
                 return
             }
 
-        axios
+        await axios
         .post(`${baseURL}login`, {
-            email: email.toLowerCase(),
-            password: password,
+            email: "test@test.com",
+            password: "test",
         })
         .then(function (response) {
             // handle success

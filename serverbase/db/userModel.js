@@ -29,7 +29,13 @@ const UserSchema = new mongoose.Schema({
 
       pendingReqs:{
         type: Array
-      }
+      },
+      img:
+    {
+        data: Buffer,
+        contentType: String
+    }
+
     
   })
 
