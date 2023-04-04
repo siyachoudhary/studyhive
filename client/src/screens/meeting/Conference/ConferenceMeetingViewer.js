@@ -222,7 +222,7 @@ export default function ConferenceMeetingViewer() {
               }}
               onPress={() => {
                 Clipboard.setString(meetingId);
-                Toast.show("Meeting Id copied Successfully");
+                // Toast.show("Meeting Id copied Successfully");
               }}
             >
               <Copy fill={colors.primary[100]} width={18} height={18} />
@@ -466,7 +466,7 @@ export default function ConferenceMeetingViewer() {
             borderColor: "#2B3034",
           }}
           Icon={() => {
-            return <Chat height={22} width={22} fill="#ffab00" />;
+            return <Chat height={22} width={22} fill="#FFF" />;
           }}
         />
         <IconContainer
@@ -479,7 +479,7 @@ export default function ConferenceMeetingViewer() {
             moreOptionsMenu.current.show();
           }}
           Icon={() => {
-            return <More height={18} width={18} fill="#ffab00" />;
+            return <More height={18} width={18} fill="#FFF" />;
           }}
         />
       </View>
