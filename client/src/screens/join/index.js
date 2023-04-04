@@ -224,7 +224,6 @@ export default function Join({ navigation }) {
                     backgroundColor={"#ffab00"}
                     color={'#2F2F2F'}
                     onPress={() => {
-                      console.log("creating meeting")
                       setisVisibleCreateMeetingContainer(true);
                     }}
                     
@@ -305,7 +304,7 @@ export default function Join({ navigation }) {
                     }
                     const token = await getToken();
                     let meetingId = await createMeeting({ token: token });
-                    console.log("token: "+token)
+                    console.log("meetingID: "+meetingId)
                     disposeVideoTrack();
                     navigation.navigate(SCREEN_NAMES.Meeting, {
                       name: name.trim(),

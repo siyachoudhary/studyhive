@@ -466,7 +466,7 @@ export default function ConferenceMeetingViewer() {
             borderColor: "#2B3034",
           }}
           Icon={() => {
-            return <Chat height={22} width={22} fill="#FFF" />;
+            return <Chat height={22} width={22} fill="#ffab00" />;
           }}
         />
         <IconContainer
@@ -479,7 +479,7 @@ export default function ConferenceMeetingViewer() {
             moreOptionsMenu.current.show();
           }}
           Icon={() => {
-            return <More height={18} width={18} fill="#FFF" />;
+            return <More height={18} width={18} fill="#ffab00" />;
           }}
         />
       </View>

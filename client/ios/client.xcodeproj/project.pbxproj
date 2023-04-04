@@ -62,7 +62,7 @@
 /* Begin PBXCopyFilesBuildPhase section */
 		7309DD8A29DA05D200E9B676 /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 8;
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
@@ -70,7 +70,7 @@
 				7309DD8629DA05D200E9B676 /* ScreenBroadcastSetupUI.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
-			runOnlyForDeploymentPostprocessing = 0;
+			runOnlyForDeploymentPostprocessing = 1;
 		};
 /* End PBXCopyFilesBuildPhase section */
 

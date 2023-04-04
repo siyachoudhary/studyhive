@@ -12,7 +12,6 @@ import { NavigationContainer } from '@react-navigation/native';
 import WelcomeScreen from './src/screens/WelcomeScreen';
 import SignUp from './src/screens/SignUp';
 import SignIn from './src/screens/SignIn';
-
 import { InitNavigator } from './CustomNavigation';
 
 
@@ -40,7 +39,6 @@ const App = () => {
         </Stack.Navigator> 
 
    </NavigationContainer>
-   
   )
 }
 
