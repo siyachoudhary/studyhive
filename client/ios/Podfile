@@ -13,6 +13,7 @@ prepare_react_native_project!
 #   dependencies: {
 #     ...(process.env.NO_FLIPPER ? { 'react-native-flipper': { platforms: { ios: null } } } : {}),
 # ```
+
 flipper_config = ENV['NO_FLIPPER'] == "1" ? FlipperConfiguration.disabled : FlipperConfiguration.enabled
 
 linkage = ENV['USE_FRAMEWORKS']
@@ -43,7 +44,7 @@ target 'client' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
-  # pod 'react-native-webrtc', :path => '../node_modules/@videosdk.live/react-native-webrtc'
+  pod 'react-native-webrtc', :path => '../node_modules/@videosdk.live/react-native-webrtc'
 
   # pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 

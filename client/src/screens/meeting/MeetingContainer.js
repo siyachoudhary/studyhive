@@ -14,17 +14,23 @@ export default function MeetingContainer({ webcamEnabled, meetingType }) {
   const [participantLimit, setParticipantLimit] = useState(false);
 
   const { join, changeWebcam, participants, leave } = useMeeting({
-    onMeetingJoined: () => {
+    onMeetingJoined,
+    onParticipantLeft,
+  })
+
+
+    function onMeetingJoined(){
+      console.log("JOINED")
       setTimeout(() => {
         setJoined(true);
       }, 500);
-    },
-    onParticipantLeft: () => {
+    }
+
+    function onParticipantLeft(){
       if (participants.size < 2) {
         setParticipantLimit(false);
       }
-    },
-  });
+    }
 
   useEffect(() => {
     if (isJoined) {
@@ -37,7 +43,8 @@ export default function MeetingContainer({ webcamEnabled, meetingType }) {
   useEffect(() => {
     setTimeout(() => {
       if (!isJoined) {
-        join();
+        join()
+        // console.log("not joined")
         if (webcamEnabled) changeWebcam();
       }
     }, 1000);
