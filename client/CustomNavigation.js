@@ -47,7 +47,7 @@ const InitNavigator = () => {
             options={{
               tabBarLabel: 'Hive Session',
               tabBarIcon: ({ focused, color, size }) => (
-                  <MaterialIcons name={'groups'} size={25} color={focused?'#ffab00':'white'}/>
+                  <MaterialIcons name={'groups'} size={28} color={focused?'#ffab00':'white'}/>
               ),
             }}/>
             <Tab.Screen name="Profile" component={SettingsNavigator} 

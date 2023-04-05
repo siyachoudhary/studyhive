@@ -188,12 +188,18 @@ export default class CalendarPage extends Component {
   }
 
   renderEmptyDate = () => {
-    console.log('empty date bruh');
-    return (
-      <View style={styles.emptyDate}>
-        <Text>This is empty date!</Text>
-      </View>
-    )
+    // const fontSize = 18;
+    // const color = "black";
+
+    // return (
+    //   <TouchableOpacity
+    //     testID={testIDs.agenda.ITEM}
+    //     style={[styles.item, { height:50}]}
+    //     onPress={() => Alert.alert('reservation.name')}
+    //   >
+    //     <Text style={{fontSize, color, fontFamily: 'Mohave-Medium'}}>{'hello'}</Text>
+    //   </TouchableOpacity>
+    // )
   }
 
   rowHasChanged = (r1, r2) => {
