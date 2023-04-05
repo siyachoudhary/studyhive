@@ -19,11 +19,15 @@ const InitNavigator = () => {
             initialRouteName="Home" 
             screenOptions={{
             headerShown: false,
-            tabBarLabelStyle: {fontSize:14},
+            tabBarLabelStyle: {
+              fontSize:14, 
+              fontFamily: 'Mohave-Light'
+            },
             tabBarActiveTintColor: '#ffab00',
             tabBarInactiveTintColor: 'white',
             tabBarHideOnKeyboard: true,
-            tabBarStyle: { backgroundColor: 'black', padding:7, height:85},
+            tabBarStyle: {backgroundColor: '#2F2F2F', padding:0, height:85, borderTopWidth:0},
+            tabBarItemStyle: {marginTop: 10}
           }}>
             <Tab.Screen name="Home" component={Home} 
             options={{
