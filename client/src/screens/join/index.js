@@ -21,6 +21,7 @@ import { useFocusEffect } from "@react-navigation/native";
 // import Toast from "react-native-simple-toast";
 import Menu from "../../components/Menu";
 import MenuItem from "../meeting/Components/MenuItem";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 // import { ROBOTO_FONTS } from "../../styles/fonts";
 
 export default function Join({ navigation }) {
@@ -30,12 +31,32 @@ export default function Join({ navigation }) {
   const [name, setName] = useState("");
   const [meetingId, setMeetingId] = useState("");
 
-  const meetingTypes = [
-    { key: "ONE_TO_ONE", value: "One to One Meeting" },
-    { key: "GROUP", value: "Group Meeting" },
-  ];
+  // const meetingTypes = [
+  //   { key: "ONE_TO_ONE", value: "One to One Meeting" },
+  //   { key: "GROUP", value: "Group Meeting" },
+  // ];
 
-  const [meetingType, setMeetingType] = useState(meetingTypes[0]);
+  // const [meetingType, setMeetingType] = useState(meetingTypes[0]);
+
+  async function retrieveData(){
+    try {
+        const value = await AsyncStorage.getItem('user')
+        const obj = JSON.parse(value);
+        if(value !== null) {
+          setName(obj.name)
+        }
+      } catch(e) {
+        console.log(e.message)
+      }
+  }
+
+  useEffect(()=>{
+    retrieveData()
+    // if (dataFetchedRef.current) return;
+    //    if(!friendsFound){
+    //     getUserFriends()
+    //    }
+  })
 
   const [isVisibleCreateMeetingContainer, setisVisibleCreateMeetingContainer] =
     useState(false);
@@ -298,7 +319,6 @@ export default function Join({ navigation }) {
                   text={"Enter Meeting"}
                   backgroundColor={'#ffab00'}
                   onPress={async () => {
-                    setMeetingType(meetingTypes[1])
                     if (name.length <= 0) {
                       // Toast.show("Please enter your name");
                       return;
