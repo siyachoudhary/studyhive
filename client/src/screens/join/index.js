@@ -10,6 +10,7 @@ import {
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
   Keyboard,
+  StyleSheet,
 } from "react-native";
 import { MicOff, MicOn, VideoOff, VideoOn } from "../../assets/icons";
 import TextInputContainer from "../../components/TextInputContainer";
@@ -30,7 +31,7 @@ export default function Join({ navigation }) {
   const [videoOn, setVideoOn] = useState(true);
   const [name, setName] = useState("");
   const [meetingId, setMeetingId] = useState("");
-
+  const [idError, setIdError] = useState("")
   // const meetingTypes = [
   //   { key: "ONE_TO_ONE", value: "One to One Meeting" },
   //   { key: "GROUP", value: "Group Meeting" },
@@ -52,11 +53,11 @@ export default function Join({ navigation }) {
 
   useEffect(()=>{
     retrieveData()
-    // if (dataFetchedRef.current) return;
-    //    if(!friendsFound){
-    //     getUserFriends()
-    //    }
   })
+
+  useEffect(()=>{
+    setIdError("")
+  }, [])
 
   const [isVisibleCreateMeetingContainer, setisVisibleCreateMeetingContainer] =
     useState(false);
@@ -310,11 +311,11 @@ export default function Join({ navigation }) {
                     );
                   })}
                 </Menu> */}
-                <TextInputContainer
+                {/* <TextInputContainer
                   placeholder={"Enter your name"}
                   value={name}
                   setValue={setName}
-                />
+                /> */}
                 <Button
                   text={"Enter Meeting"}
                   backgroundColor={'#ffab00'}
@@ -399,16 +400,17 @@ export default function Join({ navigation }) {
                     );
                   })}
                 </Menu> */}
-                <TextInputContainer
+                {/* <TextInputContainer
                   placeholder={"Enter your name"}
                   value={name}
                   setValue={setName}
-                />
+                /> */}
                 <TextInputContainer
                   placeholder={"Enter meeting code"}
                   value={meetingId}
                   setValue={setMeetingId}
                 />
+                <Text style={[styles.text, {textAlign: "center", fontSize: 15, color:"red"}]}>{idError}</Text>
                 <Button
                   text={"Join a meeting"}
                   backgroundColor={'#ffab00'}
@@ -419,9 +421,10 @@ export default function Join({ navigation }) {
                     }
                     if (meetingId.trim().length <= 0) {
                       // Toast.show("Please enter meetingId");
-
+                      setIdError("Please enter meeting code")
                       return;
                     }
+
                     const token = await getToken();
                     let valid = await validateMeeting({
                       token: token,
@@ -429,6 +432,7 @@ export default function Join({ navigation }) {
                     });
                     
                     if (valid) {
+                      setIdError("")
                       console.log("joining with: "+token)
                       disposeVideoTrack();
                       navigation.navigate(SCREEN_NAMES.Meeting, {
@@ -439,6 +443,8 @@ export default function Join({ navigation }) {
                         webcamEnabled: videoOn,
                         meetingType: "GROUP",
                       });
+                    }else{
+                      setIdError("ID is not valid")
                     }
                   }}
                 />
@@ -457,3 +463,12 @@ export default function Join({ navigation }) {
     </KeyboardAvoidingView>
   );
 }
+
+const styles = StyleSheet.create({
+  text: {
+      fontFamily:'Mohave-Light',
+      fontSize: 20,
+      color: '#FFFFFF',
+      marginVertical: -5
+  }
+});
