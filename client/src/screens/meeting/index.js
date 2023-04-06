@@ -42,6 +42,7 @@ export default function Meeting({ navigation, route }) {
           }}
         >
           {() => {
+            console.log(meetingType)
             return (
               <MeetingContainer
                 webcamEnabled={webcamEnabled}

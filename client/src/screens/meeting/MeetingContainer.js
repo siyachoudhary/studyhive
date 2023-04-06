@@ -47,7 +47,7 @@ export default function MeetingContainer({ webcamEnabled, meetingType }) {
         // console.log("not joined")
         if (webcamEnabled) changeWebcam();
       }
-    }, 1000);
+    }, 500);
 
     return () => {
       leave();

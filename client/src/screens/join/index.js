@@ -1,5 +1,5 @@
 import { RTCView, mediaDevices } from "@videosdk.live/react-native-sdk";
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import {
   SafeAreaView,
   View,
@@ -239,7 +239,7 @@ export default function Join({ navigation }) {
               )}
             {isVisibleCreateMeetingContainer ? (
               <>
-                <TouchableOpacity
+                {/* <TouchableOpacity
                   onPress={async () => {
                     optionRef.current.show();
                   }}
@@ -288,7 +288,7 @@ export default function Join({ navigation }) {
                       </>
                     );
                   })}
-                </Menu>
+                </Menu> */}
                 <TextInputContainer
                   placeholder={"Enter your name"}
                   value={name}
@@ -298,6 +298,7 @@ export default function Join({ navigation }) {
                   text={"Enter Meeting"}
                   backgroundColor={'#ffab00'}
                   onPress={async () => {
+                    setMeetingType(meetingTypes[1])
                     if (name.length <= 0) {
                       // Toast.show("Please enter your name");
                       return;
