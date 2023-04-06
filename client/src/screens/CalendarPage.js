@@ -188,18 +188,18 @@ export default class CalendarPage extends Component {
   }
 
   renderEmptyDate = () => {
-    // const fontSize = 18;
-    // const color = "black";
+    const fontSize = 18;
+    const color = "black";
 
-    // return (
-    //   <TouchableOpacity
-    //     testID={testIDs.agenda.ITEM}
-    //     style={[styles.item, { height:50}]}
-    //     onPress={() => Alert.alert('reservation.name')}
-    //   >
-    //     <Text style={{fontSize, color, fontFamily: 'Mohave-Medium'}}>{'hello'}</Text>
-    //   </TouchableOpacity>
-    // )
+    return (
+      <TouchableOpacity
+        testID={testIDs.agenda.ITEM}
+        style={[styles.item, { height:50}]}
+        onPress={() => Alert.alert('reservation.name')}
+      >
+        <Text style={{fontSize, color, fontFamily: 'Mohave-Medium'}}>{'hello'}</Text>
+      </TouchableOpacity>
+    )
   }
 
   rowHasChanged = (r1, r2) => {
@@ -222,9 +222,12 @@ const styles = StyleSheet.create({
     marginTop: 17
   },
   emptyDate: {
-    height: 15,
+    backgroundColor: "white",
     flex: 1,
-    paddingTop: 30
+    borderRadius: 5,
+    padding: 10,
+    marginRight: 10,
+    marginTop: 17
   }, 
   button: {
     alignItems: 'center',
