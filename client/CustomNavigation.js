@@ -69,6 +69,7 @@ const InitNavigator = () => {
   const SettingsNavigator = () => {
     return (
         <Stack.Navigator 
+        initialRouteName="profileScreen"
         screenOptions={{
             headerShown: false
         }}>
