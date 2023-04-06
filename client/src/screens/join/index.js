@@ -313,7 +313,7 @@ export default function Join({ navigation }) {
                       meetingId: meetingId,
                       micEnabled: micOn,
                       webcamEnabled: videoOn,
-                      meetingType: meetingType.key,
+                      meetingType: "GROUP",
                     }
                     );
                   }}
@@ -328,7 +328,7 @@ export default function Join({ navigation }) {
               </>
             ) : isVisibleJoinMeetingContainer ? (
               <>
-                <TouchableOpacity
+                {/* <TouchableOpacity
                   onPress={async () => {
                     optionRef.current.show();
                   }}
@@ -378,7 +378,7 @@ export default function Join({ navigation }) {
                       </>
                     );
                   })}
-                </Menu>
+                </Menu> */}
                 <TextInputContainer
                   placeholder={"Enter your name"}
                   value={name}
@@ -417,7 +417,7 @@ export default function Join({ navigation }) {
                         meetingId: meetingId.trim(),
                         micEnabled: micOn,
                         webcamEnabled: videoOn,
-                        meetingType: meetingType.key,
+                        meetingType: "GROUP",
                       });
                     }
                   }}

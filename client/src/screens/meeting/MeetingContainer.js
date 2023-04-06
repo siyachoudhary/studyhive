@@ -20,7 +20,6 @@ export default function MeetingContainer({ webcamEnabled, meetingType }) {
 
 
     function onMeetingJoined(){
-      console.log("JOINED")
       setTimeout(() => {
         setJoined(true);
       }, 500);

@@ -469,7 +469,7 @@ export default function ConferenceMeetingViewer() {
             return <Chat height={22} width={22} fill="#FFF" />;
           }}
         />
-        <IconContainer
+        {/* <IconContainer
           style={{
             borderWidth: 1.5,
             borderColor: "#2B3034",
@@ -481,7 +481,7 @@ export default function ConferenceMeetingViewer() {
           Icon={() => {
             return <More height={18} width={18} fill="#FFF" />;
           }}
-        />
+        /> */}
       </View>
       <BottomSheet
         sheetBackgroundColor={"#2B3034"}
