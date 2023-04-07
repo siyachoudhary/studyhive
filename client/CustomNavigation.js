@@ -98,17 +98,12 @@ const InitNavigator = () => {
   }
 
   export {TasksNavigator}
-
-  // import React from "react";
 import "react-native-gesture-handler";
-import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { SCREEN_NAMES } from "./src/navigators/screenNames";
 import Join from "./src/screens/join";
 import Meeting from "./src/screens/meeting";
-import { LogBox, Text } from "react-native";
-import { Image } from "react-native-svg";
-// import ParticipantStatsViewer from "./src/screens/meeting/Components/ParticipantStatsViewer";
+import { LogBox} from "react-native";
 LogBox.ignoreLogs(["Warning: ..."]);
 LogBox.ignoreAllLogs();
 
