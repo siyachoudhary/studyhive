@@ -1,1 +1,1 @@
-# studyhive
+# StudyHive
