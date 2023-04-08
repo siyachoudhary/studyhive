@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useMemo } from "react";
+import React, { useEffect, useRef, useState, useMemo, Component } from "react";
 import {
   View,
   Text,
@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Dimensions,
   Platform,
+  StyleSheet,
 } from "react-native";
 import {
   useMeeting,
@@ -46,6 +47,8 @@ import ParticipantView from "./ParticipantView";
 import RemoteParticipantPresenter from "./RemoteParticipantPresenter";
 import VideosdkRPK from "../../../../VideosdkRPK";
 import { convertRFValue } from "../../../styles/spacing";
+import { Button } from "react-native";
+import Part from "../../../part";
 
 const MemoizedParticipant = React.memo(
   ParticipantView,
@@ -56,6 +59,7 @@ import { MemoizedParticipantGrid } from "./ConferenceParticipantGrid";
 import { useOrientation } from "../../../utils/useOrientation";
 
 export default function ConferenceMeetingViewer() {
+
   const {
     localParticipant,
     participants,
@@ -265,6 +269,8 @@ export default function ConferenceMeetingViewer() {
         </View>
       </View>
       {/* Center */}
+      <TimerMain/>
+    
       <View
         style={{
           flex: 1,
@@ -503,3 +509,230 @@ export default function ConferenceMeetingViewer() {
     </>
   );
 }
+
+let isResting = null
+
+class TimerMain extends Component {
+
+  constructor() {
+    super()
+    this.state = {
+      preMW: 0, // value to reset mW to
+      mW: 0,
+      preSW: 10, // value to reset sW to
+      sW: 10,
+      preMR: 0, // value to reset mR to
+      mR: 0,
+      preSR: 10, // value to reset sR to
+      sR: 10,
+      workTime: true,
+      preTimer: '00:10', // value to reset timer to
+      timer: '00:10',
+      condition: 'Start',
+      isRest: "Start your pomodoro timer!"
+    }
+  }
+
+  formatNumber(num) {
+    var str = String(num)
+    if (str.length === 1) {
+      str = '0' + str;
+    }
+    return str;
+  }
+
+
+  runTimer = () => {
+    if (this.state.workTime){
+      if (this.state.sW === 0) {
+        this.setState(pre => ({mW: pre.mW - 1, sW: 59 }))
+      } else if (this.state.sW >= 0) {
+        this.setState(pre => ({sW: pre.sW - 1}))
+      }
+      this.setState({timer: this.formatNumber(this.state.mW) + ':' + this.formatNumber(this.state.sW)})
+
+      if (this.state.mW === 0 && this.state.sW === 0) {
+        this.toggleTimer()
+        isResting = true
+      }
+    } else {
+      if (this.state.sR === 0) {
+        this.setState(pre => ({mR: pre.mR - 1, sR: 59 }))
+      } else if (this.state.sR >= 0) {
+        this.setState(pre => ({sR: pre.sR - 1}))
+      }
+      this.setState({timer: this.formatNumber(this.state.mR) + ':' + this.formatNumber(this.state.sR)})
+
+      if (this.state.mR === 0 && this.state.sR === 0) {
+      this.toggleTimer()
+        this.setState(state => ({mW: state.preMW, sW: state.preSW, sR: state.preSR, mR: state.preMR, timer: state.preTimer}))
+        isResting = false
+      }
+    }
+  }
+
+  controlTimer = () => {
+    clearInterval(this.clock)
+    if (this.state.condition === 'Start') {
+      isResting=false
+      this.setState({condition: 'Pause'})
+      this.clock = setInterval(this.runTimer, 1000)
+    } else {
+      this.setState({condition: 'Start'})
+      clearInterval(this.clock)
+      isResting=null
+    }
+  }
+
+  reset = () => {
+    this.setState(state => ({mW: state.preMW, sW: state.preSW, sR: state.preSR, mR: state.preMR, timer: state.preTimer}))
+    this.setState({condition: 'Start'})
+    clearInterval(this.clock)
+    this.setState({workTime: true})
+  }
+
+  toggleTimer = () => {
+    this.setState(pre => ({workTime: !pre.workTime}))
+  }
+
+  updateTimer = () => {
+    this.setState(pre => ({preTimer: this.formatNumber(pre.preMW) + ':' + this.formatNumber(pre.preSW) }))
+    this.setState(pre => ({timer: this.formatNumber(pre.preMW) + ':' + this.formatNumber(pre.preSW) }))
+  }
+
+  // used in the onChange prop in the 'Part' Component
+  changeValueMW(id, value) {
+    if (value === '' || value === null || value === 'NaN') {
+      return false;
+    }
+    var num = Number(value.nativeEvent.text);
+    switch(id) {
+      case 0:
+        this.setState({preMW: num, mW: num});
+        this.updateTimer();
+        break;
+      case 1:
+        this.setState({preSW: num, sW: num});
+        this.updateTimer();
+        break;
+      case 2:
+        this.setState({preMR: num, mR: num});
+        this.updateTimer();
+        break;
+      case 3:
+        this.setState({preSR: num, sR: num});
+        this.updateTimer();
+        break;
+    }
+    this.reset();
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.clock);
+  }
+
+  render() {
+    return(
+      <View style={styles.center}>
+        {/* <Text style={styles.title}>{this.state.isRest}</Text>
+        {isResting?<Text style={styles.title}>Rest</Text>:
+        isResting!=null?
+        <Text style={styles.title}>Working</Text>:
+        <Text style={styles.title}>Start Work Timer</Text>}
+        <Text style={styles.timer}>{this.state.timer}</Text>
+        <View style={styles.btnContainer}>
+          <Button title={this.state.condition} color='darkgreen' onPress={this.controlTimer} />
+          <Button title='Reset' color='red' onPress={this.reset} />
+        </View> */}
+
+        {isResting?
+
+        <View style={styles.workTime}>
+          <Text style={styles.title}>Rest Break</Text>
+          <Text style={styles.timer}>{this.state.timer}</Text>
+          <View style={styles.btnContainer}>
+            <Button title={this.state.condition} color='darkgreen' onPress={this.controlTimer} />
+            <Button title='Reset' color='red' onPress={this.reset} />
+          </View>
+          </View>
+          :
+
+          isResting!=null?
+          <View style={styles.workTime}>
+            <Text style={styles.titleWorking}>Working</Text>
+            <Text style={styles.timerWorking}>{this.state.timer}</Text>
+            <View style={styles.btnContainer}>
+              <Button title={this.state.condition} color='darkgreen' onPress={this.controlTimer} />
+              <Button title='Reset' color='red' onPress={this.reset} />
+            </View>
+          </View> 
+
+          :
+          <View style={styles.workTime}>
+            <Text style={styles.titleWorking}>Start Work Timer</Text>
+            <Text style={styles.timerWorking}>{this.state.timer}</Text>
+            <View style={styles.btnContainer}>
+              <Button title={this.state.condition} color='darkgreen' onPress={this.controlTimer} />
+              <Button title='Reset' color='red' onPress={this.reset} />
+            </View>
+          </View> 
+      }
+
+        {/* Work timer inputs */}
+        {/* <Part title='Set Working Time' m={this.state.preMW} s={this.state.preSW} onChangeM={text => this.changeValueMW(0, text)} onChangeS={text => this.changeValueMW(1, text)}/> */}
+
+        {/* Rest timer inputs */}
+        {/* <Part title='Set Rest Time' m={this.state.preMR} s={this.state.preSR} onChangeM={text => this.changeValueMW(2, text)} onChangeS={text => this.changeValueMW(3, text)}/> */}
+      </View>
+    );
+  }
+}
+
+const styles = StyleSheet.create({
+  center: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    textAlign: 'center',
+  },
+  title:{
+    fontSize: 30,
+    alignItems: 'center',
+    marginTop:10,
+    padding: 10,
+    color: 'white', 
+    fontFamily: 'Mohave-Medium'
+  },
+  timer: {
+    fontSize: 50,
+    alignItems: 'center',
+    // padding: 10,
+    color: 'white', 
+    fontFamily: 'Mohave-Medium'
+  },
+  btnContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  titleWorking:{
+    fontSize: 50,
+    alignItems: 'center',
+    marginTop:10,
+    padding: 10,
+    color: 'white', 
+    fontFamily: 'Mohave-Medium'
+  },
+  timerWorking: {
+    fontSize: 60,
+    alignItems: 'center',
+    textAlign:'center',
+    backgroundColor:'#EDA73A',
+    padding: 10,
+    color: 'white', 
+    fontFamily: 'Mohave-Medium',
+    width:'100%',
+  },
+  workTime:{
+    width:'90%',
+    alignItems: 'center',
+  }
+});
