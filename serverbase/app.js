@@ -111,6 +111,7 @@ app.post("/login", (request, response) => {
             { expiresIn: "24h" }
           );
 
+          console.log(user)
           //   return success response
           response.status(200).send({
             message: "Login Successful",
@@ -370,7 +371,7 @@ app.get("/findUser/:_id", (request, response) => {
       response.status(200).send({
         name: user.name,
         email: user.email,
-        _id: user._id
+        _id: user._id,
     });
     })
     .catch((e) => {
