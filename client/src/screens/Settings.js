@@ -11,8 +11,8 @@ const SCREENHEIGHT = Dimensions.get('window').height;
 const SCREENWIDTH = Dimensions.get('window').width;
 
 const Settings = () => {
-    const baseURL = "http://localhost:3000"
-    // const baseURL = "http://192.168.1.79:3000/"
+    // const baseURL = "http://localhost:3000"
+    const baseURL = "http://192.168.1.22:3000/"
 
     const navigation = useNavigation();
 
@@ -129,8 +129,6 @@ const Settings = () => {
         <View style={styles.backGround}>
             <Text style={styles.header}>EDIT INFORMATION</Text>
 
-            
-
             <Text style={styles.text}>NAME:</Text>
             <Controller
             control={control}
@@ -159,15 +157,7 @@ const Settings = () => {
                     />
                 )
             }> </Controller>
-            <Text style={[styles.text, {textAlign: "left", fontSize: 15, color:"red"}]}>{emailErr}</Text>
-
-            <Pressable onPress={logout}>
-                <Text style={[styles.text, {textAlign: "center", fontSize: 20,  marginTop: SCREENHEIGHT/4}]}>LOGOUT</Text>
-            </Pressable>   
-
-            <Pressable onPress={deleteProfile}>
-                <Text style={[styles.text, {textAlign: "center", fontSize: 20, color:"red", marginTop: 10}]}>DELETE PROFILE</Text>
-            </Pressable>  
+            <Text style={[styles.text, {textAlign: "left", fontSize: 15, color:"red"}]}>{emailErr}</Text> 
 
             <Pressable 
                 style={({pressed}) => [
@@ -179,6 +169,14 @@ const Settings = () => {
                 >
             <Text style={styles.buttonText}> SAVE DATA </Text>
           </Pressable>
+
+          <Pressable onPress={logout}>
+                <Text style={[styles.text, {textAlign: "center", fontSize: 20,  marginTop: SCREENHEIGHT/4}]}>LOGOUT</Text>
+            </Pressable>   
+
+            <Pressable onPress={deleteProfile}>
+                <Text style={[styles.text, {textAlign: "center", fontSize: 20, color:"red", marginTop: 10}]}>DELETE PROFILE</Text>
+            </Pressable> 
         </View>
     );
 };
