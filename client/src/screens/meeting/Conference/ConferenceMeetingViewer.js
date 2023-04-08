@@ -7,6 +7,7 @@ import {
   Dimensions,
   Platform,
   StyleSheet,
+  Pressable,
 } from "react-native";
 import {
   useMeeting,
@@ -96,6 +97,8 @@ export default function ConferenceMeetingViewer() {
   const moreOptionsMenu = useRef();
   const recordingRef = useRef();
   const orientation = useOrientation();
+
+  const [isRestingScreen, setIsRestingScreen] = useState(isResting)
 
   const participantIds = useMemo(() => {
     const pinnedParticipantId = [...pinnedParticipants.keys()].filter(
@@ -269,8 +272,9 @@ export default function ConferenceMeetingViewer() {
         </View>
       </View>
       {/* Center */}
+
       <TimerMain/>
-    
+
       <View
         style={{
           flex: 1,
@@ -572,15 +576,16 @@ class TimerMain extends Component {
   }
 
   controlTimer = () => {
+    if(isResting==null){
+      isResting=false
+    }
     clearInterval(this.clock)
     if (this.state.condition === 'Start') {
-      isResting=false
       this.setState({condition: 'Pause'})
       this.clock = setInterval(this.runTimer, 1000)
     } else {
       this.setState({condition: 'Start'})
       clearInterval(this.clock)
-      isResting=null
     }
   }
 
@@ -651,8 +656,14 @@ class TimerMain extends Component {
           <Text style={styles.title}>Rest Break</Text>
           <Text style={styles.timer}>{this.state.timer}</Text>
           <View style={styles.btnContainer}>
-            <Button title={this.state.condition} color='darkgreen' onPress={this.controlTimer} />
-            <Button title='Reset' color='red' onPress={this.reset} />
+          <Pressable style={styles.start} onPress={this.controlTimer}>
+              <Text style={styles.startTxt}>{this.state.condition}</Text>
+            </Pressable>
+            <Pressable style={styles.reset} onPress={this.reset}>
+              <Text style={styles.resetTxt}>Reset</Text>
+            </Pressable>
+            {/* <Button title={this.state.condition} color='darkgreen' onPress={this.controlTimer} />
+            <Button title='Reset' color='red' onPress={this.reset} style={styles.reset}/> */}
           </View>
           </View>
           :
@@ -662,8 +673,14 @@ class TimerMain extends Component {
             <Text style={styles.titleWorking}>Working</Text>
             <Text style={styles.timerWorking}>{this.state.timer}</Text>
             <View style={styles.btnContainer}>
-              <Button title={this.state.condition} color='darkgreen' onPress={this.controlTimer} />
-              <Button title='Reset' color='red' onPress={this.reset} />
+            <Pressable style={styles.start} onPress={this.controlTimer}>
+              <Text style={styles.startTxt}>{this.state.condition}</Text>
+            </Pressable>
+            <Pressable style={styles.reset} onPress={this.reset}>
+              <Text style={styles.resetTxt}>Reset</Text>
+            </Pressable>
+              {/* <Button title={this.state.condition} color='darkgreen' onPress={this.controlTimer} />
+              <Button title='Reset' color='red' onPress={this.reset} style={styles.reset}/> */}
             </View>
           </View> 
 
@@ -672,8 +689,14 @@ class TimerMain extends Component {
             <Text style={styles.titleWorking}>Start Work Timer</Text>
             <Text style={styles.timerWorking}>{this.state.timer}</Text>
             <View style={styles.btnContainer}>
-              <Button title={this.state.condition} color='darkgreen' onPress={this.controlTimer} />
-              <Button title='Reset' color='red' onPress={this.reset} />
+            <Pressable style={styles.start} onPress={this.controlTimer}>
+              <Text style={styles.startTxt}>{this.state.condition}</Text>
+            </Pressable>
+            <Pressable style={styles.reset} onPress={this.reset}>
+              <Text style={styles.resetTxt}>Reset</Text>
+            </Pressable>
+              {/* <Button title={this.state.condition} color='darkgreen' onPress={this.controlTimer} /> */}
+              {/* <Button title='Reset' color='red' onPress={this.reset} style={styles.reset}/> */}
             </View>
           </View> 
       }
@@ -722,7 +745,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Mohave-Medium'
   },
   timerWorking: {
-    fontSize: 60,
+    fontSize: 80,
     alignItems: 'center',
     textAlign:'center',
     backgroundColor:'#EDA73A',
@@ -730,9 +753,34 @@ const styles = StyleSheet.create({
     color: 'white', 
     fontFamily: 'Mohave-Medium',
     width:'100%',
+    margin:20
   },
   workTime:{
     width:'90%',
     alignItems: 'center',
+  },
+  start:{
+    backgroundColor:'darkgreen',
+    padding:10,
+    margin:10,
+    width:'25%',
+    alignItems:'center'
+  },
+  startTxt:{
+    color:'white',
+    fontFamily: 'Mohave-Medium',
+    fontSize:20
+  },
+  reset:{
+    backgroundColor:'red',
+    padding:10,
+    margin:10,
+    width:'25%',
+    alignItems:'center'
+  },
+  resetTxt:{
+    color:'white',
+    fontFamily: 'Mohave-Medium',
+    fontSize:20
   }
 });
