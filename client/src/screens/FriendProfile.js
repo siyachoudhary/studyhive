@@ -36,7 +36,8 @@ const FriendProfile = ({route}) => {
   const baseURL = "http://192.168.1.22:3000/"
   
   const [name, setName] = useState("")
-  const [email, setEmail] = useState(route.params.friendId)
+  const [email, setEmail] = useState("")
+  const [userId, setUserId] = useState(route.params.friendId)
   const [user, setUser] = useState(null)
 
   const navigation = useNavigation();
@@ -158,28 +159,27 @@ const FriendProfile = ({route}) => {
 
 //   let friendsFound = false;
 
-//   useEffect(()=>{
-//     retrieveData()
-//     if (dataFetchedRef.current) return;
-//        if(!friendsFound){
-//         getUserFriends()
-//        }
-//   })
+  useEffect(()=>{
+    if (dataFetchedRef.current) return;
+    //    if(!friendsFound){
+        getUserFriends()
+    //    }
+  })
 
-//   const getUserFriends = async ()=>{
-//     if(email!=""){
-//      await axios
-//         .get(`${baseURL}findFriends/${email}`)
-//         .then(function (res) {
-//               getUserNames(res.data)
-//               dataFetchedRef.current = true;
-//         })
-//         .catch(function (err) {
-//             // handle error
-//             console.log("error: "+err.message);
-//         });
-//       }
-//   }
+  const getUserFriends = async ()=>{
+    // if(userId!=""){
+     await axios
+        .get(`${baseURL}findUser/${userId}`)
+        .then(function (res) {
+              setName(res.data.name)
+              setEmail(res.data.email)
+        })
+        .catch(function (err) {
+            // handle error
+            console.log("error: "+err.message);
+        });
+    //   }
+  }
 
 //   const getUserNames = async(data)=>{
 //     const friends = [];
