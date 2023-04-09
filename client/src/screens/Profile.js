@@ -392,7 +392,9 @@ const Profile = () => {
                       backgroundColor: pressed ? '#EDA73A': '#ffab00',
                   },
                   styles.button1]} 
-                  onPress={()=>navigation.navigate("FriendProfile")}
+                  onPress={()=>navigation.navigate("FriendProfile", {
+                    friendId: item._id
+                  })}
                   >
               <Text style={styles.buttonText}> View </Text>
           </Pressable>

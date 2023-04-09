@@ -31,15 +31,16 @@ const tab2ItemWidth = (SCREENWIDTH - 50);
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const FriendProfile = () => {
+const FriendProfile = ({route}) => {
   // const baseURL = "http://localhost:3000"
   const baseURL = "http://192.168.1.22:3000/"
   
   const [name, setName] = useState("")
-  const [email, setEmail] = useState("")
+  const [email, setEmail] = useState(route.params.friendId)
   const [user, setUser] = useState(null)
 
   const navigation = useNavigation();
+
   /**
    * stats
    */
@@ -140,61 +141,61 @@ const FriendProfile = () => {
    * effect
    */
 
-  async function retrieveData(){
-    try {
-        const value = await AsyncStorage.getItem('user')
-        const obj = JSON.parse(value);
-        // console.log("user value:" + value)
-        if(value !== null) {
-          setUser(obj)
-          setName(user.name)
-          setEmail(user.email)
-        }
-      } catch(e) {
-        console.log(e.message)
-      }
-  }
+//   async function retrieveData(){
+//     try {
+//         const value = await AsyncStorage.getItem('user')
+//         const obj = JSON.parse(value);
+//         // console.log("user value:" + value)
+//         if(value !== null) {
+//           setUser(obj)
+//           setName(user.name)
+//           setEmail(user.email)
+//         }
+//       } catch(e) {
+//         console.log(e.message)
+//       }
+//   }
 
-  let friendsFound = false;
+//   let friendsFound = false;
 
-  useEffect(()=>{
-    retrieveData()
-    if (dataFetchedRef.current) return;
-       if(!friendsFound){
-        getUserFriends()
-       }
-  })
+//   useEffect(()=>{
+//     retrieveData()
+//     if (dataFetchedRef.current) return;
+//        if(!friendsFound){
+//         getUserFriends()
+//        }
+//   })
 
-  const getUserFriends = async ()=>{
-    if(email!=""){
-     await axios
-        .get(`${baseURL}findFriends/${email}`)
-        .then(function (res) {
-              getUserNames(res.data)
-              dataFetchedRef.current = true;
-        })
-        .catch(function (err) {
-            // handle error
-            console.log("error: "+err.message);
-        });
-      }
-  }
+//   const getUserFriends = async ()=>{
+//     if(email!=""){
+//      await axios
+//         .get(`${baseURL}findFriends/${email}`)
+//         .then(function (res) {
+//               getUserNames(res.data)
+//               dataFetchedRef.current = true;
+//         })
+//         .catch(function (err) {
+//             // handle error
+//             console.log("error: "+err.message);
+//         });
+//       }
+//   }
 
-  const getUserNames = async(data)=>{
-    const friends = [];
-    for(var i = 0; i<data.length; i++){
-      await axios
-        .get(`${baseURL}findUser/${data[i]}`)
-        .then(function (res) {
-            friends.push(res.data)
-        })
-        .catch(function (err) {
-            // handle error
-            console.log("error: "+err.message);
-        });
-    }
-    setTab3Data(friends)
-  }
+//   const getUserNames = async(data)=>{
+//     const friends = [];
+//     for(var i = 0; i<data.length; i++){
+//       await axios
+//         .get(`${baseURL}findUser/${data[i]}`)
+//         .then(function (res) {
+//             friends.push(res.data)
+//         })
+//         .catch(function (err) {
+//             // handle error
+//             console.log("error: "+err.message);
+//         });
+//     }
+//     setTab3Data(friends)
+//   }
 
   useEffect(() => {
     scrollY.addListener(({value}) => {
