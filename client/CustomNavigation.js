@@ -12,6 +12,7 @@ import PomodoroTimer from './src/screens/PomodoroTimer';
 import Requests from './src/screens/Requests';
 const Tab = createBottomTabNavigator();  // creates object for Stack Navigator
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import FriendProfile from "./src/screens/FriendProfile";
 // https://oblador.github.io/react-native-vector-icons/ -> link for materialIcons icons
 const InitNavigator = () => {
     return (
@@ -53,6 +54,13 @@ const InitNavigator = () => {
             <Tab.Screen name="Profile" component={SettingsNavigator} 
             options={{
               tabBarLabel: 'Profile',
+              tabBarIcon: ({ focused, color, size }) => (
+                  <MaterialIcons name={'person'} size={25} color={focused?'#ffab00':'white'}/>
+              ),
+            }}/>
+            <Tab.Screen name="FriendProfile" component={FriendProfile} 
+            options={{
+              tabBarLabel: 'Friends',
               tabBarIcon: ({ focused, color, size }) => (
                   <MaterialIcons name={'person'} size={25} color={focused?'#ffab00':'white'}/>
               ),
