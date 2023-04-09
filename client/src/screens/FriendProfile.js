@@ -303,7 +303,7 @@ const FriendProfile = () => {
           </Pressable>
         </View> */}
         <Pressable
-            onPress={()=>navigation.navigate("Profile")} style={styles.goBack}>
+            onPress={()=>navigation.navigate("profileScreen")} style={styles.goBack}>
             <Image source={require('../assets/images/settingsIcon.png')} style={styles.smallimage}></Image>
         </Pressable>
         <Image source={require('../assets/images/blankProfile.png')} style={styles.image}></Image>
@@ -643,7 +643,6 @@ buttonText3: {
 goBack:{
     left: -300,
     top: 40
-
 }
 });
 

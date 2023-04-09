@@ -386,8 +386,18 @@ const Profile = () => {
             backgroundColor: '#aaa',
             flexDirection: "row",
           }}>
+          <Pressable 
+                  style={({pressed}) => [
+                  {
+                      backgroundColor: pressed ? '#EDA73A': '#ffab00',
+                  },
+                  styles.button1]} 
+                  onPress={()=>navigation.navigate("FriendProfile")}
+                  >
+              <Text style={styles.buttonText}> View </Text>
+          </Pressable>
 
-          <View>
+          <View style={styles.friendDetails}>
             <Text style={[{textAlign: "left"}, styles.buttonText2]}>{item.name}</Text>
             <Text style={[{textAlign: "left", fontSize: 15}, styles.buttonText3]}>{item.email}</Text>
           </View>
@@ -400,7 +410,7 @@ const Profile = () => {
                   styles.button]} 
                   onPress={()=>removeFriend(item)}
                   >
-              <Text style={styles.buttonText}> Remove Friend </Text>
+              <Text style={styles.buttonText}> Remove </Text>
           </Pressable>
       </View>:null
   }
@@ -573,6 +583,17 @@ const styles = StyleSheet.create({
     top: 10,
     bottom: 10
   },
+  button1: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 7,
+    paddingHorizontal: 10,
+    borderRadius: 6,
+    position: 'absolute',
+    left: 10,
+    top: 10,
+    bottom: 10
+  },
   image: {
       justifyContent: 'center',
       alignItems: 'center',
@@ -646,6 +667,11 @@ buttonText3: {
   letterSpacing: 1,
   color: '#303030',
 },
+friendDetails:{
+  position:'absolute',
+  left: 80,
+  top: 15
+}
 });
 
 export default Profile;

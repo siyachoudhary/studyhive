@@ -58,13 +58,13 @@ const InitNavigator = () => {
                   <MaterialIcons name={'person'} size={25} color={focused?'#ffab00':'white'}/>
               ),
             }}/>
-            <Tab.Screen name="FriendProfile" component={FriendProfile} 
+            {/* <Tab.Screen name="FriendProfile" component={FriendProfile} 
             options={{
               tabBarLabel: 'Friends',
               tabBarIcon: ({ focused, color, size }) => (
                   <MaterialIcons name={'person'} size={25} color={focused?'#ffab00':'white'}/>
               ),
-            }}/>
+            }}/> */}
             {/* <Tab.Screen name="Pomodoro" component={PomodoroTimer} /> */}
             </Tab.Navigator>
     );
@@ -85,6 +85,7 @@ const InitNavigator = () => {
            <Stack.Screen name='Settings' component={Settings}/>
            <Stack.Screen name='Requests' component={Requests}/>
            <Stack.Screen name='AddFriend' component={AddFriends}/>
+           <Stack.Screen name='FriendProfile' component={FriendProfile}/>
      </Stack.Navigator> 
     );
   }
