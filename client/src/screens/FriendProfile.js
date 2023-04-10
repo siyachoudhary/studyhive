@@ -29,8 +29,6 @@ const tab1ItemSize = (SCREENWIDTH - 40) / 3;
 const tab2ItemHeight = (SCREENWIDTH - 50) / 5;
 const tab2ItemWidth = (SCREENWIDTH - 50);
 
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
 const FriendProfile = ({route}) => {
   // const baseURL = "http://localhost:3000"
   const baseURL = "http://192.168.1.64:3000/"
@@ -190,7 +188,7 @@ const FriendProfile = ({route}) => {
     }
     setTab3Data(friendsTemp)
     friendsFound=true
-    dataFetchedRef.current(true)
+    dataFetchedRef.current = true;
   }
 
   useEffect(() => {
