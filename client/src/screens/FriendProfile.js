@@ -141,25 +141,6 @@ const FriendProfile = ({route}) => {
     }),
   ).current;
 
-  /**
-   * effect
-   */
-
-//   async function retrieveData(){
-//     try {
-//         const value = await AsyncStorage.getItem('user')
-//         const obj = JSON.parse(value);
-//         // console.log("user value:" + value)
-//         if(value !== null) {
-//           setUser(obj)
-//           setName(user.name)
-//           setEmail(user.email)
-//         }
-//       } catch(e) {
-//         console.log(e.message)
-//       }
-//   }
-
   let friendsFound = false;
 
   useEffect(()=>{
@@ -192,18 +173,6 @@ const FriendProfile = ({route}) => {
             // handle error
             console.log("error: "+err.message);
         });
-    //   }
-    // const tempFriends = [];
-    // for (let i = 0; i < friends.length; i++) {
-    //     for (let j = 0; j < userFriends.length; j++) {
-    //         if(friends[i] == userFriends[j._id]){
-    //             tempFriends.push(friends[i])
-    //         }
-    //     }
-    // }
-    // setTab3Data(tempFriends)
-    // console.log(tab3Data)
-    // friendsFound=true
   }
 
   const getUserNames = async(data)=>{
@@ -221,6 +190,7 @@ const FriendProfile = ({route}) => {
     }
     setTab3Data(friendsTemp)
     friendsFound=true
+    dataFetchedRef.current(true)
   }
 
   useEffect(() => {
@@ -313,25 +283,9 @@ const FriendProfile = ({route}) => {
       <Animated.View
         {...headerPanResponder.panHandlers}
         style={[styles.header, {transform: [{translateY: y}]}]}>
-        {/* <TouchableOpacity
-          style={{flex: 1, justifyContent: 'center'}}
-          activeOpacity={1}
-          onPress={() => Alert.alert('header Clicked!')}>
-          <Text>Scrollable Header</Text>
-        </TouchableOpacity> */}
-        {/* <View style={{position: "absolute",top: 50}}>
-          <Pressable
-            onPress={()=>navigation.navigate("Requests")} style={styles.requests}>
-            <Image source={require('../assets/images/inbox.png')} style={styles.smallimage2}></Image>
-          </Pressable>
-          <Pressable
-            onPress={()=>navigation.navigate("Settings")} style={styles.settings}>
-            <Image source={require('../assets/images/settingsIcon.png')} style={styles.smallimage}></Image>
-          </Pressable>
-        </View> */}
         <Pressable
             onPress={()=>navigation.navigate("profileScreen")} style={styles.goBack}>
-            <Image source={require('../assets/images/settingsIcon.png')} style={styles.smallimage}></Image>
+            <Image source={require('../assets/images/backArrow.png')} style={styles.smallimage}></Image>
         </Pressable>
         <Image source={require('../assets/images/blankProfile.png')} style={styles.image}></Image>
         <Text style={styles.headertext}>{name}</Text>
@@ -408,12 +362,36 @@ const FriendProfile = ({route}) => {
             flexDirection: "row",
           }}>
 
-          <View>
+            <Pressable 
+                  style={({pressed}) => [
+                  {
+                      backgroundColor: pressed ? '#EDA73A': '#ffab00',
+                  },
+                  styles.button1]} 
+                  onPress={
+                //     ()=>navigation.navigate("FriendProfile", {
+                //     friendId: item._id,
+                //     userFriends: userFriends
+                //   })
+                ()=>navigation.push('FriendProfile', {
+                    friendId: item._id,
+                    userFriends: userFriends
+                })
+                }
+                // onPress={FriendProfile({
+                //     friendId: item._id,
+                //     userFriends: userFriends
+                // })}
+                  >
+              <Text style={styles.buttonText}> View </Text>
+          </Pressable>
+
+          <View style={styles.friendDetails}>
             <Text style={[{textAlign: "left"}, styles.buttonText2]}>{item.name}</Text>
             <Text style={[{textAlign: "left", fontSize: 15}, styles.buttonText3]}>{item.email}</Text>
           </View>
 
-          <Pressable 
+          {/* <Pressable 
                   style={({pressed}) => [
                   {
                       backgroundColor: pressed ? '#EDA73A': '#ffab00',
@@ -422,7 +400,7 @@ const FriendProfile = ({route}) => {
                   onPress={()=>removeFriend(item)}
                   >
               <Text style={styles.buttonText}> Remove Friend </Text>
-          </Pressable>
+          </Pressable> */}
       </View>:null
   }
       </View>
@@ -670,7 +648,23 @@ buttonText3: {
 goBack:{
     left: -300,
     top: 40
-}
+},
+button1: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 7,
+    paddingHorizontal: 10,
+    borderRadius: 6,
+    position: 'absolute',
+    left: 10,
+    top: 10,
+    bottom: 10
+  },
+  friendDetails:{
+    position:'absolute',
+    left: 80,
+    top: 15
+  }
 });
 
 export default FriendProfile;
