@@ -521,17 +521,17 @@ class TimerMain extends Component {
   constructor() {
     super()
     this.state = {
-      preMW: 0, // value to reset mW to
-      mW: 0,
-      preSW: 10, // value to reset sW to
-      sW: 10,
-      preMR: 0, // value to reset mR to
-      mR: 0,
-      preSR: 10, // value to reset sR to
-      sR: 10,
+      preMW: 25, // value to reset mW to
+      mW: 25,
+      preSW: 0, // value to reset sW to
+      sW: 0,
+      preMR: 5, // value to reset mR to
+      mR: 5,
+      preSR: 0, // value to reset sR to
+      sR: 0,
       workTime: true,
-      preTimer: '00:10', // value to reset timer to
-      timer: '00:10',
+      preTimer: '25:00', // value to reset timer to
+      timer: '25:00',
       condition: 'Start',
       isRest: "Start your pomodoro timer!"
     }
