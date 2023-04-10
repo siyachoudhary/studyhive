@@ -32,8 +32,8 @@ const tab2ItemWidth = (SCREENWIDTH - 50);
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Profile = () => {
-  const baseURL = "http://localhost:3000/"
-  // const baseURL = "http://192.168.1.79:3000/"
+  // const baseURL = "http://localhost:3000"
+  const baseURL = "http://192.168.1.64:3000/"
   
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
@@ -393,7 +393,8 @@ const Profile = () => {
                   },
                   styles.button1]} 
                   onPress={()=>navigation.navigate("FriendProfile", {
-                    friendId: item._id
+                    friendId: item._id,
+                    userFriends: tab3Data
                   })}
                   >
               <Text style={styles.buttonText}> View </Text>

@@ -33,12 +33,15 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const FriendProfile = ({route}) => {
   // const baseURL = "http://localhost:3000"
-  const baseURL = "http://192.168.1.22:3000/"
+  const baseURL = "http://192.168.1.64:3000/"
   
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
   const [userId, setUserId] = useState(route.params.friendId)
+  const [userFriends, setUserFriends] = useState(route.params.userFriends)
+
   const [user, setUser] = useState(null)
+  const [friends, setFriends] = useState(null)
 
   const navigation = useNavigation();
 
@@ -157,13 +160,13 @@ const FriendProfile = ({route}) => {
 //       }
 //   }
 
-//   let friendsFound = false;
+  let friendsFound = false;
 
   useEffect(()=>{
     if (dataFetchedRef.current) return;
-    //    if(!friendsFound){
+       if(!friendsFound){
         getUserFriends()
-    //    }
+       }
   })
 
   const getUserFriends = async ()=>{
@@ -173,29 +176,52 @@ const FriendProfile = ({route}) => {
         .then(function (res) {
               setName(res.data.name)
               setEmail(res.data.email)
+              setFriends(res.data.friends)
+
+              const tempFriends = [];
+                for (let i = 0; i < res.data.friends.length; i++) {
+                    for (let j = 0; j < userFriends.length; j++) {
+                        if(res.data.friends[i] == userFriends[j]._id){
+                            tempFriends.push(res.data.friends[i])
+                        }
+                    }
+                }
+                getUserNames(tempFriends)
         })
         .catch(function (err) {
             // handle error
             console.log("error: "+err.message);
         });
     //   }
+    // const tempFriends = [];
+    // for (let i = 0; i < friends.length; i++) {
+    //     for (let j = 0; j < userFriends.length; j++) {
+    //         if(friends[i] == userFriends[j._id]){
+    //             tempFriends.push(friends[i])
+    //         }
+    //     }
+    // }
+    // setTab3Data(tempFriends)
+    // console.log(tab3Data)
+    // friendsFound=true
   }
 
-//   const getUserNames = async(data)=>{
-//     const friends = [];
-//     for(var i = 0; i<data.length; i++){
-//       await axios
-//         .get(`${baseURL}findUser/${data[i]}`)
-//         .then(function (res) {
-//             friends.push(res.data)
-//         })
-//         .catch(function (err) {
-//             // handle error
-//             console.log("error: "+err.message);
-//         });
-//     }
-//     setTab3Data(friends)
-//   }
+  const getUserNames = async(data)=>{
+    const friendsTemp = [];
+    for(var i = 0; i<data.length; i++){
+      await axios
+        .get(`${baseURL}findUser/${data[i]}`)
+        .then(function (res) {
+            friendsTemp.push(res.data)
+        })
+        .catch(function (err) {
+            // handle error
+            console.log("error: "+err.message);
+        });
+    }
+    setTab3Data(friendsTemp)
+    friendsFound=true
+  }
 
   useEffect(() => {
     scrollY.addListener(({value}) => {

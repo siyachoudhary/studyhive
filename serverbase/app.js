@@ -372,6 +372,7 @@ app.get("/findUser/:_id", (request, response) => {
         name: user.name,
         email: user.email,
         _id: user._id,
+        friends: user.friends
     });
     })
     .catch((e) => {
