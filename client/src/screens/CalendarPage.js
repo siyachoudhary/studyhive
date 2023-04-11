@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import { Alert, StyleSheet, Text, View, TouchableOpacity, Pressable, Dimensions} from "react-native"
-import { Agenda } from "react-native-calendars"
+import { Agenda, DateData, AgendaEntry, AgendaSchedule } from "react-native-calendars"
 import testIDs from "../testIDs"
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -9,11 +9,22 @@ const date1 = new Date();
 let dayy = date1.getDate() + 1;
 let month = date1.getMonth() + 1;
 let year = date1.getFullYear();
-let arr = {"2023-03-18": [{"day": "2023-03-18", "name": "Computer Science Project Due"}], "2023-03-17": [{"day": "2023-03-17", "name": "Work On Debate Speeches"}, {"day": "2023-03-17", "name": "Math Homework Due"}], "2023-03-19": [{"day": "2023-03-19","name": "English Prospectus"}]
+let arr = {"2023-04-09": [{"day": "2023-04-09", "name": "Computer Science Project Due"}], "2023-04-10": [{"day": "2023-04-10", "name": "Work On Debate Speeches"}, {"day": "2023-04-10", "name": "Math Homework Due"}], "2023-04-12": [{"day": "2023-04-12","name": "English Prospectus"}]
 };
 let userObject;
 console.log(Object.keys(arr).length);
+
 export default class CalendarPage extends Component {
+
+  navigationSubscription;
+
+  // componentDidMount() {
+  //   // Fetch initial data and add navigation listener
+  //   // ...
+
+  //   this.navigationSubscription = this.props.navigation.addListener('didFocus', this.onFocus);
+  // }
+
   state = {
     items: undefined
   }
@@ -51,13 +62,13 @@ export default class CalendarPage extends Component {
 
   render() {
     return (
-      <View style={{flex: 1 }} >
+      <View style={{flex: 1}} >
         <Agenda
           testID={testIDs.agenda.CONTAINER}
           items={this.state.items}
           loadItemsForMonth={this.loadItems}
           selected={`${year}-${month}-${dayy}`}
-          renderEmptyDate={this.renderEmptyDate}
+          renderEmptyDate={this.renderEmptyDate.bind(this)}
           renderItem={this.renderItem}
           rowHasChanged={this.rowHasChanged}
           // markingType={'period'}
@@ -138,8 +149,9 @@ export default class CalendarPage extends Component {
           })
   }
 
-  loadItems = day => {
+  loadItems = date => {
     console.log("rerendering");
+    console.log(date.month);
 
     this.retrieveData()
     const items = this.state.items || {}
@@ -179,7 +191,7 @@ export default class CalendarPage extends Component {
     return (
       <TouchableOpacity
         testID={testIDs.agenda.ITEM}
-        style={[styles.item, { height:50}]}
+        style={[styles.item, { height:reservation.height}]}
         onPress={() => Alert.alert(reservation.name)}
       >
         <Text style={{fontSize, color, fontFamily: 'Mohave-Medium'}}>{reservation.name}</Text>
@@ -191,19 +203,19 @@ export default class CalendarPage extends Component {
     const fontSize = 18;
     const color = "black";
 
-    return (
-      <TouchableOpacity
-        testID={testIDs.agenda.ITEM}
-        style={[styles.item, { height:50}]}
-        onPress={() => Alert.alert('reservation.name')}
-      >
-        <Text style={{fontSize, color, fontFamily: 'Mohave-Medium'}}>{'hello'}</Text>
-      </TouchableOpacity>
-    )
+    // return (
+    //   <TouchableOpacity
+    //     testID={testIDs.agenda.ITEM}
+    //     style={[styles.item, { height:50}]}
+    //     onPress={() => Alert.alert('reservation.name')}
+    //   >
+    //     <Text style={{fontSize, color, fontFamily: 'Mohave-Medium'}}>{'bffr'}</Text>
+    //   </TouchableOpacity>
+    // )
   }
 
   rowHasChanged = (r1, r2) => {
-    return r1.name !== r2.name
+    return r1 !== r2
   }
 
   timeToString(time) {
