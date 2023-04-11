@@ -33,7 +33,7 @@ export default function WaitingToJoinView() {
           marginTop: 28,
         }}
       >
-        Joining a Room
+        Entering Room
       </Text>
     </View>
   );
