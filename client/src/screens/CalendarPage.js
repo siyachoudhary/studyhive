@@ -122,7 +122,6 @@ export default class CalendarPage extends Component {
               console.log(userObject);
               console.log(Object.keys(arr).length)
               for (let i = 0; i < Object.keys(arr).length; i++) {
-                console.log(i + 'hello')
                 // console.log(arr[Object.keys(arr)[i]][0].day);
                 // console.log(arr[Object.keys(arr)[0]][0]);
                 let daynum = arr[Object.keys(arr)[i]][0].day;
