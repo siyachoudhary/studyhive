@@ -129,6 +129,17 @@ const Settings = () => {
         <View style={styles.backGround}>
             <Text style={styles.header}>EDIT INFORMATION</Text>
 
+            <Pressable 
+                style={({pressed}) => [
+                {
+                    backgroundColor: pressed ? '#EDA73A': '#ffab00',
+                },
+                styles.button]} 
+                onPress={handleSubmit(submit)}
+                >
+            <Text style={styles.buttonTextUpload}> UPLOAD USER IMAGE </Text>
+          </Pressable>
+
             <Text style={styles.text}>NAME:</Text>
             <Controller
             control={control}
@@ -198,6 +209,14 @@ const styles = StyleSheet.create({
       marginHorizontal: SCREENHEIGHT/9,
       marginTop: SCREENHEIGHT/45,
     },
+    buttonTextUpload: {
+        fontFamily:'Mohave-Bold',
+        fontSize: 13,
+        fontWeight: 'bold',
+        // lineHeight: 25,
+        letterSpacing: 1,
+        color: '#303030',
+      },
     header: {
       fontFamily:'Mohave-Bold',
       fontSize: 45,
