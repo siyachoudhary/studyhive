@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 
 import axios from "axios";
 import {StyleSheet, View, Dimensions, Text, Pressable, TextInput, Button, Image} from "react-native";
@@ -14,10 +14,6 @@ var ImagePicker = require('react-native-image-picker');
 
     // const baseURL = "http://localhost:3000"
     const baseURL = "http://192.168.1.122:3000/"
-    
-    const [name, setName] = useState("")
-    const [email, setEmail] = useState("")
-    const [user, setUser] = useState("")
 
 const Settings = () => {
 
@@ -25,6 +21,7 @@ const Settings = () => {
 
     const [nameErr, setNameErr] = useState("")
     const [emailErr, setEmailErr] = useState("")
+    const dataFetchedRef = useRef(false);
 
     const {control, handleSubmit, errors, reset} = useForm({
         'name': "",
@@ -65,12 +62,14 @@ const Settings = () => {
         .post(`${baseURL}updateUser/${email}`, {
             name: nameUpdate,
             email: emailUpdate.toLowerCase(),
+            userId: user._id
         })
         .then(function (response) {
             // handle success
             // console.log(JSON.stringify(response.data));
             setEmailErr("")
             setNameErr("")
+            console.log(response.data)
             storeData(JSON.stringify(response.data))
             navigation.navigate("profileScreen")
         })
@@ -81,7 +80,9 @@ const Settings = () => {
             reset()        
     }
 
-    
+    const [name, setName] = useState("")
+    const [email, setEmail] = useState("")
+    const [user, setUser] = useState("")
 
     async function retrieveData(){
         try {
@@ -89,12 +90,15 @@ const Settings = () => {
             const obj = JSON.parse(value);
             if(value !== null) {
               setUser(obj)
+              dataFetchedRef.current=true
+              console.log(obj)
             }
           } catch(e) {
             console.log(e.message)
           }
       }
       useEffect(()=>{
+        // if (dataFetchedRef.current) return;
         retrieveData()
         setName(user.name)
         setEmail(user.email)
@@ -133,20 +137,7 @@ const Settings = () => {
     return (
         <View style={styles.backGround}>
             <Text style={styles.header}>EDIT INFORMATION</Text>
-            <ImageUpload/>
-            {/* <TouchableOpacity style={styles.uploadBtn} onPress={this.handleChoosePhoto}>
-                <Text style={{textAlign:'center', color:'white', fontFamily:'Mohave-Bold', fontSize:15}}>Upload Profile Image</Text>
-            </TouchableOpacity> */}
-            {/* <Pressable 
-                style={({pressed}) => [
-                {
-                    backgroundColor: pressed ? '#EDA73A': '#ffab00',
-                },
-                styles.button]} 
-                onPress={handleSubmit(submit)}
-                >
-            <Text style={styles.buttonTextUpload}> UPLOAD USER IMAGE </Text>
-          </Pressable> */}
+            <ImageUpload userIdProp={user._id}/>
 
             <Text style={styles.text}>NAME:</Text>
             <Controller
@@ -285,7 +276,7 @@ const styles = StyleSheet.create({
 export default Settings;
 
 
-class ImageUpload extends React.Component {
+class ImageUpload extends React.Component{
     state = {
       photo: null,
     }
@@ -307,11 +298,12 @@ class ImageUpload extends React.Component {
     handleUpload = () => {
         fetch(`${baseURL}api/upload`, {
           method: "POST",
-          body: createFormData(this.state.photo, { userId: user.id })
+          body: createFormData(this.state.photo, { userId: this.props.userIdProp })
         })
           .then(response => response.json())
           .then(response => {
-            console.log("upload succes", response);
+            console.log("upload success", response);
+            // profileImgChanged = response
             alert("Upload success!");
             this.setState({ photo: null });
           })

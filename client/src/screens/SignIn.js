@@ -56,6 +56,7 @@ const SignIn = () => {
             console.log(JSON.stringify(response.data));
             setEmailErr("")
             setPassErr("")
+            console.log(response.data)
             storeData(JSON.stringify(response.data))
             navigation.navigate("HomeFirst")
             reset()
@@ -81,7 +82,7 @@ const SignIn = () => {
     const storeData = async (value) => {
         try {
           await AsyncStorage.setItem('user', value)
-          console.log("stored data")
+          console.log(value)
         } catch (e) {
           // saving error
           console.log(e.message)

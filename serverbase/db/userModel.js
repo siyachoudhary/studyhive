@@ -30,10 +30,9 @@ const UserSchema = new mongoose.Schema({
       pendingReqs:{
         type: Array
       },
-      img:
+      imgProfile:
     {
-        data: Buffer,
-        contentType: String
+        type:String
     }
 
     

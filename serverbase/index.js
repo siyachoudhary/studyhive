@@ -1,10 +1,13 @@
 const Express = require('express')
 const multer = require('multer')
 const bodyParser = require('body-parser')
+const User = require("./db/userModel");
 
 const http = require('http');
 const app = require('./app');
 app.use(bodyParser.json())
+
+app.use("/images", Express.static('images'))
 
 const Storage = multer.diskStorage({
   destination(req, file, callback) {
@@ -22,12 +25,25 @@ app.get('/', (req, res) => {
 })
 
 app.post('/api/upload', upload.array('photo', 3), (req, res) => {
-  console.log('file', req.files)
-  console.log('body', req.body)
-  res.status(200).json({
-    message: 'success!',
+  // console.log('file', req.files)
+  // console.log('body', req.body)
+  // console.log('Id', req.body.userId)
+  // console.log('filename', req.files[0].filename)
+  User.updateOne({ _id: req.body.userId}, {imgProfile: req.files[0].filename},) 
+  .then((user) => {
+    
+      res.status(200).json({
+        message: req.files[0].filename,
+      })
+    })
+    .catch((e) => {
+      console.log(e)
+      response.status(404).send({
+        message: "Image Failed to Upload",
+        e,
+      });
+    });
   })
-})
 
 const normalizePort = val => {
   const port = parseInt(val, 10);

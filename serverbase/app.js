@@ -55,10 +55,10 @@ app.post("/register", (request, response) => {
         // return success if the new user is added to the database successfully
         .then((result) => {
           response.status(201).send({
-            message: "User Created Successfully",
             email: request.body.email,
             name: request.body.name,
-            _id: result._id
+            _id: result._id,
+            profile: user.imgProfile
           });
         })
         // catch error if the new user wasn't added successfully to the database
@@ -114,10 +114,10 @@ app.post("/login", (request, response) => {
           console.log(user)
           //   return success response
           response.status(200).send({
-            message: "Login Successful",
             email: user.email,
             name: user.name,
             _id: user._id,
+            profile: user.imgProfile,
             token,
           });
         })
@@ -152,12 +152,26 @@ app.post("/updateUser/:email", (request, response) => {
         { expiresIn: "24h" }
       );
 
+      User.findOne({ email: request.params.email }) 
+    .then((user) => {
+
       response.status(200).send({
         message: "data stored successfully",
         email: request.body.email,
         name: request.body.name,
+        _id:request.body.userId,
+        profile: user.imgProfile,
         token,
       });
+    })
+    .catch((e) => {
+      console.log(e)
+      response.status(404).send({
+        message: "user not found, proceed",
+        e,
+      });
+    });
+
     })
     .catch((e) => {
       console.log(e)

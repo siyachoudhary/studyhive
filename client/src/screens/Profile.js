@@ -37,6 +37,7 @@ const Profile = () => {
   
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
+  const [profileImg, setProfileImg] = useState("")
   const [user, setUser] = useState(null)
 
   const navigation = useNavigation();
@@ -149,6 +150,12 @@ const Profile = () => {
           setUser(obj)
           setName(user.name)
           setEmail(user.email)
+          setProfileImg(user.profile)
+
+          // console.log(obj)
+          
+          // console.log(profileImg)
+          // console.log(obj)
         }
       } catch(e) {
         console.log(e.message)
@@ -302,7 +309,7 @@ const Profile = () => {
             <Image source={require('../assets/images/settingsIcon.png')} style={styles.smallimage}></Image>
           </Pressable>
         </View>
-        <Image source={require('../assets/images/blankProfile.png')} style={styles.image}></Image>
+        <Image source={{uri:`${baseURL}images/${profileImg}`}} style={styles.image}></Image>
         <Text style={styles.headertext}>{name}</Text>
         <Text style={styles.text}>{email}</Text>
       </Animated.View>
