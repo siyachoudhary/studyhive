@@ -3,6 +3,7 @@ import { Alert, StyleSheet, Text, View, TouchableOpacity, Pressable, Dimensions}
 import { Agenda, DateData, AgendaEntry, AgendaSchedule } from "react-native-calendars"
 import testIDs from "../testIDs"
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNavigation } from "@react-navigation/native";
 
 const SCREENHEIGHT = Dimensions.get('window').height;
 const date1 = new Date();
@@ -16,14 +17,21 @@ console.log(Object.keys(arr).length);
 
 export default class CalendarPage extends Component {
 
-  navigationSubscription;
+  componentDidMount() {
+    const { navigation } = this.props;
+    this.focusUnsubscriber = navigation.addListener('focus', () => {
+          this.fetchData();
+    });
+  }
 
-  // componentDidMount() {
-  //   // Fetch initial data and add navigation listener
-  //   // ...
+  componentWillUnmount() {
+    this.focusUnsubscriber();
+  }
 
-  //   this.navigationSubscription = this.props.navigation.addListener('didFocus', this.onFocus);
-  // }
+  fetchData() {
+    console.log('WHY WONT THIS WORKKKKKKKKKKKKK')
+    this.retrieveData(true);
+  }
 
   state = {
     items: undefined
@@ -61,6 +69,7 @@ export default class CalendarPage extends Component {
   // };
 
   render() {
+    console.log('RENDERING RAHHHHH')
     return (
       <View style={{flex: 1}} >
         <Agenda
@@ -115,7 +124,7 @@ export default class CalendarPage extends Component {
     )
   }
 
-  retrieveData = () => {
+  retrieveData = rerender => {
     AsyncStorage.getItem("newTask").then(value => {
            if(value != null){
               userObject = JSON.parse(value);
@@ -141,6 +150,9 @@ export default class CalendarPage extends Component {
                 day: userObject.date
               })
               console.log(arr)
+              if(rerender){
+                this.loadItems();
+              }
            }
          })
           .catch(err => {
@@ -150,9 +162,9 @@ export default class CalendarPage extends Component {
 
   loadItems = date => {
     console.log("rerendering");
-    console.log(date.month);
+    console.log(date);
 
-    this.retrieveData()
+    this.retrieveData(false)
     const items = this.state.items || {}
 
     setTimeout(() => {
@@ -200,8 +212,13 @@ export default class CalendarPage extends Component {
 
   renderEmptyDate = () => {
     const fontSize = 18;
-    const color = "black";
+    const color = "white";
 
+    return(      
+      <View style={styles.emptyDate}>
+        <Text style={{fontSize, color, fontFamily: 'Mohave-Medium'}}>You Have No Future Events</Text>
+      </View>
+    );
     // return (
     //   <TouchableOpacity
     //     testID={testIDs.agenda.ITEM}
@@ -233,7 +250,8 @@ const styles = StyleSheet.create({
     marginTop: 17
   },
   emptyDate: {
-    backgroundColor: "white",
+    alignItems: 'center',
+    justifyContent: 'center',
     flex: 1,
     borderRadius: 5,
     padding: 10,
