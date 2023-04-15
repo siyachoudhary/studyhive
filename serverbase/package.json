@@ -17,6 +17,7 @@
     "jsonwebtoken": "^9.0.0",
     "mongood": "^0.0.5",
     "mongoose": "^7.0.2",
+    "multer": "^1.4.5-lts.1",
     "node": "^19.8.1",
     "nodeman": "^1.1.2",
     "run": "^1.4.0"

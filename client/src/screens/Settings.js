@@ -1,22 +1,21 @@
 import React, {useState, useEffect} from 'react';
 
 import axios from "axios";
-import {StyleSheet, View, Dimensions, Text, Pressable, TextInput} from "react-native";
+import {StyleSheet, View, Dimensions, Text, Pressable, TextInput, Button, Image} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import {useForm, Controller} from "react-hook-form"
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { Image } from 'react-native-svg';
-import Button from '../components/Button';
 
 const SCREENHEIGHT = Dimensions.get('window').height;
 const SCREENWIDTH = Dimensions.get('window').width;
 var ImagePicker = require('react-native-image-picker');
 
-const Settings = () => {
     // const baseURL = "http://localhost:3000"
-    const baseURL = "http://192.168.1.22:3000/"
+    const baseURL = "http://192.168.1.122:3000/"
+
+const Settings = () => {
 
     const navigation = useNavigation();
 
@@ -293,31 +292,67 @@ class ImageUpload extends React.Component {
       const options = {
         noData: true,
       }
+      console.log("choosing photo")
       ImagePicker.launchImageLibrary(options, response => {
-        if (response.uri) {
-          this.setState({ photo: response })
+        // console.log(response)
+        console.log(response)
+        if (response) {
+          this.setState({ photo: response.assets[0] })
         }
       })
-      console.log(photo)
     }
+
+    handleUpload = () => {
+        fetch(`${baseURL}api/upload`, {
+          method: "POST",
+          body: createFormData(this.state.photo, { userId: "123" })
+        })
+          .then(response => response.json())
+          .then(response => {
+            console.log("upload succes", response);
+            alert("Upload success!");
+            this.setState({ photo: null });
+          })
+          .catch(error => {
+            console.log("upload error", error);
+            alert("Upload failed!");
+          });
+      };
+
+    
   
     render() {
-      const { photo } = this.state
-      return (
-        <View
-        //  style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
-         >
-          {photo && (
-            <Image
-              source={{ uri: photo.uri }}
-              style={{ width: 300, height: 300 }}
-            />
-          )}
-          <TouchableOpacity style={styles.uploadBtn} onPress={this.handleChoosePhoto}>
-                <Text style={{textAlign:'center', color:'white', fontFamily:'Mohave-Bold', fontSize:15}}>Upload Profile Image</Text>
-            </TouchableOpacity>
-          {/* <Button title="Choose Photo" onPress={this.handleChoosePhoto} /> */}
-        </View>
-      )
+        const { photo } = this.state
+        return (
+          <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+            {photo && (
+              <React.Fragment>
+                <Image
+                  source={{ uri: photo.uri }}
+                  style={{ width: 150, height: 150, borderRadius:150/2 }}
+                />
+                <Button title="Upload" onPress={this.handleUpload} />
+              </React.Fragment>
+            )}
+            <Button title="Choose Photo" onPress={this.handleChoosePhoto} />
+          </View>
+        )
+      }
     }
-  }
+
+  const createFormData = (photo, body) => {
+    const data = new FormData();
+  
+    data.append("photo", {
+      name: photo.fileName,
+      type: photo.type,
+      uri:
+        Platform.OS === "android" ? photo.uri : photo.uri.replace("file://", "")
+    });
+  
+    Object.keys(body).forEach(key => {
+      data.append(key, body[key]);
+    });
+  
+    return data;
+  };
