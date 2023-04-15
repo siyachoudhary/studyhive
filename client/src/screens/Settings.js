@@ -6,6 +6,7 @@ import { useNavigation } from "@react-navigation/native";
 import {useForm, Controller} from "react-hook-form"
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const SCREENHEIGHT = Dimensions.get('window').height;
 const SCREENWIDTH = Dimensions.get('window').width;
@@ -128,8 +129,10 @@ const Settings = () => {
     return (
         <View style={styles.backGround}>
             <Text style={styles.header}>EDIT INFORMATION</Text>
-
-            <Pressable 
+            <TouchableOpacity style={styles.uploadBtn}>
+                <Text style={{textAlign:'center', color:'white', fontFamily:'Mohave-Bold', fontSize:15}}>Upload Profile Image</Text>
+            </TouchableOpacity>
+            {/* <Pressable 
                 style={({pressed}) => [
                 {
                     backgroundColor: pressed ? '#EDA73A': '#ffab00',
@@ -138,7 +141,7 @@ const Settings = () => {
                 onPress={handleSubmit(submit)}
                 >
             <Text style={styles.buttonTextUpload}> UPLOAD USER IMAGE </Text>
-          </Pressable>
+          </Pressable> */}
 
             <Text style={styles.text}>NAME:</Text>
             <Controller
@@ -182,7 +185,7 @@ const Settings = () => {
           </Pressable>
 
           <Pressable onPress={logout}>
-                <Text style={[styles.text, {textAlign: "center", fontSize: 20,  marginTop: SCREENHEIGHT/4}]}>LOGOUT</Text>
+                <Text style={[styles.text, {textAlign: "center", fontSize: 20,  marginTop: 30}]}>LOGOUT</Text>
             </Pressable>   
 
             <Pressable onPress={deleteProfile}>
@@ -197,7 +200,10 @@ const styles = StyleSheet.create({
       resizeMode: 'cover',
       height: SCREENHEIGHT,
       width: SCREENWIDTH,
-      backgroundColor: "#2F2F2F"
+      backgroundColor: "#2F2F2F",
+    //   justifyContent:'center',
+    //   alignItems:'center',
+    //   width:'100%'
     },
     button: {
       alignItems: 'center',
@@ -244,7 +250,7 @@ const styles = StyleSheet.create({
         fontFamily:'Mohave-Light',
         fontSize: 20,
         color: '#FFFFFF',
-        marginTop: SCREENHEIGHT/60,   
+        // marginTop: SCREENHEIGHT/60,   
         marginHorizontal: SCREENHEIGHT/20,
     }, 
     buttonText: {
@@ -255,6 +261,20 @@ const styles = StyleSheet.create({
         letterSpacing: 1,
         color: '#303030',
     },
+    uploadBtn:{
+        height:125,
+        width:125,
+        alignSelf:'center',
+        borderRadius:125/2,
+        justifyContent:'center',
+        alignItems:'center',
+        // backgroundColor:'gray',
+        borderStyle:'dashed',
+        borderWidth: 1, 
+        borderColor:'white',
+        margin:25,
+        padding:10
+    }
 });
 
 export default Settings;
