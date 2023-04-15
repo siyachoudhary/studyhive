@@ -14,6 +14,10 @@ var ImagePicker = require('react-native-image-picker');
 
     // const baseURL = "http://localhost:3000"
     const baseURL = "http://192.168.1.122:3000/"
+    
+    const [name, setName] = useState("")
+    const [email, setEmail] = useState("")
+    const [user, setUser] = useState("")
 
 const Settings = () => {
 
@@ -77,9 +81,7 @@ const Settings = () => {
             reset()        
     }
 
-    const [name, setName] = useState("")
-    const [email, setEmail] = useState("")
-    const [user, setUser] = useState("")
+    
 
     async function retrieveData(){
         try {
@@ -305,7 +307,7 @@ class ImageUpload extends React.Component {
     handleUpload = () => {
         fetch(`${baseURL}api/upload`, {
           method: "POST",
-          body: createFormData(this.state.photo, { userId: "123" })
+          body: createFormData(this.state.photo, { userId: user.id })
         })
           .then(response => response.json())
           .then(response => {
