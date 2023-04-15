@@ -37,6 +37,12 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NSPhotoLibraryUsageDescription</key>
+<string>For choosing a photo.</string>
+<key>NSCameraUsageDescription</key>
+<string>For taking a photo.</string>
+<key>NSPhotoLibraryAddUsageDescription</key>
+<string>For saving a photo.</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Camera permission description</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
@@ -48,6 +54,7 @@
 	<key>RTCScreenSharingExtension</key>
 	<string>org.reactjs.RNCodeSample.broadcastscreen</string>
 	<key>UIAppFonts</key>
+	
 	<array>
 		<string>Mohave-VariableFont_wght.ttf</string>
 		<string>Mohave-Bold.ttf</string>

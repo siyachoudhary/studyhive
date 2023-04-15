@@ -10,6 +10,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const SCREENHEIGHT = Dimensions.get('window').height;
 const SCREENWIDTH = Dimensions.get('window').width;
+var ImagePicker = require('react-native-image-picker');
 
 const Settings = () => {
     // const baseURL = "http://localhost:3000"
@@ -24,6 +25,21 @@ const Settings = () => {
         'name': "",
         'email': "",
     })
+
+    state = {
+        photo: null,
+      }
+    
+      handleChoosePhoto = () => {
+        const options = {
+          noData: true,
+        }
+        ImagePicker.launchImageLibrary(options, response => {
+          if (response.uri) {
+            this.setState({ photo: response })
+          }
+        })
+      }
 
     function submit(data){
             let nameUpdate = data.name
@@ -129,7 +145,7 @@ const Settings = () => {
     return (
         <View style={styles.backGround}>
             <Text style={styles.header}>EDIT INFORMATION</Text>
-            <TouchableOpacity style={styles.uploadBtn}>
+            <TouchableOpacity style={styles.uploadBtn} onPress={this.handleChoosePhoto}>
                 <Text style={{textAlign:'center', color:'white', fontFamily:'Mohave-Bold', fontSize:15}}>Upload Profile Image</Text>
             </TouchableOpacity>
             {/* <Pressable 
