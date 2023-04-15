@@ -7,6 +7,8 @@ import {useForm, Controller} from "react-hook-form"
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { Image } from 'react-native-svg';
+import Button from '../components/Button';
 
 const SCREENHEIGHT = Dimensions.get('window').height;
 const SCREENWIDTH = Dimensions.get('window').width;
@@ -25,21 +27,6 @@ const Settings = () => {
         'name': "",
         'email': "",
     })
-
-    state = {
-        photo: null,
-      }
-    
-      handleChoosePhoto = () => {
-        const options = {
-          noData: true,
-        }
-        ImagePicker.launchImageLibrary(options, response => {
-          if (response.uri) {
-            this.setState({ photo: response })
-          }
-        })
-      }
 
     function submit(data){
             let nameUpdate = data.name
@@ -145,9 +132,10 @@ const Settings = () => {
     return (
         <View style={styles.backGround}>
             <Text style={styles.header}>EDIT INFORMATION</Text>
-            <TouchableOpacity style={styles.uploadBtn} onPress={this.handleChoosePhoto}>
+            <ImageUpload/>
+            {/* <TouchableOpacity style={styles.uploadBtn} onPress={this.handleChoosePhoto}>
                 <Text style={{textAlign:'center', color:'white', fontFamily:'Mohave-Bold', fontSize:15}}>Upload Profile Image</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
             {/* <Pressable 
                 style={({pressed}) => [
                 {
@@ -294,3 +282,42 @@ const styles = StyleSheet.create({
 });
 
 export default Settings;
+
+
+class ImageUpload extends React.Component {
+    state = {
+      photo: null,
+    }
+  
+    handleChoosePhoto = () => {
+      const options = {
+        noData: true,
+      }
+      ImagePicker.launchImageLibrary(options, response => {
+        if (response.uri) {
+          this.setState({ photo: response })
+        }
+      })
+      console.log(photo)
+    }
+  
+    render() {
+      const { photo } = this.state
+      return (
+        <View
+        //  style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
+         >
+          {photo && (
+            <Image
+              source={{ uri: photo.uri }}
+              style={{ width: 300, height: 300 }}
+            />
+          )}
+          <TouchableOpacity style={styles.uploadBtn} onPress={this.handleChoosePhoto}>
+                <Text style={{textAlign:'center', color:'white', fontFamily:'Mohave-Bold', fontSize:15}}>Upload Profile Image</Text>
+            </TouchableOpacity>
+          {/* <Button title="Choose Photo" onPress={this.handleChoosePhoto} /> */}
+        </View>
+      )
+    }
+  }
