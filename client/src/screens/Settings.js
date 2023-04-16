@@ -19,8 +19,13 @@ const Settings = () => {
 
     const navigation = useNavigation();
 
+    const [name, setName] = useState("")
+    const [email, setEmail] = useState("")
+    const [user, setUser] = useState("")
+
     const [nameErr, setNameErr] = useState("")
     const [emailErr, setEmailErr] = useState("")
+
     const dataFetchedRef = useRef(false);
 
     const {control, handleSubmit, errors, reset} = useForm({
@@ -28,7 +33,8 @@ const Settings = () => {
         'email': "",
     })
 
-    function submit(data){
+    async function submit(data){
+
             let nameUpdate = data.name
             let emailUpdate = data.email
 
@@ -38,16 +44,10 @@ const Settings = () => {
                 }
             }
 
-            // console.log(nameUpdate+" " + emailUpdate)
-            if(nameUpdate==undefined){
-                nameUpdate = name
-            }
-            if(emailUpdate==undefined){
-                emailUpdate = email
-            }
+            // console.log(nameUpdate + " " + emailUpdate)
 
-            axios
-        .post(`${baseURL}checkDuplicates/${email}`)
+         axios
+        .post(`${baseURL}checkDuplicates/${emailUpdate}`)
         .then(function (response) {
             setEmailErr("YOUR SUGGESTED EMAIL WAS BEING USED BY ANOTHER USER")
             setNameErr("")
@@ -58,7 +58,19 @@ const Settings = () => {
             console.log("no duplicates found");
         });
 
-        axios
+        if(nameUpdate==undefined){
+          nameUpdate = name
+      }
+      if(emailUpdate==undefined){
+          emailUpdate = email
+      }
+
+      console.log(photoChanged)
+      if(photoChanged){
+        handleUpload()
+      }
+
+        await axios
         .post(`${baseURL}updateUser/${email}`, {
             name: nameUpdate,
             email: emailUpdate.toLowerCase(),
@@ -80,9 +92,10 @@ const Settings = () => {
             reset()        
     }
 
-    const [name, setName] = useState("")
-    const [email, setEmail] = useState("")
-    const [user, setUser] = useState("")
+    const [photo, setPhoto] = useState(null)
+    const [photoType, setPhotoType] = useState(null)
+    const [photoFileName, setPhotoFileName] = useState(null)
+    const [photoChanged, setPhotoChanged] = useState(null)
 
     async function retrieveData(){
         try {
@@ -90,8 +103,12 @@ const Settings = () => {
             const obj = JSON.parse(value);
             if(value !== null) {
               setUser(obj)
+
+              if(photo==null){
+                setPhoto(`${baseURL}images/${obj.profile}`)
+              }
               dataFetchedRef.current=true
-              console.log(obj)
+              // console.log(obj)
             }
           } catch(e) {
             console.log(e.message)
@@ -134,11 +151,58 @@ const Settings = () => {
         });
     }
 
+    handleChoosePhoto = () => {
+      const options = {
+        noData: true,
+      }
+      console.log("choosing photo")
+      ImagePicker.launchImageLibrary(options, response => {
+        // console.log(response)
+        if (response) {
+          setPhotoChanged(true)
+          setPhotoType(response.assets[0].type)
+          setPhotoFileName(response.assets[0].fileName)
+          setPhoto(response.assets[0].uri)
+        }
+      })
+    }
+
+    handleUpload = async () => {
+        await fetch(`${baseURL}api/upload`, {
+          method: "POST",
+          body: createFormData(photo, photoType, photoFileName, { userId: user._id })
+        })
+          .then(response => response.json())
+          .then(response => {
+            console.log("upload success", response);
+            // profileImgChanged = response
+            alert("New Image Uploaded");
+            // this.setState({ photo: null });
+          })
+          .catch(error => {
+            console.log("upload error", error);
+            alert("Upload failed!");
+          });
+      };
+
     return (
         <View style={styles.backGround}>
             <Text style={styles.header}>EDIT INFORMATION</Text>
-            <ImageUpload userIdProp={user._id}/>
+            {/* <ImageUpload userIdProp={user._id} starterImage={profileImgStart}/> */}
+            <View style={{ alignItems: 'center', justifyContent: 'center' }}>
 
+            {photo && (
+              <React.Fragment>
+                <Image
+                  source={{ uri: photo }}
+                  style={{ width: 150, height: 150, borderRadius:150/2 }}
+                />
+                {/* <Button title="Upload" onPress={this.handleUpload} /> */}
+              </React.Fragment>
+            )}
+
+            <Button title="Choose Photo" onPress={this.handleChoosePhoto} />
+          </View>
             <Text style={styles.text}>NAME:</Text>
             <Controller
             control={control}
@@ -276,72 +340,85 @@ const styles = StyleSheet.create({
 export default Settings;
 
 
-class ImageUpload extends React.Component{
-    state = {
-      photo: null,
-    }
+// class ImageUpload extends React.Component{
+//     state = {
+//       photo: null,
+//     }
   
-    handleChoosePhoto = () => {
-      const options = {
-        noData: true,
-      }
-      console.log("choosing photo")
-      ImagePicker.launchImageLibrary(options, response => {
-        // console.log(response)
-        console.log(response)
-        if (response) {
-          this.setState({ photo: response.assets[0] })
-        }
-      })
-    }
+//     handleChoosePhoto = () => {
+//       const options = {
+//         noData: true,
+//       }
+//       console.log("choosing photo")
+//       ImagePicker.launchImageLibrary(options, response => {
+//         // console.log(response)
+//         console.log("starter: "+this.props.starterImage)
+//         if (response) {
+//           this.setState({ photo: response.assets[0] })
+//         }
+//       })
+//     }
 
-    handleUpload = () => {
-        fetch(`${baseURL}api/upload`, {
-          method: "POST",
-          body: createFormData(this.state.photo, { userId: this.props.userIdProp })
-        })
-          .then(response => response.json())
-          .then(response => {
-            console.log("upload success", response);
-            // profileImgChanged = response
-            alert("Upload success!");
-            this.setState({ photo: null });
-          })
-          .catch(error => {
-            console.log("upload error", error);
-            alert("Upload failed!");
-          });
-      };
+//     handleUpload = async () => {
+//         await fetch(`${baseURL}api/upload`, {
+//           method: "POST",
+//           body: createFormData(this.state.photo, { userId: this.props.userIdProp })
+//         })
+//           .then(response => response.json())
+//           .then(response => {
+//             console.log("upload success", response);
+//             // profileImgChanged = response
+//             alert("Upload success!");
+//             // this.setState({ photo: null });
+//           })
+//           .catch(error => {
+//             console.log("upload error", error);
+//             alert("Upload failed!");
+//           });
+//       };
 
     
   
-    render() {
-        const { photo } = this.state
-        return (
-          <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-            {photo && (
-              <React.Fragment>
-                <Image
-                  source={{ uri: photo.uri }}
-                  style={{ width: 150, height: 150, borderRadius:150/2 }}
-                />
-                <Button title="Upload" onPress={this.handleUpload} />
-              </React.Fragment>
-            )}
-            <Button title="Choose Photo" onPress={this.handleChoosePhoto} />
-          </View>
-        )
-      }
-    }
+//     render() {
+//         const { photo } = this.state
+//         return (
+//           <View style={{ alignItems: 'center', justifyContent: 'center' }}>
 
-  const createFormData = (photo, body) => {
+//             {initImg?
+//             <React.Fragment>
+//             <Image
+//               source={{ uri: `${baseURL}images/${this.props.starterImage}` }}
+//               style={{ width: 150, height: 150, borderRadius:150/2 }}
+//             />
+//             {/* <Button title="Upload" onPress={this.handleUpload} /> */}
+//           </React.Fragment>:null
+//           }
+          
+
+//             {photo && (
+//               <React.Fragment>
+//                 <Image
+//                   source={{ uri: photo.uri }}
+//                   style={{ width: 150, height: 150, borderRadius:150/2 }}
+//                 />
+//                 {/* <Button title="Upload" onPress={this.handleUpload} /> */}
+//               </React.Fragment>
+//             )}
+
+//             <Button title="Choose Photo" onPress={this.handleChoosePhoto} />
+//           </View>
+//         )
+//       }
+//     }
+
+  const createFormData = (photo, photoType, photoFileName, body) => {
     const data = new FormData();
   
     data.append("photo", {
-      name: photo.fileName,
-      type: photo.type,
+      name: photoFileName,
+      type: photoType,
       uri:
-        Platform.OS === "android" ? photo.uri : photo.uri.replace("file://", "")
+        Platform.OS === "android" ? photo : photo.replace("file://", "")
     });
   
     Object.keys(body).forEach(key => {
