@@ -291,6 +291,41 @@ app.post("/addFriendReq/:_id", (request, response) => {
     });
 });
 
+
+app.post("/addBadge/:_id", (request, response) => {
+  console.log(request.body.badge)
+  User.updateOne({ _id: request.params._id}, {$push: {badges: request.body.badge}},) 
+    .then((user) => {
+          response.status(200).send({
+            message: "user badge added successfully",
+      })
+    })
+    .catch((e) => {
+      console.log(e)
+      response.status(404).send({
+        message: "Could not add badge",
+        e,
+      });
+    });
+});
+
+app.get("/getBadges/:_id", (request, response) => { 
+  User.findOne({ _id: request.params._id }) 
+    .then((user) => {
+      response.status(200).send({
+        badges: user.badges
+      });
+    })
+    .catch((e) => {
+      console.log(e)
+      response.status(404).send({
+        message: "user badges not found",
+        e,
+      });
+    });
+});
+
+
 // friends endpoint
 // add friend
 app.post("/addFriends/:_id", (request, response) => {

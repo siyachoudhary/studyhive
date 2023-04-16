@@ -9,6 +9,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const SCREENHEIGHT = Dimensions.get('window').height;
 const SCREENWIDTH = Dimensions.get('window').width;
+import signUpBadge from "../assets/images/Badges/New.png"
 
 const SignUp = () => {
     const baseURL = "http://192.168.1.122:3000/"
@@ -110,6 +111,13 @@ const SignUp = () => {
                 setPassErr("")
                 setConfirmErr("")
             storeData(JSON.stringify(response.data))
+            
+            axios.post(`${baseURL}addBadge/${response.data._id}`, {
+                badge: "../assets/images/Badges/New.png"
+            }).then(function(response){
+                console.log("badge added")
+            })
+
             navigation.navigate("HomeFirst")
             reset()
         })

@@ -31,11 +31,12 @@ const UserSchema = new mongoose.Schema({
         type: Array
       },
       imgProfile:
-    {
-        type:String
-    }
-
-    
+      {
+          type:String
+      },
+      badges:{
+        type: Array
+      }
   })
 
   module.exports = mongoose.model.Users || mongoose.model("Users", UserSchema);

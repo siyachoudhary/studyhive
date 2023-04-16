@@ -215,6 +215,7 @@ const Settings = () => {
             )}
 
             <Button title="Choose Photo" onPress={this.handleChoosePhoto} />
+
           </View>
             <Text style={styles.text}>NAME:</Text>
             <Controller

@@ -13,6 +13,7 @@ import {
   Pressable,
 } from 'react-native';
 import {TabView, TabBar} from 'react-native-tab-view';
+import { BADGE_IMAGES } from './BadgeRoutes';
 
 import axios from 'axios';
 
@@ -51,7 +52,7 @@ const Profile = () => {
     {key: 'tab3', title: 'FRIENDS'},
   ]);
   const [canScroll, setCanScroll] = useState(true);
-  const [tab1Data] = useState(Array(30).fill(0));
+  const [tab1Data, setTab1Data] = useState([]);
   const [tab2Data] = useState(Array(30).fill(0));
   const [tab3Data, setTab3Data] = useState([]);
   const dataFetchedRef = useRef(false);
@@ -151,11 +152,6 @@ const Profile = () => {
           setName(user.name)
           setEmail(user.email)
           setProfileImg(user.profile)
-
-          // console.log(obj)
-          
-          // console.log(profileImg)
-          // console.log(obj)
         }
       } catch(e) {
         console.log(e.message)
@@ -169,8 +165,23 @@ const Profile = () => {
     if (dataFetchedRef.current) return;
        if(!friendsFound){
         getUserFriends()
+        getUserBadges()
        }
   })
+
+  const getUserBadges = async () =>{
+    if(email!=""){
+      await axios
+         .get(`${baseURL}getBadges/${user._id}`)
+         .then(function (res) {
+            setTab1Data(res.data.badges)
+         })
+         .catch(function (err) {
+             // handle error
+             console.log("error: "+err.message);
+         });
+       }
+  }
 
   const getUserFriends = async ()=>{
     if(email!=""){
@@ -317,6 +328,10 @@ const Profile = () => {
   };
 
   const renderTab1Item = ({item, index}) => {
+    let imgSource = null
+    if (item === 'newBee') {
+      imgSource = BADGE_IMAGES.newBee.uri;
+    }
     return (
       <View
         style={{
@@ -324,11 +339,13 @@ const Profile = () => {
           marginLeft: index % 3 === 0 ? 0 : 10,
           width: tab1ItemSize,
           height: tab1ItemSize,
-          backgroundColor: '#aaa',
+          backgroundColor: '#4a4a4a',
           justifyContent: 'center',
           alignItems: 'center',
+          padding:5
         }}>
-        <Text>{index}</Text>
+        {/* <Text>{item}</Text> */}
+        <Image source={imgSource} style={{width:tab1ItemSize-25, height:tab1ItemSize-25}}/>
       </View>
     );
   };
