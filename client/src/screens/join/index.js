@@ -23,12 +23,17 @@ import { useFocusEffect } from "@react-navigation/native";
 import Menu from "../../components/Menu";
 import MenuItem from "../meeting/Components/MenuItem";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import axios from "axios";
 // import { ROBOTO_FONTS } from "../../styles/fonts";
 
 export default function Join({ navigation }) {
+  // const baseURL = "http://localhost:3000"
+  const baseURL = "http://192.168.1.122:3000/"
+
   const [tracks, setTrack] = useState("");
   const [micOn, setMicon] = useState(true);
   const [videoOn, setVideoOn] = useState(true);
+  const [userId, setUserId] = useState("")
   const [name, setName] = useState("");
   const [meetingId, setMeetingId] = useState("");
   const [idError, setIdError] = useState("")
@@ -45,6 +50,7 @@ export default function Join({ navigation }) {
         const obj = JSON.parse(value);
         if(value !== null) {
           setName(obj.name)
+          setUserId(obj._id)
         }
       } catch(e) {
         console.log(e.message)
@@ -328,6 +334,11 @@ export default function Join({ navigation }) {
                     let meetingId = await createMeeting({ token: token });
                     console.log("meetingID: "+meetingId)
                     disposeVideoTrack();
+                    axios.post(`${baseURL}addBadge/${userId}`, {
+                      badge: "hiveBee"
+                      }).then(function(response){
+                          console.log("badge added")
+                      })
                     navigation.navigate(SCREEN_NAMES.Meeting, {
                       name: name.trim(),
                       token: token,

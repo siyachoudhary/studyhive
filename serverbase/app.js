@@ -282,19 +282,59 @@ app.post("/addFriendReq/:_id", (request, response) => {
 
 
 app.post("/addBadge/:_id", (request, response) => {
-  User.updateOne({ _id: request.params._id}, {$push: {badges: request.body.badge}},) 
+
+  User.findOne({ _id: request.params._id }) 
     .then((user) => {
-          response.status(200).send({
-            message: "user badge added successfully",
-      })
+      let currentBadges = user.badges
+      let works = true;
+      for (let index = 0; index < currentBadges.length; index++) {
+        if(request.body.badge == currentBadges[index]){
+          works = false
+        }
+      }
+      console.log(works)
+      if(works){
+         User.updateOne({ _id: request.params._id}, {$push: {badges: request.body.badge}},) 
+        .then((user) => {
+              response.status(200).send({
+                message: "user badge added successfully",
+          })
+        })
+        .catch((e) => {
+          console.log(e)
+          response.status(404).send({
+            message: "Could not add badge",
+            e,
+          });
+        });
+      }else{
+        response.status(200).send({
+          message: "user badge already exists",
+        })
+      }
+      
     })
     .catch((e) => {
       console.log(e)
       response.status(404).send({
-        message: "Could not add badge",
+        message: "user badges not found",
         e,
       });
     });
+
+  // User.updateOne({ _id: request.params._id}, {$push: {badges: request.body.badge}},) 
+  //   .then((user) => {
+  //         response.status(200).send({
+  //           message: "user badge added successfully",
+  //     })
+  //   })
+  //   .catch((e) => {
+  //     console.log(e)
+  //     response.status(404).send({
+  //       message: "Could not add badge",
+  //       e,
+  //     });
+  //   });
 });
 
 app.get("/getBadges/:_id", (request, response) => { 

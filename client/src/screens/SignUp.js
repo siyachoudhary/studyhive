@@ -113,7 +113,7 @@ const SignUp = () => {
             storeData(JSON.stringify(response.data))
             
             axios.post(`${baseURL}addBadge/${response.data._id}`, {
-                badge: "../assets/images/Badges/New.png"
+                badge: "newBee"
             }).then(function(response){
                 console.log("badge added")
             })

@@ -341,6 +341,8 @@ const FriendProfile = ({route}) => {
     let imgSource = null
     if (item === 'newBee') {
       imgSource = BADGE_IMAGES.newBee.uri;
+    }else if (item === 'hiveBee') {
+      imgSource = BADGE_IMAGES.hiveBee.uri;
     }
     return (
       <View
@@ -355,7 +357,7 @@ const FriendProfile = ({route}) => {
           padding:5
         }}>
         {/* <Text>{item}</Text> */}
-        <Image source={imgSource} style={{width:tab1ItemSize-25, height:tab1ItemSize-25}}/>
+        <Image source={imgSource} style={{width:tab1ItemSize-10, height:tab1ItemSize-10}}/>
       </View>
     );
   };
@@ -599,10 +601,10 @@ const styles = StyleSheet.create({
     marginLeft: SCREENHEIGHT/1000,
   },
   smallimage: {
-    width: 45,
-    height: 45, 
-    marginLeft: SCREENHEIGHT/2.8,
-    top: -40
+    width: 30,
+    height: 30, 
+    marginLeft: SCREENHEIGHT/3,
+    top: -20
   },
   headertext: {
       fontFamily:'Mohave-Bold',

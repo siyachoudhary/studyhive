@@ -332,6 +332,8 @@ const Profile = () => {
     let imgSource = null
     if (item === 'newBee') {
       imgSource = BADGE_IMAGES.newBee.uri;
+    }else if (item === 'hiveBee') {
+      imgSource = BADGE_IMAGES.hiveBee.uri;
     }
     return (
       <View
@@ -343,10 +345,9 @@ const Profile = () => {
           backgroundColor: '#4a4a4a',
           justifyContent: 'center',
           alignItems: 'center',
-          padding:5
         }}>
         {/* <Text>{item}</Text> */}
-        <Image source={imgSource} style={{width:tab1ItemSize-25, height:tab1ItemSize-25}}/>
+        <Image source={imgSource} style={{width:tab1ItemSize-10, height:tab1ItemSize-10, margin:10}}/>
       </View>
     );
   };
