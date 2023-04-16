@@ -46,28 +46,41 @@ const Settings = () => {
 
             // console.log(nameUpdate + " " + emailUpdate)
 
-         axios
-        .post(`${baseURL}checkDuplicates/${emailUpdate}`)
-        .then(function (response) {
-            setEmailErr("YOUR SUGGESTED EMAIL WAS BEING USED BY ANOTHER USER")
-            setNameErr("")
-            return
+      // console.log(photoChanged)
+      if(photoChanged){
+        // handleUpload()
+        await fetch(`${baseURL}api/upload`, {
+          method: "POST",
+          body: createFormData(photo, photoType, photoFileName, { userId: user._id })
         })
-        .catch(function (err) {
-            // handle error
-            console.log("no duplicates found");
-        });
+          .then(response => response.json())
+          .then(response => {
+            console.log("upload success", response);
+            alert("New Image Uploaded");
+          })
+          .catch(error => {
+            console.log("upload error", error);
+            alert("Upload failed!");
+          });
+      }
 
-        if(nameUpdate==undefined){
-          nameUpdate = name
+      axios
+      .post(`${baseURL}checkDuplicates/${emailUpdate}`)
+      .then(function (response) {
+          setEmailErr("YOUR SUGGESTED EMAIL WAS BEING USED BY ANOTHER USER")
+          setNameErr("")
+          return
+      })
+      .catch(function (err) {
+          // handle error
+          console.log("no duplicates found");
+      });
+
+      if(nameUpdate==undefined){
+        nameUpdate = name
       }
       if(emailUpdate==undefined){
           emailUpdate = email
-      }
-
-      console.log(photoChanged)
-      if(photoChanged){
-        handleUpload()
       }
 
         await axios

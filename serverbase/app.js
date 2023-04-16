@@ -48,6 +48,7 @@ app.post("/register", (request, response) => {
         email: request.body.email,
         name: request.body.name,
         password: hashedPassword,
+        imgProfile: request.body.imgProfile
       });
 
       // save the new user
@@ -386,7 +387,8 @@ app.get("/findUser/:_id", (request, response) => {
         name: user.name,
         email: user.email,
         _id: user._id,
-        friends: user.friends
+        friends: user.friends,
+        profile: user.imgProfile
     });
     })
     .catch((e) => {

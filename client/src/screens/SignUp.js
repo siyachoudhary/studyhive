@@ -11,8 +11,8 @@ const SCREENHEIGHT = Dimensions.get('window').height;
 const SCREENWIDTH = Dimensions.get('window').width;
 
 const SignUp = () => {
-    // const baseURL = "http://192.168.1.79:3000/"
-    const baseURL = "http://localhost:3000/"
+    const baseURL = "http://192.168.1.122:3000/"
+    // const baseURL = "http://localhost:3000/"
 
     const navigation = useNavigation();
 
@@ -100,6 +100,7 @@ const SignUp = () => {
             name: name,
             email: email.toLowerCase(),
             password: password,
+            imgProfile: 'blankProfile.png'
         })
         .then(function (response) {
             // handle success

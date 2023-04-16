@@ -16,6 +16,8 @@ import {TabView, TabBar} from 'react-native-tab-view';
 
 import axios from 'axios';
 
+import placeholderImg from "../assets/images/blankProfile.png"
+
 const SCREENHEIGHT = Dimensions.get('window').height;
 const SCREENWIDTH = Dimensions.get('window').width;
 
@@ -31,10 +33,11 @@ const tab2ItemWidth = (SCREENWIDTH - 50);
 
 const FriendProfile = ({route}) => {
   // const baseURL = "http://localhost:3000"
-  const baseURL = "http://192.168.1.64:3000/"
+  const baseURL = "http://192.168.1.122:3000/"
   
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
+  const [profilePic, setProfilePic] = useState("")
   const [userId, setUserId] = useState(route.params.friendId)
   const [userFriends, setUserFriends] = useState(route.params.userFriends)
 
@@ -153,9 +156,12 @@ const FriendProfile = ({route}) => {
      await axios
         .get(`${baseURL}findUser/${userId}`)
         .then(function (res) {
+
               setName(res.data.name)
               setEmail(res.data.email)
               setFriends(res.data.friends)
+
+              setProfilePic(`${baseURL}images/${res.data.profile}`)
 
               const tempFriends = [];
                 for (let i = 0; i < res.data.friends.length; i++) {
@@ -285,7 +291,7 @@ const FriendProfile = ({route}) => {
             onPress={()=>navigation.navigate("profileScreen")} style={styles.goBack}>
             <Image source={require('../assets/images/backArrow.png')} style={styles.smallimage}></Image>
         </Pressable>
-        <Image source={require('../assets/images/blankProfile.png')} style={styles.image}></Image>
+        <Image source={{uri: profilePic}} style={styles.image}></Image>
         <Text style={styles.headertext}>{name}</Text>
         <Text style={styles.text}>{email}</Text>
       </Animated.View>

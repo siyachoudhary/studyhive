@@ -34,7 +34,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const Profile = () => {
   // const baseURL = "http://localhost:3000"
   const baseURL = "http://192.168.1.122:3000/"
-  
+
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
   const [profileImg, setProfileImg] = useState("")

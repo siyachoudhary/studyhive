@@ -12,7 +12,7 @@ const SCREENHEIGHT = Dimensions.get('window').height;
 const SCREENWIDTH = Dimensions.get('window').width;
 
 const Requests = () => {
-    const baseURL = "http://192.168.1.90:3000/"
+    const baseURL = "http://192.168.1.122:3000/"
     const navigate = useNavigation()
     const dataFetchedRef = useRef(false);
     const [user, setUser] = useState(null)
