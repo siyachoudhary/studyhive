@@ -15,7 +15,7 @@ const AddFriends = () => {
   const baseURL = "http://192.168.1.122:3000/"
   // const baseURL = "http://localhost:3000/"
   
-  const [searchTxt, setSearchTxt] = useState("")
+  const [searchTxt, setSearchTxt] = useState(".")
   
     const [list,setList] = useState([])
 
@@ -36,6 +36,11 @@ const AddFriends = () => {
             console.log(e.message)
           }
       }
+
+      useEffect(()=>{
+        setSearchTxt(".")
+        getData()
+      }, [])
 
     useEffect(()=>{
       retrieveData()

@@ -149,7 +149,7 @@ const FriendProfile = ({route}) => {
   let friendsFound = false;
 
   useEffect(()=>{
-    if (dataFetchedRef.current) return;
+    // if (dataFetchedRef.current) return;
       //  if(!friendsFound){
         getUserFriends()
         getUserBadges()
