@@ -17,6 +17,8 @@ import {TabView, TabBar} from 'react-native-tab-view';
 import axios from 'axios';
 
 import placeholderImg from "../assets/images/blankProfile.png"
+import { BADGE_IMAGES } from './BadgeRoutes';
+import Button from '../components/Button';
 
 const SCREENHEIGHT = Dimensions.get('window').height;
 const SCREENWIDTH = Dimensions.get('window').width;
@@ -38,6 +40,8 @@ const FriendProfile = ({route}) => {
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
   const [profilePic, setProfilePic] = useState("")
+  const [myId, setMyId] = useState(route.params.myId)
+
   const [userId, setUserId] = useState(route.params.friendId)
   const [userFriends, setUserFriends] = useState(route.params.userFriends)
 
@@ -56,7 +60,7 @@ const FriendProfile = ({route}) => {
     {key: 'tab3', title: 'MUTUAL FRIENDS'},
   ]);
   const [canScroll, setCanScroll] = useState(true);
-  const [tab1Data] = useState(Array(30).fill(0));
+  const [tab1Data, setTab1Data] = useState([]);
   const [tab2Data] = useState(Array(30).fill(0));
   const [tab3Data, setTab3Data] = useState([]);
   const dataFetchedRef = useRef(false);
@@ -146,10 +150,25 @@ const FriendProfile = ({route}) => {
 
   useEffect(()=>{
     if (dataFetchedRef.current) return;
-       if(!friendsFound){
+      //  if(!friendsFound){
         getUserFriends()
-       }
+        getUserBadges()
+      //  }
   })
+
+  const getUserBadges = async () =>{
+    if(email!=""){
+      await axios
+         .get(`${baseURL}getBadges/${userId}`)
+         .then(function (res) {
+            setTab1Data(res.data.badges)
+         })
+         .catch(function (err) {
+             // handle error
+             console.log("error: "+err.message);
+         });
+       }
+  }
 
   const getUserFriends = async ()=>{
     // if(userId!=""){
@@ -273,6 +292,23 @@ const FriendProfile = ({route}) => {
     syncScrollOffset();
   };
 
+  const removeFriend=()=>{
+    axios
+        .post(`${baseURL}removeFriend/${myId}`, {
+          friend: userId,
+        })
+        .then(function (response) {
+          console.log(`${userId} removed`)
+          navigation.navigate('profileScreen')
+          return
+        })
+        .catch(function (err) {
+            // handle error
+            console.log("error removing friend");
+        });
+    // console.log(friendId)
+  }
+
   /**
    * render Helper
    */
@@ -294,11 +330,19 @@ const FriendProfile = ({route}) => {
         <Image source={{uri: profilePic}} style={styles.image}></Image>
         <Text style={styles.headertext}>{name}</Text>
         <Text style={styles.text}>{email}</Text>
+        <Pressable
+            onPress={()=>removeFriend()}>
+            <Text style={[styles.text, {textAlign: "center", fontSize: 20, color:"red", marginTop: 10, marginBottom:25}]} >Remove Friend</Text>
+        </Pressable>
       </Animated.View>
     );
   };
 
   const renderTab1Item = ({item, index}) => {
+    let imgSource = null
+    if (item === 'newBee') {
+      imgSource = BADGE_IMAGES.newBee.uri;
+    }
     return (
       <View
         style={{
@@ -306,11 +350,13 @@ const FriendProfile = ({route}) => {
           marginLeft: index % 3 === 0 ? 0 : 10,
           width: tab1ItemSize,
           height: tab1ItemSize,
-          backgroundColor: '#aaa',
+          backgroundColor: '#4a4a4a',
           justifyContent: 'center',
           alignItems: 'center',
+          padding:5
         }}>
-        <Text>{index}</Text>
+        {/* <Text>{item}</Text> */}
+        <Image source={imgSource} style={{width:tab1ItemSize-25, height:tab1ItemSize-25}}/>
       </View>
     );
   };
@@ -331,25 +377,6 @@ const FriendProfile = ({route}) => {
       </View>
     );
   };
-
-  const removeFriend=(friendId)=>{
-    console.log(friendId._id)
-    axios
-        .post(`${baseURL}removeFriend/${user._id}`, {
-          friend: friendId._id,
-        })
-        .then(function (response) {
-          console.log(`${friendId._id} removed`)
-          getUserFriends()
-          friends.remove(friendId)
-          return
-        })
-        .catch(function (err) {
-            // handle error
-            console.log("error removing friend");
-        });
-    // console.log(friendId)
-  }
 
   const renderTab3Item = ({item, index}) => {
     return (
@@ -382,10 +409,7 @@ const FriendProfile = ({route}) => {
                     userFriends: userFriends
                 })
                 }
-                // onPress={FriendProfile({
-                //     friendId: item._id,
-                //     userFriends: userFriends
-                // })}
+                
                   >
               <Text style={styles.buttonText}> View </Text>
           </Pressable>
@@ -395,16 +419,6 @@ const FriendProfile = ({route}) => {
             <Text style={[{textAlign: "left", fontSize: 15}, styles.buttonText3]}>{item.email}</Text>
           </View>
 
-          {/* <Pressable 
-                  style={({pressed}) => [
-                  {
-                      backgroundColor: pressed ? '#EDA73A': '#ffab00',
-                  },
-                  styles.button]} 
-                  onPress={()=>removeFriend(item)}
-                  >
-              <Text style={styles.buttonText}> Remove Friend </Text>
-          </Pressable> */}
       </View>:null
   }
       </View>

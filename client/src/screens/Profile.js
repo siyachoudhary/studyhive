@@ -163,10 +163,10 @@ const Profile = () => {
   useEffect(()=>{
     retrieveData()
     if (dataFetchedRef.current) return;
-       if(!friendsFound){
+      //  if(!friendsFound){
         getUserFriends()
         getUserBadges()
-       }
+      //  }
   })
 
   const getUserBadges = async () =>{
@@ -418,7 +418,8 @@ const Profile = () => {
                   styles.button1]} 
                   onPress={()=>navigation.navigate("FriendProfile", {
                     friendId: item._id,
-                    userFriends: tab3Data
+                    userFriends: tab3Data,
+                    myId: user._id
                   })}
                   >
               <Text style={styles.buttonText}> View </Text>
