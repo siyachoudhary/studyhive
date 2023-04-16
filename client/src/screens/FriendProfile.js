@@ -399,10 +399,6 @@ const FriendProfile = ({route}) => {
                   },
                   styles.button1]} 
                   onPress={
-                //     ()=>navigation.navigate("FriendProfile", {
-                //     friendId: item._id,
-                //     userFriends: userFriends
-                //   })
                 ()=>navigation.push('FriendProfile', {
                     friendId: item._id,
                     userFriends: userFriends

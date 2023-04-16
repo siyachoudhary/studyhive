@@ -74,10 +74,9 @@ const Profile = () => {
 
   useEffect(() => {
     if(isFocused){
-        friendsFound=false
         dataFetchedRef.current=false
     }
-  }, [isFocused])
+}, [isFocused])
 
   /**
    * PanResponder for header
@@ -169,15 +168,11 @@ const Profile = () => {
       }
   }
 
-  let friendsFound = false;
-
   useEffect(()=>{
     retrieveData()
     if (dataFetchedRef.current) return;
-      //  if(!friendsFound){
         getUserFriends()
         getUserBadges()
-      //  }
   })
 
   const getUserBadges = async () =>{
@@ -315,12 +310,7 @@ const Profile = () => {
       <Animated.View
         {...headerPanResponder.panHandlers}
         style={[styles.header, {transform: [{translateY: y}]}]}>
-        {/* <TouchableOpacity
-          style={{flex: 1, justifyContent: 'center'}}
-          activeOpacity={1}
-          onPress={() => Alert.alert('header Clicked!')}>
-          <Text>Scrollable Header</Text>
-        </TouchableOpacity> */}
+
         <View style={{position: "absolute",top: 50}}>
           <Pressable
             onPress={()=>navigation.navigate("Requests")} style={styles.requests}>
