@@ -44,8 +44,6 @@ const Settings = () => {
                 }
             }
 
-            // console.log(nameUpdate + " " + emailUpdate)
-
       // console.log(photoChanged)
       if(photoChanged){
         // handleUpload()
@@ -128,7 +126,7 @@ const Settings = () => {
           }
       }
       useEffect(()=>{
-        // if (dataFetchedRef.current) return;
+        if (dataFetchedRef.current) return;
         retrieveData()
         setName(user.name)
         setEmail(user.email)
