@@ -149,11 +149,11 @@ const FriendProfile = ({route}) => {
   let friendsFound = false;
 
   useEffect(()=>{
-    // if (dataFetchedRef.current) return;
-      //  if(!friendsFound){
+    if (dataFetchedRef.current) return;
+       if(!friendsFound){
         getUserFriends()
         getUserBadges()
-      //  }
+       }
   })
 
   const getUserBadges = async () =>{
@@ -306,7 +306,6 @@ const FriendProfile = ({route}) => {
             // handle error
             console.log("error removing friend");
         });
-    // console.log(friendId)
   }
 
   /**

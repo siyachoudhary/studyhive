@@ -81,19 +81,15 @@ app.post("/register", (request, response) => {
 
 // login endpoint
 app.post("/login", (request, response) => {
-  console.log(request.body.email)
   // check if email exists
   User.findOne({ email: request.body.email })
-
     // if email exists
     .then((user) => {
       // compare the password entered and the hashed password found
       bcrypt
         .compare(request.body.password, user.password)
-
         // if the passwords match
         .then((passwordCheck) => {
-
           // check if password matches
           if(!passwordCheck) {
             return response.status(400).send({
@@ -101,7 +97,6 @@ app.post("/login", (request, response) => {
               error,
             });
           }
-
           //   create JWT token
           const token = jwt.sign(
             {
@@ -111,8 +106,6 @@ app.post("/login", (request, response) => {
             "RANDOM-TOKEN",
             { expiresIn: "24h" }
           );
-
-          console.log(user)
           //   return success response
           response.status(200).send({
             email: user.email,
@@ -223,7 +216,6 @@ app.post("/deleteUser/:email", (request, response) => {
 app.get("/getUsers/:emailStr", (request, response) => { 
   User.find({$or: [{name: {$regex: request.params.emailStr, $options: "i"}}, {email: {$regex: request.params.emailStr, $options: "i"}}]})
     .then((user) => {
-      console.log(user)
       response.status(200).send({
         users: user
       });
@@ -270,9 +262,6 @@ app.get("/getPendings/:_id", (request, response) => {
 });
 
 app.post("/addFriendReq/:_id", (request, response) => {
-  // request.params._id is the person who the friend request is being sent to
-  // request.body.friendReq is the id of the person sending request
-  console.log(request.params._id + " adding "+request.body.friendReq)
   User.updateOne({ _id: request.params._id}, {$push: {friendReqs: request.body.friendReq}},) 
     .then((user) => {
       User.updateOne({ _id: request.body.friendReq}, {$push: {pendingReqs: request.params._id}},) 
@@ -293,7 +282,6 @@ app.post("/addFriendReq/:_id", (request, response) => {
 
 
 app.post("/addBadge/:_id", (request, response) => {
-  console.log(request.body.badge)
   User.updateOne({ _id: request.params._id}, {$push: {badges: request.body.badge}},) 
     .then((user) => {
           response.status(200).send({

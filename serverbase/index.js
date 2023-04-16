@@ -25,10 +25,6 @@ app.get('/', (req, res) => {
 })
 
 app.post('/api/upload', upload.array('photo', 3), (req, res) => {
-  // console.log('file', req.files)
-  // console.log('body', req.body)
-  // console.log('Id', req.body.userId)
-  // console.log('filename', req.files[0].filename)
   User.updateOne({ _id: req.body.userId}, {imgProfile: req.files[0].filename},) 
   .then((user) => {
     

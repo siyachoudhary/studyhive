@@ -30,6 +30,8 @@ const tab1ItemSize = (SCREENWIDTH - 40) / 3;
 const tab2ItemHeight = (SCREENWIDTH - 50) / 5;
 const tab2ItemWidth = (SCREENWIDTH - 50);
 
+import { useIsFocused } from '@react-navigation/native'
+
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Profile = () => {
@@ -67,6 +69,15 @@ const Profile = () => {
   const isListGliding = useRef(false);
   const headerScrollStart = useRef(0);
   const _tabIndex = useRef(0);
+
+  const isFocused = useIsFocused()
+
+  useEffect(() => {
+    if(isFocused){
+        friendsFound=false
+        dataFetchedRef.current=false
+    }
+  }, [isFocused])
 
   /**
    * PanResponder for header
