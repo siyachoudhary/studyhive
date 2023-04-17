@@ -172,7 +172,22 @@ export default class CalendarPage extends Component {
         let initialDay = arr[Object.keys(arr)[i]][0].day;
         // console.log(arr[initialDay][0].name);
 
+        // this.canAdd(items[initialDay], arr[Object.keys(arr)[i]])
+        console.log(items[initialDay])
+        console.log(arr[initialDay])
+        // console.log(this.canAdd(items[initialDay], arr[Object.keys(arr)[i]]))
         if (!items[initialDay]) {
+          items[initialDay] = []
+
+          for (let j = 0; j < arr[initialDay].length; j++) {
+            items[initialDay].push({
+              name: arr[initialDay][j].name,
+              height: 50,
+              day: arr[initialDay][j].day
+            })
+          }
+        } 
+        else if (this.canAdd(items[initialDay], arr[Object.keys(arr)[i]])){
           items[initialDay] = []
 
           for (let j = 0; j < arr[initialDay].length; j++) {
@@ -185,6 +200,7 @@ export default class CalendarPage extends Component {
         }
       }
 
+      // console.log(items)
       const newItems = {}
       Object.keys(items).forEach(key => {
         newItems[key] = items[key]
@@ -193,6 +209,18 @@ export default class CalendarPage extends Component {
         items: newItems
       })
     }, 1000)
+  }
+
+  canAdd = (arr1, arr2) => {
+      for(let i = 0; i < arr2.length; i++) {
+        for(let j = 0; j < arr1.length; j++) {
+            if(arr2[i].name == arr1[j].name && arr2.length == arr1.length){
+              console.log('FALSE')
+              return false;
+            }
+        }
+      }
+      return true;
   }
 
   renderItem = (reservation) => {
