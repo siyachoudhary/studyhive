@@ -12,11 +12,9 @@ const date1 = new Date();
 let dayy = date1.getDate() + 1;
 let month = date1.getMonth() + 1;
 let year = date1.getFullYear();
-let arr = {"2023-04-09": [{"day": "2023-04-09", "name": "Computer Science Project Due"}], "2023-04-10": [{"day": "2023-04-10", "name": "Work On Debate Speeches"}, {"day": "2023-04-10", "name": "Math Homework Due"}], "2023-04-12": [{"day": "2023-04-12","name": "English Prospectus"}]
-};
+let arr = {};
 let userObject;
 let newArr;
-console.log(Object.keys(arr).length);
 
 export default class CalendarPage extends Component {
 
@@ -40,6 +38,7 @@ export default class CalendarPage extends Component {
     try {
       await AsyncStorage.setItem('recentArray', value)
       console.log("stored array")
+      console.log(JSON.parse(value))
       this.loadArray()
     } catch (e) {
       // saving error
@@ -47,7 +46,7 @@ export default class CalendarPage extends Component {
     }
   }
 
-  loadArray() {
+  async loadArray() {
     AsyncStorage.getItem("recentArray").then(value => {
       if(value != null){
         arr = JSON.parse(value);
@@ -158,12 +157,12 @@ export default class CalendarPage extends Component {
   }
 
   retrieveData = rerender => {
+    this.loadArray();
     AsyncStorage.getItem("newTask").then(value => {
            if(value != null){
               userObject = JSON.parse(value);
               console.log(userObject);
               console.log(Object.keys(arr).length)
-              this.loadArray();
               for (let i = 0; i < Object.keys(arr).length; i++) {
                 // console.log(arr[Object.keys(arr)[i]][0].day);
                 // console.log(arr[Object.keys(arr)[0]][0]);
@@ -175,7 +174,7 @@ export default class CalendarPage extends Component {
                   }
                 }
               }
-              console.log(arr[userObject.date])
+              console.log('array ' + {arr})
               if (!arr[userObject.date]) {
                 arr[userObject.date] = []
               }
@@ -183,7 +182,7 @@ export default class CalendarPage extends Component {
                 name: userObject.title,
                 day: userObject.date
               })
-              console.log(arr)
+              console.log('array ' + {arr})
               this.saveData(JSON.stringify(arr))
               if(rerender){
                 this.loadItems();
@@ -197,7 +196,6 @@ export default class CalendarPage extends Component {
 
   loadItems = date => {
     console.log("rerendering");
-    console.log(date);
 
     this.retrieveData(false)
     const items = this.state.items || {}
