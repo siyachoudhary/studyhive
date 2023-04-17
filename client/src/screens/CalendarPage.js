@@ -4,6 +4,8 @@ import { Agenda, DateData, AgendaEntry, AgendaSchedule } from "react-native-cale
 import testIDs from "../testIDs"
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from "@react-navigation/native";
+import CheckBox from '@react-native-community/checkbox';
+import EventBlock from "react-native-calendars/src/timeline/EventBlock";
 
 const SCREENHEIGHT = Dimensions.get('window').height;
 const date1 = new Date();
@@ -13,6 +15,7 @@ let year = date1.getFullYear();
 let arr = {"2023-04-09": [{"day": "2023-04-09", "name": "Computer Science Project Due"}], "2023-04-10": [{"day": "2023-04-10", "name": "Work On Debate Speeches"}, {"day": "2023-04-10", "name": "Math Homework Due"}], "2023-04-12": [{"day": "2023-04-12","name": "English Prospectus"}]
 };
 let userObject;
+let newArr;
 console.log(Object.keys(arr).length);
 
 export default class CalendarPage extends Component {
@@ -33,8 +36,38 @@ export default class CalendarPage extends Component {
     this.retrieveData(true);
   }
 
+  async saveData(value) {
+    try {
+      await AsyncStorage.setItem('recentArray', value)
+      console.log("stored array")
+      this.loadArray()
+    } catch (e) {
+      // saving error
+      console.log('error: ' + e.message)
+    }
+  }
+
+  loadArray() {
+    AsyncStorage.getItem("recentArray").then(value => {
+      if(value != null){
+        arr = JSON.parse(value);
+        console.log('loaded array')
+        console.log(arr)
+      } else {
+        arr = [];
+      }
+    }).catch(err => {
+      console.log(err.message);  
+    })
+  }
+
   state = {
-    items: undefined
+    items: undefined, 
+    value0: true,
+    value1: false,
+    value2: true,
+    value3: false,
+    value4: false
   }
 
   // useEffect(()=>{
@@ -130,6 +163,7 @@ export default class CalendarPage extends Component {
               userObject = JSON.parse(value);
               console.log(userObject);
               console.log(Object.keys(arr).length)
+              this.loadArray();
               for (let i = 0; i < Object.keys(arr).length; i++) {
                 // console.log(arr[Object.keys(arr)[i]][0].day);
                 // console.log(arr[Object.keys(arr)[0]][0]);
@@ -150,6 +184,7 @@ export default class CalendarPage extends Component {
                 day: userObject.date
               })
               console.log(arr)
+              this.saveData(JSON.stringify(arr))
               if(rerender){
                 this.loadItems();
               }
@@ -173,8 +208,8 @@ export default class CalendarPage extends Component {
         // console.log(arr[initialDay][0].name);
 
         // this.canAdd(items[initialDay], arr[Object.keys(arr)[i]])
-        console.log(items[initialDay])
-        console.log(arr[initialDay])
+        // console.log(items[initialDay])
+        // console.log(arr[initialDay])
         // console.log(this.canAdd(items[initialDay], arr[Object.keys(arr)[i]]))
         if (!items[initialDay]) {
           items[initialDay] = []
@@ -182,7 +217,7 @@ export default class CalendarPage extends Component {
           for (let j = 0; j < arr[initialDay].length; j++) {
             items[initialDay].push({
               name: arr[initialDay][j].name,
-              height: 50,
+              height: 70,
               day: arr[initialDay][j].day
             })
           }
@@ -193,7 +228,7 @@ export default class CalendarPage extends Component {
           for (let j = 0; j < arr[initialDay].length; j++) {
             items[initialDay].push({
               name: arr[initialDay][j].name,
-              height: 50,
+              height: 80,
               day: arr[initialDay][j].day
             })
           }
@@ -224,7 +259,7 @@ export default class CalendarPage extends Component {
   }
 
   renderItem = (reservation) => {
-    const fontSize = 18;
+    const fontSize = 20;
     const color = "black";
 
     return (
