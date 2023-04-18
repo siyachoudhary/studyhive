@@ -37,11 +37,6 @@ const AddFriends = () => {
           }
       }
 
-      useEffect(()=>{
-        setSearchTxt(".")
-        getData()
-      }, [])
-
     useEffect(()=>{
       retrieveData()
       if (dataFetchedRef.current) return;

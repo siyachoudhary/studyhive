@@ -39,7 +39,7 @@ const FriendProfile = ({route}) => {
   
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
-  const [profilePic, setProfilePic] = useState("")
+  const [profilePic, setProfilePic] = useState(`${baseURL}images/blankProfile.png`)
   const [myId, setMyId] = useState(route.params.myId)
 
   const [userId, setUserId] = useState(route.params.friendId)

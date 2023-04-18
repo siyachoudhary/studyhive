@@ -58,14 +58,6 @@ const InitNavigator = () => {
                   <MaterialIcons name={'person'} size={25} color={focused?'#ffab00':'white'}/>
               ),
             }}/>
-            {/* <Tab.Screen name="FriendProfile" component={FriendProfile} 
-            options={{
-              tabBarLabel: 'Friends',
-              tabBarIcon: ({ focused, color, size }) => (
-                  <MaterialIcons name={'person'} size={25} color={focused?'#ffab00':'white'}/>
-              ),
-            }}/> */}
-            {/* <Tab.Screen name="Pomodoro" component={PomodoroTimer} /> */}
             </Tab.Navigator>
     );
   }

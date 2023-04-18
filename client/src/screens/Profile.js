@@ -74,9 +74,10 @@ const Profile = () => {
 
   useEffect(() => {
     if(isFocused){
+      console.log("is focused on profile page")
         dataFetchedRef.current=false
     }
-}, [isFocused])
+  }, [isFocused])
 
   /**
    * PanResponder for header
@@ -168,11 +169,16 @@ const Profile = () => {
       }
   }
 
+  let friendsFound = false
+
   useEffect(()=>{
-    retrieveData()
     if (dataFetchedRef.current) return;
+    retrieveData()
+    if(!friendsFound){
         getUserFriends()
         getUserBadges()
+      }
+      // console.log("callback")
   })
 
   const getUserBadges = async () =>{
@@ -195,7 +201,6 @@ const Profile = () => {
         .get(`${baseURL}findFriends/${email}`)
         .then(function (res) {
               getUserNames(res.data)
-              dataFetchedRef.current = true;
         })
         .catch(function (err) {
             // handle error
@@ -211,6 +216,8 @@ const Profile = () => {
         .get(`${baseURL}findUser/${data[i]}`)
         .then(function (res) {
             friends.push(res.data)
+            dataFetchedRef.current = true;
+            friendsFound = true
         })
         .catch(function (err) {
             // handle error
