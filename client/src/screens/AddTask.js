@@ -32,13 +32,20 @@ const AddTask = () => {
         'doRemind': false,
     })
 
-    const data = [
+    const data2 = [
+        //blue
         { label: 'Work', value: '1' },
+        //orange
         { label: 'Exercise', value: '2' },
+        //yellow
         { label: 'School', value: '3' },
+        //brown
         { label: 'Chores', value: '4' },
+        //green
         { label: 'Extracurriculars', value: '5' },
+        //purple
         { label: 'Personal', value: '6' },
+        //white
         { label: 'Other', value: '7' },
     ]
 
@@ -50,16 +57,28 @@ const AddTask = () => {
 
     function submit(data){
         let date = date1;
-        console.log(date);
+        console.log(date1.getUTCHours());
         var day = ('0' + date.getDate()).slice(-2);
         var month = ('0' + (date.getMonth()+1)).slice(-2); 
         var year = date.getFullYear();
+        var hours = date.getHours()
+        var minutes =  ('0' + date.getMinutes()).slice(-2);
+        var period = '';
+        if(hours > 12){
+            hours -= 12;
+            period = "PM"
+        } else {
+            period = "AM"
+        }
+
         console.log(`${year}-` + month + `-` + day)
         let newTask = {
             title: data.title, 
-            subject: data.subject,
+            type: data.type,
             notes: data.notes, 
+            importance: data.importance,
             date: `${year}-${month}-${day}`, 
+            time: `${hours}:${minutes} ` + period,
             doRemind: data.doRemind
         }
 
@@ -69,6 +88,7 @@ const AddTask = () => {
             setDateErr("")
             return
         }
+
         if(newTask.date==undefined){
             console.log("date required")
             setDateErr("PLEASE ENTER A DUE DATE FOR YOUR TASK")
@@ -76,6 +96,17 @@ const AddTask = () => {
             return
         }
 
+        if(newTask.notes==undefined){
+            newTask.notes=''
+        }
+        
+        if(newTask.type==undefined){
+            newTask.type='8'
+        }
+
+        if(newTask.importance==undefined){
+            newTask.importance=''
+        }
         // axios
         // .post('http://localhost:3000/login', {
         //     title: title,
@@ -158,7 +189,7 @@ const AddTask = () => {
 
             <View style={{flexDirection: "row"}}>
                 <View style={{flexDirection: "column"}}>
-                    <Text style={[styles.text, {marginRight: SCREENHEIGHT/12}]}>SUBJECT:</Text>
+                    <Text style={[styles.text, {marginRight: SCREENHEIGHT/8.5}]}>TYPE:</Text>
                     <Controller
                     control={control}
                     name='type'
@@ -169,8 +200,8 @@ const AddTask = () => {
                                 placeholderStyle={styles.placeholderStyle}
                                 selectedTextStyle={styles.selectedTextStyle}
                                 inputSearchStyle={styles.inputSearchStyle}
-                                iconStyle={styles.iconStyle}
-                                data={data}
+                                iconColor={styles.iconStyle}
+                                data={data2}
                                 // search
                                 maxHeight={300}
                                 labelField="label"

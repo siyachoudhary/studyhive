@@ -15,6 +15,8 @@ let year = date1.getFullYear();
 let arr = {};
 let userObject;
 let newArr;
+let typeColors = ["#5A80F1", "#F08000", "#FFC300", "#B87333", "#00A36C", "#7B68EE", "black"]
+let typeName = ["Work", "Exercise", "School", "Chores", "Extracurriculars", "Personal", "Other"]
 
 export default class CalendarPage extends Component {
 
@@ -47,6 +49,7 @@ export default class CalendarPage extends Component {
   }
 
   async loadArray() {
+
     AsyncStorage.getItem("recentArray").then(value => {
       if(value != null){
         arr = JSON.parse(value);
@@ -167,6 +170,7 @@ export default class CalendarPage extends Component {
                 // console.log(arr[Object.keys(arr)[i]][0].day);
                 // console.log(arr[Object.keys(arr)[0]][0]);
                 let daynum = arr[Object.keys(arr)[i]][0].day;
+                console.log(daynum)
                 for (let j = 0; j < arr[daynum].length; j++) {
                   if(daynum == userObject.date && arr[daynum][j].name == userObject.title){
                     console.log("same")
@@ -174,15 +178,20 @@ export default class CalendarPage extends Component {
                   }
                 }
               }
-              console.log('array ' + {arr})
+              console.log(arr)
               if (!arr[userObject.date]) {
                 arr[userObject.date] = []
               }
+              console.log(!arr[userObject.date])
               arr[userObject.date].push({
                 name: userObject.title,
-                day: userObject.date
+                day: userObject.date, 
+                time: userObject.time, 
+                type: userObject.type, 
+                importance: userObject.importance, 
+                notes: userObject.notes,
               })
-              console.log('array ' + {arr})
+              console.log(arr)
               this.saveData(JSON.stringify(arr))
               if(rerender){
                 this.loadItems();
@@ -198,6 +207,7 @@ export default class CalendarPage extends Component {
     console.log("rerendering");
 
     this.retrieveData(false)
+    console.log(arr)
     const items = this.state.items || {}
 
     setTimeout(() => {
@@ -213,10 +223,20 @@ export default class CalendarPage extends Component {
           items[initialDay] = []
 
           for (let j = 0; j < arr[initialDay].length; j++) {
+
+            // if(arr[initialDay][j].type == '8'){
+            //   arr[initialDay][j].type = '7'
+            //   this.saveData(JSON.stringify(arr))
+            // }
+
             items[initialDay].push({
               name: arr[initialDay][j].name,
-              height: 70,
-              day: arr[initialDay][j].day
+              height: 85,
+              day: arr[initialDay][j].day,
+              time: arr[initialDay][j].time, 
+              type: arr[initialDay][j].type, 
+              importance: arr[initialDay][j].importance, 
+              notes: arr[initialDay][j].notes
             })
           }
         } 
@@ -226,14 +246,18 @@ export default class CalendarPage extends Component {
           for (let j = 0; j < arr[initialDay].length; j++) {
             items[initialDay].push({
               name: arr[initialDay][j].name,
-              height: 80,
-              day: arr[initialDay][j].day
+              height: 85,
+              day: arr[initialDay][j].day,
+              time: arr[initialDay][j].time, 
+              type: arr[initialDay][j].type, 
+              importance: arr[initialDay][j].importance, 
+              notes: arr[initialDay][j].notes
             })
+            console.log('items: ' + items[initialDay][j])
           }
         }
       }
 
-      // console.log(items)
       const newItems = {}
       Object.keys(items).forEach(key => {
         newItems[key] = items[key]
@@ -259,14 +283,23 @@ export default class CalendarPage extends Component {
   renderItem = (reservation) => {
     const fontSize = 20;
     const color = "black";
+    const borderColor = typeColors[+reservation.type - 1]
+    console.log(+reservation.type - 1)
+    console.log(typeName[7])
 
     return (
       <TouchableOpacity
         testID={testIDs.agenda.ITEM}
-        style={[styles.item, { height:reservation.height}]}
+        style={[styles.item, {height:reservation.height, borderColor}]}
         onPress={() => Alert.alert(reservation.name)}
       >
-        <Text style={{fontSize, color, fontFamily: 'Mohave-Medium'}}>{reservation.name}</Text>
+        <View style={{flexDirection: "row"}}>
+          <Text style={{fontSize, color, fontFamily: 'Mohave-Medium'}}>{reservation.name}</Text>
+          <View style={{flex: 1}}>
+            <Text style={{fontSize, color:borderColor, fontFamily: 'Mohave-Medium', textAlign: 'right'}}>{typeName[[+reservation.type - 1]]}</Text>
+          </View>
+        </View>
+        <Text style={{fontSize: 12, color, fontFamily: 'Mohave-Light', letterSpacing: .5}}>{reservation.notes}</Text>
       </TouchableOpacity>
     )
   }
@@ -308,7 +341,8 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     padding: 10,
     marginRight: 10,
-    marginTop: 17
+    marginTop: 17, 
+    borderWidth: 5, 
   },
   emptyDate: {
     alignItems: 'center',

@@ -12,8 +12,8 @@ const SCREENWIDTH = Dimensions.get('window').width;
 import signUpBadge from "../assets/images/Badges/New.png"
 
 const SignUp = () => {
-    const baseURL = "http://192.168.1.122:3000/"
-    // const baseURL = "http://localhost:3000/"
+    // const baseURL = "http://192.168.1.122:3000/"
+    const baseURL = "http://localhost:3000/"
 
     const navigation = useNavigation();
 
