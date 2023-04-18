@@ -67,9 +67,15 @@ export default class CalendarPage extends Component {
 
   state = {
     items: undefined, 
-    starSelected: []
+    boxChecked: []
   }
 
+//   constructor(props) {
+//     super(props)
+//     this.state = {
+//         boxChecked: []
+//     };
+// }
   // useEffect(()=>{
   //   const retrieveData = async () => {
   //     try {
@@ -258,7 +264,7 @@ export default class CalendarPage extends Component {
               importance: arr[initialDay][j].importance, 
               notes: arr[initialDay][j].notes
             })
-            console.log('items: ' + items[initialDay][j])
+            // console.log('items: ' + items[initialDay][j])
           }
         }
       }
@@ -310,9 +316,10 @@ export default class CalendarPage extends Component {
       addTask = "Task"
     }
 
+    console.log(itemNames)
     // console.log(itemNames.indexOf(reservation.day + reservation.name))
     let index = itemNames.indexOf(reservation.day + reservation.name)
-    console.log("index" + index)
+    console.log(reservation.name + " " + index)
 
     return (
       <TouchableOpacity
@@ -333,11 +340,9 @@ export default class CalendarPage extends Component {
           <CheckBox
               style={{alignSelf: 'flex-end', marginTop: -2}}
               onClick={()=>{
-                this.setState({
-                    isChecked:!this.state.isChecked
-                })
+                this.boxIsChecked(reservation.day + reservation.name)
               }}
-              isChecked={this.state.isChecked}
+              isChecked={this.state.boxChecked.includes(reservation.day + reservation.name)}
           />
             {/* <Text style={{fontSize: 15, color: timeColor, fontFamily: 'Mohave-Medium', letterSpacing: 0, textAlign: 'right'}}>{impName[[reservation.importance -1]]} {addTask}</Text> */}
           </View>
@@ -420,8 +425,38 @@ export default class CalendarPage extends Component {
 
     return false;
   }
-}
 
+  boxIsChecked(info){
+    // this.setState(prevState => {
+    //   const {boxChecked} = prevState
+    //   let index2 = boxChecked.indexOf(index, 1);
+    //   if (index2 === -1) { //not found
+    //     boxChecked.push(index) // add id to selected list
+    //   } else {
+    //     boxChecked.splice(index, 1) // remove from selected list
+    //   }
+    //   return {boxChecked}
+    // });
+    console.log('clicked')
+    let box = this.state.boxChecked;
+    console.log("box1: " + box)
+    console.log(box.includes(info))
+    // let index = itemNames.indexOf(info)
+    let index2 = box.indexOf(info, 1);
+    console.log(index2)
+    if (!box.includes(info)) { 
+      box.push(info)
+      console.log('checked')
+    }
+    else {
+       box.splice(info, 1) 
+       console.log('unchecked')
+    }
+    console.log("box2: " + box)
+    this.setState({boxChecked: box})
+  }
+  
+}
 const styles = StyleSheet.create({
   item: {
     backgroundColor: "white",
