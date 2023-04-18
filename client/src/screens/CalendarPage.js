@@ -4,20 +4,22 @@ import { Agenda, DateData, AgendaEntry, AgendaSchedule } from "react-native-cale
 import testIDs from "../testIDs"
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from "@react-navigation/native";
-import CheckBox from '@react-native-community/checkbox';
+// import CheckBox from '@react-native-community/checkbox';
 import EventBlock from "react-native-calendars/src/timeline/EventBlock";
+import CheckBox from 'react-native-check-box'
 
 const SCREENHEIGHT = Dimensions.get('window').height;
 const date1 = new Date();
 let dayy = date1.getDate() + 1;
 let month = date1.getMonth() + 1;
 let year = date1.getFullYear();
-let arr = {};
+let arr = {"2023-04-17": [{"day": "2023-04-17", "importance": "", "name": "CS Class", "notes": "", "time": "11:03 PM", "type": "7"}]};
 let userObject;
 let newArr;
 let typeColors = ["#5A80F1", "#F08000", "#FFC300", "#B87333", "#00A36C", "#7B68EE", "black"]
 let typeName = ["Work", "Exercise", "School", "Chores", "Extracurriculars", "Personal", "Other"]
-
+let impName = ['- Major', '- Moderate', '- Minor']
+let itemNames = [];
 export default class CalendarPage extends Component {
 
   componentDidMount() {
@@ -65,11 +67,7 @@ export default class CalendarPage extends Component {
 
   state = {
     items: undefined, 
-    value0: true,
-    value1: false,
-    value2: true,
-    value3: false,
-    value4: false
+    starSelected: []
   }
 
   // useEffect(()=>{
@@ -161,6 +159,7 @@ export default class CalendarPage extends Component {
 
   retrieveData = rerender => {
     this.loadArray();
+    console.log(arr)
     AsyncStorage.getItem("newTask").then(value => {
            if(value != null){
               userObject = JSON.parse(value);
@@ -170,15 +169,21 @@ export default class CalendarPage extends Component {
                 // console.log(arr[Object.keys(arr)[i]][0].day);
                 // console.log(arr[Object.keys(arr)[0]][0]);
                 let daynum = arr[Object.keys(arr)[i]][0].day;
-                console.log(daynum)
                 for (let j = 0; j < arr[daynum].length; j++) {
                   if(daynum == userObject.date && arr[daynum][j].name == userObject.title){
-                    console.log("same")
+                    console.log('same')
+                    console.log(arr)
+                    let toRemove = arr[daynum].findIndex((object) => object.key == arr[daynum][j].key)
+                    console.log('what r u' + arr[daynum][j])
+                    console.log(toRemove)
+                    console.log(arr[daynum].slice(0, 1))
+                    arr[daynum].slice(toRemove, 1)
+                    // delete arr[daynum][j]
+                    console.log(arr)
                     return;
                   }
                 }
               }
-              console.log(arr)
               if (!arr[userObject.date]) {
                 arr[userObject.date] = []
               }
@@ -231,7 +236,7 @@ export default class CalendarPage extends Component {
 
             items[initialDay].push({
               name: arr[initialDay][j].name,
-              height: 85,
+              height: 90,
               day: arr[initialDay][j].day,
               time: arr[initialDay][j].time, 
               type: arr[initialDay][j].type, 
@@ -246,7 +251,7 @@ export default class CalendarPage extends Component {
           for (let j = 0; j < arr[initialDay].length; j++) {
             items[initialDay].push({
               name: arr[initialDay][j].name,
-              height: 85,
+              height: 90,
               day: arr[initialDay][j].day,
               time: arr[initialDay][j].time, 
               type: arr[initialDay][j].type, 
@@ -258,6 +263,14 @@ export default class CalendarPage extends Component {
         }
       }
 
+      itemNames = [];
+      Object.keys(items).forEach(key => {
+        for (let index = 0; index < items[key].length; index++) {
+          itemNames.push(items[key][index].day + items[key][index].name)
+          console.log(items[key][index].day + items[key][index].name);
+        }
+      })
+
       const newItems = {}
       Object.keys(items).forEach(key => {
         newItems[key] = items[key]
@@ -265,6 +278,7 @@ export default class CalendarPage extends Component {
       this.setState({
         items: newItems
       })
+
     }, 1000)
   }
 
@@ -285,7 +299,20 @@ export default class CalendarPage extends Component {
     const color = "black";
     const borderColor = typeColors[+reservation.type - 1]
     console.log(+reservation.type - 1)
-    console.log(typeName[7])
+    let timeColor = 'black';
+    let timeName = "Due";
+    let addTask = "";
+    if(this.isLate(reservation.day, reservation.time)){
+      timeColor = 'red';
+      timeName = "Overdue";
+    }
+    if(reservation.importance != ""){
+      addTask = "Task"
+    }
+
+    // console.log(itemNames.indexOf(reservation.day + reservation.name))
+    let index = itemNames.indexOf(reservation.day + reservation.name)
+    console.log("index" + index)
 
     return (
       <TouchableOpacity
@@ -296,10 +323,25 @@ export default class CalendarPage extends Component {
         <View style={{flexDirection: "row"}}>
           <Text style={{fontSize, color, fontFamily: 'Mohave-Medium'}}>{reservation.name}</Text>
           <View style={{flex: 1}}>
-            <Text style={{fontSize, color:borderColor, fontFamily: 'Mohave-Medium', textAlign: 'right'}}>{typeName[[+reservation.type - 1]]}</Text>
+            <Text style={{fontSize, color:borderColor, fontFamily: 'Mohave-Medium', textAlign: 'right'}}>{typeName[[+reservation.type - 1]]} </Text>
           </View>
         </View>
         <Text style={{fontSize: 12, color, fontFamily: 'Mohave-Light', letterSpacing: .5}}>{reservation.notes}</Text>
+        <View style={{flexDirection: "row"}}>
+          <Text style={{fontSize: 15, color: timeColor, fontFamily: 'Mohave-Medium', letterSpacing: 0}}>{timeName}: {reservation.time} {impName[[reservation.importance -1]]} {addTask}</Text>
+          <View style={{flex: 1, alignItems:'stretch'}}>
+          <CheckBox
+              style={{alignSelf: 'flex-end', marginTop: -2}}
+              onClick={()=>{
+                this.setState({
+                    isChecked:!this.state.isChecked
+                })
+              }}
+              isChecked={this.state.isChecked}
+          />
+            {/* <Text style={{fontSize: 15, color: timeColor, fontFamily: 'Mohave-Medium', letterSpacing: 0, textAlign: 'right'}}>{impName[[reservation.importance -1]]} {addTask}</Text> */}
+          </View>
+        </View>
       </TouchableOpacity>
     )
   }
@@ -331,6 +373,52 @@ export default class CalendarPage extends Component {
   timeToString(time) {
     const date = new Date(time)
     return date.toISOString().split("T")[0]
+  }
+
+  isLate(date, time) {
+    let now = new Date()  
+    let year = date.slice(0, 4) * 1;
+    let month = date.slice(5, 7) * 1;
+    let day = date.slice(8) * 1;
+    let hours = time.substring(0, time.indexOf(":")) * 1;
+    let minutes = time.substring(time.indexOf(":") + 1, time.indexOf(" ")) * 1;
+    // console.log(hours + " " + minutes)
+    // console.log(time)
+    if(time.includes('PM')){
+      hours += 12;
+    }
+
+    let total = hours*60 + minutes;
+
+    var day2 = ('0' + now.getDate()).slice(-2) * 1;
+    var month2 = ('0' + (now.getMonth()+1)).slice(-2) * 1; 
+    var year2 = now.getFullYear() * 1;
+    var hours2 = now.getHours() * 1
+    var minutes2 =  ('0' + now.getMinutes()).slice(-2) * 1;
+
+    let total2 = hours2*60 + minutes2;
+
+    if(hours2 > 12){
+      hours -= 12;
+    }
+
+    if(year < year2){
+      return true;
+    } else if(year == year2){
+      if (month < month2){
+        return true;
+      } else if(month == month2){
+        if(day < day2){
+          return true;
+        } else if(day == day2){
+          if(total < total2){
+            return true;
+          }
+        }
+      }
+    }
+
+    return false;
   }
 }
 
