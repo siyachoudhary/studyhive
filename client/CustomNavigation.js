@@ -8,7 +8,6 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import CalendarPage from "./src/screens/CalendarPage";
 import AddFriends from "./src/screens/AddFriends";
 import AddTask from "./src/screens/AddTask";
-import PomodoroTimer from './src/screens/PomodoroTimer';
 import Requests from './src/screens/Requests';
 const Tab = createBottomTabNavigator();  // creates object for Stack Navigator
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';

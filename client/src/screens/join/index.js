@@ -123,15 +123,14 @@ export default function Join({ navigation }) {
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={{
         flex: 1,
-        backgroundColor: colors.primary["900"],
-        backgroundColor:'#2F2F2F'
+        backgroundColor: "#2F2F2F"
       }}
     >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <SafeAreaView
           style={{
             flex: 1,
-            backgroundColor: colors.primary["900"],
+            backgroundColor: "#2F2F2F",
             justifyContent: "space-between",
           }}
         >
@@ -258,7 +257,7 @@ export default function Join({ navigation }) {
                   />
                   <Button
                     text={"Join a meeting"}
-                    backgroundColor={"#202427"}
+                    backgroundColor={"#ffab00"}
                     onPress={() => {
                       setisVisibleJoinMeetingContainer(true);
                     }}

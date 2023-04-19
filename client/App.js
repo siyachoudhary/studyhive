@@ -21,13 +21,6 @@ const App = () => {
 
   return (
    <NavigationContainer>
-      
-
-      {/* <Drawer.Navigator>
-        <Drawer.Screen name="Home" component={Home} />
-        <Drawer.Screen name="Profile" component={Profile} />
-      </Drawer.Navigator> */}
-
         <Stack.Navigator 
            screenOptions={{
                headerShown: false

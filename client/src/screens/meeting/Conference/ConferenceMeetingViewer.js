@@ -180,6 +180,7 @@ export default function ConferenceMeetingViewer() {
           flexDirection: "row",
           alignItems: "center",
           width: "100%",
+          padding:15
         }}
       >
         {(recordingState === Constants.recordingEvents.RECORDING_STARTED ||
@@ -416,6 +417,7 @@ export default function ConferenceMeetingViewer() {
         style={{
           flexDirection: "row",
           justifyContent: "space-evenly",
+          marginBottom:15
         }}
       >
         <IconContainer
