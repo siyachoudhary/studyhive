@@ -35,7 +35,7 @@ const App = () => {
               <Stack.Screen name='Welcome Screen' component={WelcomeScreen}/>
               <Stack.Screen name='Sign Up' component={SignUp}/>
               <Stack.Screen name='Sign In' component={SignIn}/>
-              <Stack.Screen name='HomeFirst' component={InitNavigator}/>
+              <Stack.Screen name='HomeFirst' component={InitNavigator} options={{gestureEnabled: false}}/>
         </Stack.Navigator> 
 
    </NavigationContainer>

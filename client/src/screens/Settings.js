@@ -256,6 +256,17 @@ const Settings = () => {
             <Text style={styles.buttonText}> SAVE DATA </Text>
           </Pressable>
 
+          <Pressable 
+                style={({pressed}) => [
+                {
+                    backgroundColor: pressed ? '#EDA73A': '#ffab00',
+                },
+                styles.button]} 
+                onPress={()=>navigation.navigate("profileScreen")}
+                >
+            <Text style={styles.buttonText}> BACK TO PROFILE </Text>
+          </Pressable>
+
           <Pressable onPress={logout}>
                 <Text style={[styles.text, {textAlign: "center", fontSize: 20,  marginTop: 30}]}>LOGOUT</Text>
             </Pressable>   
