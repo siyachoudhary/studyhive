@@ -168,8 +168,7 @@ const Settings = () => {
       }
       console.log("choosing photo")
       ImagePicker.launchImageLibrary(options, response => {
-        // console.log(response)
-        if (response) {
+        if (response && !response.didCancel) {
           setPhotoChanged(true)
           setPhotoType(response.assets[0].type)
           setPhotoFileName(response.assets[0].fileName)
