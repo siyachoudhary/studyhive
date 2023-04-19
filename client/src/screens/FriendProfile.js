@@ -33,9 +33,10 @@ const tab1ItemSize = (SCREENWIDTH - 40) / 3;
 const tab2ItemHeight = (SCREENWIDTH - 50) / 5;
 const tab2ItemWidth = (SCREENWIDTH - 50);
 
+import { BaseURL } from './BaseUrl';
+
 const FriendProfile = ({route}) => {
-  // const baseURL = "http://localhost:3000"
-  const baseURL = "http://192.168.1.137:3000/"
+  const baseURL = BaseURL
   
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")

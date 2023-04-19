@@ -13,7 +13,7 @@ const date1 = new Date();
 let dayy = date1.getDate() + 1;
 let month = date1.getMonth() + 1;
 let year = date1.getFullYear();
-let arr = {"2023-04-17": [{"day": "2023-04-17", "importance": "", "name": "CS Class", "notes": "", "time": "11:03 PM", "type": "7"}]};
+let arr = {"2023-04-17": [{"day": "2023-04-17", "importance": "- Major", "name": "CS Class", "notes": "", "time": "11:03 PM", "type": "7"}]};
 let userObject;
 let newArr;
 let typeColors = ["#5A80F1", "#F08000", "#FFC300", "#B87333", "#00A36C", "#7B68EE", "black"]
@@ -52,7 +52,7 @@ export default class CalendarPage extends Component {
 
   async loadArray() {
 
-    AsyncStorage.getItem("recentArray").then(value => {
+    await AsyncStorage.getItem("recentArray").then(value => {
       if(value != null){
         arr = JSON.parse(value);
         console.log('loaded array')
@@ -163,10 +163,10 @@ export default class CalendarPage extends Component {
     )
   }
 
-  retrieveData = rerender => {
+  retrieveData = async rerender => {
     this.loadArray();
     console.log(arr)
-    AsyncStorage.getItem("newTask").then(value => {
+    await AsyncStorage.getItem("newTask").then(value => {
            if(value != null){
               userObject = JSON.parse(value);
               console.log(userObject);

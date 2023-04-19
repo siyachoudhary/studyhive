@@ -12,8 +12,8 @@ const SCREENHEIGHT = Dimensions.get('window').height;
 const SCREENWIDTH = Dimensions.get('window').width;
 var ImagePicker = require('react-native-image-picker');
 
-    // const baseURL = "http://localhost:3000"
-    const baseURL = "http://192.168.1.137:3000/"
+import { BaseURL } from './BaseUrl';
+const baseURL = BaseURL
 
 const Settings = () => {
 

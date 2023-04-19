@@ -11,9 +11,10 @@ import axios from 'axios';
 import Animated from 'react-native-reanimated';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+import { BaseURL } from './BaseUrl';
+
 const AddFriends = () => {
-  const baseURL = "http://192.168.1.137:3000/"
-  // const baseURL = "http://localhost:3000/"
+  const baseURL = BaseURL
   
   const [searchTxt, setSearchTxt] = useState(".")
   
@@ -130,7 +131,7 @@ const AddFriends = () => {
         "friendReq": user._id
       })
       .then(function (res) {
-          getData()
+          getData(user)
       })
       .catch(function (err) {
           // handle error
@@ -144,7 +145,7 @@ const AddFriends = () => {
               friend: item
           })
           .then(function (res) {
-              getData()
+              getData(user)
           })
           .catch(function (err) {
               // handle error
@@ -158,8 +159,8 @@ const AddFriends = () => {
               friend: user._id
           })
           .then(function (res) {
-              getData()
-              console.log(res.data)
+              getData(user)
+              // console.log(res.data)
           })
           .catch(function (err) {
               // handle error

@@ -11,9 +11,10 @@ import { ScrollView } from 'react-native-gesture-handler';
 const SCREENHEIGHT = Dimensions.get('window').height;
 const SCREENWIDTH = Dimensions.get('window').width;
 
+import { BaseURL } from './BaseUrl';
+
 const Requests = () => {
-    const baseURL = "http://192.168.1.137:3000/"
-    // const baseURL = "http://localhost:3000"
+    const baseURL = BaseURL
     
     const navigate = useNavigation()
     const dataFetchedRef = useRef(false);

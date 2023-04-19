@@ -34,9 +34,10 @@ import { useIsFocused } from '@react-navigation/native'
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+import { BaseURL } from './BaseUrl';
+
 const Profile = () => {
-  // const baseURL = "http://localhost:3000"
-  const baseURL = "http://192.168.1.137:3000/"
+  const baseURL = BaseURL
 
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
@@ -210,14 +211,12 @@ const Profile = () => {
   }
 
   const getUserNames = async(data)=>{
-    const friends = [];
+    const friends = [" "];
     for(var i = 0; i<data.length; i++){
       await axios
         .get(`${baseURL}findUser/${data[i]}`)
         .then(function (res) {
             friends.push(res.data)
-            dataFetchedRef.current = true;
-            friendsFound = true
         })
         .catch(function (err) {
             // handle error
@@ -225,6 +224,8 @@ const Profile = () => {
         });
     }
     setTab3Data(friends)
+    dataFetchedRef.current = true;
+    friendsFound = true
   }
 
   useEffect(() => {
@@ -377,7 +378,6 @@ const Profile = () => {
   };
 
   const removeFriend=(friendId)=>{
-    console.log(friendId._id)
     axios
         .post(`${baseURL}removeFriend/${user._id}`, {
           friend: friendId._id,
@@ -450,7 +450,7 @@ const Profile = () => {
               <Text style={styles.buttonText}> Remove </Text>
           </Pressable>
       </View>:null
-  }
+    }
       </View>
     );
   };
