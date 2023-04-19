@@ -35,7 +35,7 @@ const tab2ItemWidth = (SCREENWIDTH - 50);
 
 const FriendProfile = ({route}) => {
   // const baseURL = "http://localhost:3000"
-  const baseURL = "http://10.30.183.36:3000/"
+  const baseURL = "http://192.168.1.137:3000/"
   
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")

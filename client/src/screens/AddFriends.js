@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useRef} from 'react';
 
 import { StyleSheet, View, Dimensions, Text, Pressable } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { useIsFocused, useNavigation } from "@react-navigation/native";
 
 const SCREENHEIGHT = Dimensions.get('window').height;
 const SCREENWIDTH = Dimensions.get('window').width;
@@ -12,7 +12,7 @@ import Animated from 'react-native-reanimated';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const AddFriends = () => {
-  const baseURL = "http://10.30.183.36:3000/"
+  const baseURL = "http://192.168.1.137:3000/"
   // const baseURL = "http://localhost:3000/"
   
   const [searchTxt, setSearchTxt] = useState(".")
@@ -31,52 +31,60 @@ const AddFriends = () => {
             if(value !== null) {
               setUser(obj)
               dataFetchedRef.current= true
+              getData(obj)
             }
           } catch(e) {
             console.log(e.message)
           }
       }
 
+
     useEffect(()=>{
-      retrieveData()
-      if (dataFetchedRef.current) return;
+      // retrieveData()
+      if (!dataFetchedRef.current){
+        retrieveData()
+      }
     })
 
     useEffect(()=>{
-        getData()
+      if(user!=null){
+        getData(user)
+        if(searchTxt==""){
+          setSearchTxt(".")
+        }
+      }
     }, [searchTxt])
 
-    const getData = async () =>{
-      if(user!=null){
+    const getData = async (currentUser) =>{
+      console.log(currentUser)
         await axios
         .get(`${baseURL}getUsers/${searchTxt}`)
         .then(function (res) {
-            getFriends(res.data.users.filter(friendUser => friendUser._id != user._id))
+            getFriends(res.data.users.filter(friendUser => friendUser._id != currentUser._id), currentUser)
         })
         .catch(function (err) {
             console.log("error: "+ err.message);
         });
-      }
     }
 
-    const getFriends = async(data1)=>{
+    const getFriends = async(data1, currentUser)=>{
       await axios
-        .get(`${baseURL}findFriends/${user.email}`)
+        .get(`${baseURL}findFriends/${currentUser.email}`)
         .then(function (res) {
           filtered = data1
           for(var i = 0; i<res.data.length; i++){
             filtered = filtered.filter(friendUser => friendUser._id != res.data[i])
           }
-          getPendings(filtered)
+          getPendings(filtered, currentUser)
         })
         .catch(function (err) {
             console.log("error: "+err.message);
         });
     }
 
-    const getPendings = async(data2)=>{
+    const getPendings = async(data2, currentUser)=>{
       await axios
-            .get(`${baseURL}getPendings/${user._id}`)
+            .get(`${baseURL}getPendings/${currentUser._id}`)
             .then(function (res) {
               filtered = data2
               for(var i = 0; i<res.data.users.length; i++){
@@ -87,16 +95,16 @@ const AddFriends = () => {
                   }
                 });
               }
-              getReqs(filtered)
+              getReqs(filtered, currentUser)
             })
             .catch(function (err) {
                 console.log("error: "+err.message);
             });
     }
 
-    const getReqs = async(data3) =>{
+    const getReqs = async(data3, currentUser) =>{
       await axios
-            .get(`${baseURL}getFriendReqs/${user._id}`)
+            .get(`${baseURL}getFriendReqs/${currentUser._id}`)
             .then(function (res) {
               filtered = data3
               for(var i = 0; i<res.data.users.length; i++){
@@ -342,7 +350,7 @@ const AddFriends = () => {
         marginHorizontal: 20,
         textAlign: 'center',
         color: 'white',
-        fontWeight: 500
+        fontWeight: '500'
     }
   });
   

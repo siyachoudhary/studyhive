@@ -12,8 +12,8 @@ const SCREENHEIGHT = Dimensions.get('window').height;
 const SCREENWIDTH = Dimensions.get('window').width;
 
 const Requests = () => {
-    // const baseURL = "http://10.30.183.36:3000/"
-    const baseURL = "http://localhost:3000"
+    const baseURL = "http://192.168.1.137:3000/"
+    // const baseURL = "http://localhost:3000"
     
     const navigate = useNavigation()
     const dataFetchedRef = useRef(false);
@@ -257,7 +257,7 @@ const styles = StyleSheet.create({
         marginHorizontal: 20,
         textAlign: 'center',
         color: 'white',
-        fontWeight: 500
+        fontWeight: '500'
     }
   });
 
