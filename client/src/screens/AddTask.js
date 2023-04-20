@@ -145,7 +145,7 @@ const AddTask = ({route}) => {
             hours -= 12;
             period = "PM"
         } else {
-            if(hours = 12){
+            if(hours == 12){
                 hours += 12
             }
             period = "AM"
