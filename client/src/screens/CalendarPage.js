@@ -28,13 +28,22 @@ let deleted;
 let edited;
 let edited2;
 let indexOfObj;
+let studyLogDays = {};
+let studyLogFull = {};
+let obj = {};
 
 export default class CalendarPage extends Component {
 
-  componentDidMount() {
+  state = {
+    items: undefined, 
+    boxChecked: [], 
+    marked: null
+  }
 
+  componentDidMount() {
     const { navigation } = this.props;
     this.focusUnsubscriber = navigation.addListener('focus', () => {
+          this.loadStudyLog();
           this.checkEdit();
           this.fetchData();
     });
@@ -117,9 +126,94 @@ export default class CalendarPage extends Component {
     })
   }
 
-  state = {
-    items: undefined, 
-    boxChecked: []
+  loadStudyDays() {
+    AsyncStorage.getItem("studyDays").then(value => {
+      if(value != null){
+        studyLogDays = JSON.parse(value);
+        console.log('loaded study days')
+        // this.anotherFunc();
+      }
+    }).catch(err => {
+      console.log(err.message);  
+    })
+  }
+
+  loadStudyLog() {
+    AsyncStorage.getItem("studyLog").then(value => {
+      if(value != null){
+        studyLogFull = JSON.parse(value);
+        console.log('loaded study log 2')
+        console.log(studyLogFull)
+        this.sortLog();
+      }
+    }).catch(err => {
+      console.log(err.message);  
+    })
+  }
+
+  sortLog(){
+    obj = {};
+    studyLogDays = []
+    for (let i = 0; i < Object.keys(studyLogFull).length; i++) {
+      let daynum = studyLogFull[Object.keys(studyLogFull)[i]][0].date;
+      studyLogDays.push(daynum)
+    }
+    console.log(studyLogDays)
+    this.setDates();
+    for (let i = 0; i < Object.keys(studyLogFull).length; i++) {
+      let daynum = studyLogFull[Object.keys(studyLogFull)[i]][0].date;
+      let hours = 0;
+      for (let j = 0; j < studyLogFull[daynum].length; j++) {
+        console.log(studyLogFull[daynum][j].hours)
+        hours += (studyLogFull[daynum][j].hours * 1)
+      }
+      // this.setDates();
+      this.anotherFunc(daynum, hours)
+    }
+    this.setState({marked : obj});
+    console.log(this.state.marked)
+  }
+
+  setDates(){
+    obj = studyLogDays.reduce((c, v) => Object.assign(c, {[v]: {selected: true, selectedColor: '#FFD952', selectedTextColor: '#292929'}}), {});
+  }
+
+  anotherFunc = (date, hours) => {
+    console.log('i am trying')
+    let color;
+    if(hours == 1) {
+      color = "#FFE082"
+    } else if (hours >= 2 && hours <= 3){
+      color = "#FFD54F"
+    } else if (hours >= 4 && hours <= 5){
+      color = "#FFCA28"
+    } else if (hours >= 6 && hours <= 7){
+      color = "#FFC107"
+    } else if (hours >= 8 && hours <= 9){
+      color = "#FFB300"
+    } else if (hours >= 10){
+      color = "#FFA000"
+    } 
+    
+    obj[date].selectedColor = color
+    //   if(!Object.keys(obj).length){
+  //     Object.assign(obj, {[date]: {
+  //       selected: true, 
+  //       selectedColor: color, 
+  //       selectedTextColor: '#292929'}});
+  // } else {
+      // if (!obj[date]) {
+      //     obj[date] = {}
+      // }
+      // obj[date] = {
+      // selected: true, 
+      // selectedColor: color, 
+      // selectedTextColor: '#292929'};
+
+        
+    // obj =  {"2023-05-17": {"selected": true, "selectedColor": "#FFE082", "selectedTextColor": "#292929"}}
+    console.log('obj')
+    console.log(obj)
   }
 
 //   constructor(props) {
@@ -171,16 +265,19 @@ export default class CalendarPage extends Component {
           renderEmptyDate={this.renderEmptyDate.bind(this)}
           renderItem={this.renderItem}
           rowHasChanged={this.rowHasChanged}
-          // markingType={'period'}
+          
+          // markingType={"period"}
+          markedDates={this.state.marked}
           // markedDates={{
-          //    '2017-05-08': {textColor: '#43515c'},
-          //    '2017-05-09': {textColor: '#43515c'},
-          //    '2017-05-14': {startingDay: true, endingDay: true, color: 'blue'},
-          //    '2017-05-21': {startingDay: true, color: 'blue'},
-          //    '2017-05-22': {endingDay: true, color: 'gray'},
-          //    '2017-05-24': {startingDay: true, color: 'gray'},
-          //    '2017-05-25': {color: 'gray'},
-          //    '2017-05-26': {endingDay: true, color: 'gray'}}}
+          //   // '2023-04-28': {startingDay: true, endingDay:true, color: 'blue'}
+            //  '2023-04-18': {selected: true, selectedColor: '#FFE082', selectedTextColor: '#292929'},
+          // //    '2023-05-09': {textColor: '#43515c'},
+          // //    '2023-05-14': {startingDay: true, endingDay: true, color: 'blue'},
+          // //    '2023-05-21': {startingDay: true, color: 'blue'},
+          // //    '2023-05-22': {endingDay: true, color: 'gray'},
+          // //    '2023-05-24': {startingDay: true, color: 'gray'},
+          // //    '2023-05-25': {color: 'gray'},
+            //  }}
           // monthFormat={'yyyy'}
           theme={{calendarBackground: '#2F2F2F', 
                   reservationsBackgroundColor: '#292929',
@@ -191,7 +288,8 @@ export default class CalendarPage extends Component {
                   textDayFontFamily: 'Mohave-Medium', 
                   textDayFontSize: 16,
                   dayTextColor: '#D4D5D8', 
-                  textDisabledColor: '#979797',}}
+                  textDisabledColor: '#979797',
+                  }}
           // theme={{calendarBackground: 'red', agendaKnobColor: 'green'}}
           // renderDay={(day, item) => (<Text>{day ? day.day: 'item'}</Text>)}
           hideExtraDays={true}
@@ -199,7 +297,7 @@ export default class CalendarPage extends Component {
           // reservationsKeyExtractor={this.reservationsKeyExtractor}
           showClosingKnob={true}
         />
-        <View style={{backgroundColor: "#292929"}}>
+        <View style={{backgroundColor: "#292929", flexDirection:'row', alignItems: 'center', justifyContent: 'center',}}>
           <Pressable 
                     style={({pressed}) => [
                     {
@@ -212,7 +310,17 @@ export default class CalendarPage extends Component {
                       });
                     }}
                 >
-                    <Text style={styles.buttonText}> ADD TASK </Text>
+                    <Text style={styles.buttonText}>      ADD TASK      </Text>
+            </Pressable>
+            <Pressable 
+                    style={({pressed}) => [
+                    {
+                        backgroundColor: pressed ? '#EDA73A': '#ffab00',
+                    },
+                    styles.button]} 
+                    onPress={() => this.props.navigation.navigate('Log')}
+                >
+                    <Text style={styles.buttonText}> LOG STUDY HOUR </Text>
             </Pressable>
         </View>
       </View>
@@ -317,6 +425,7 @@ export default class CalendarPage extends Component {
 
   loadItems = date => {
     console.log("rerendering");
+    this.loadStudyLog();
 
     this.retrieveData(false)
     console.log(arr)
@@ -735,12 +844,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     borderRadius: 6,
     // elevation: 8,
-    marginHorizontal: SCREENHEIGHT/9,
+    marginHorizontal: SCREENHEIGHT/80,
     marginVertical: SCREENHEIGHT/100,
   },
   buttonText: {
     fontFamily:'Mohave-Bold',
-    fontSize: 15,
+    fontSize: 16,
     fontWeight: 'bold',
     // lineHeight: 25,
     letterSpacing: 1,

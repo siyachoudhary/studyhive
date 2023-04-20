@@ -9,6 +9,7 @@ import CalendarPage from "./src/screens/CalendarPage";
 import AddFriends from "./src/screens/AddFriends";
 import AddTask from "./src/screens/AddTask";
 import Requests from './src/screens/Requests';
+import LogHour from "./src/screens/LogHour";
 const Tab = createBottomTabNavigator();  // creates object for Stack Navigator
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import FriendProfile from "./src/screens/FriendProfile";
@@ -93,6 +94,7 @@ const InitNavigator = () => {
         }}>
            <Stack2.Screen name='calendarScreen' component={CalendarPage}/>
            <Stack2.Screen name='Tasks' component={AddTask}/>
+           <Stack2.Screen name='Log' component={LogHour}/>
      </Stack2.Navigator> 
     );
   }

@@ -212,6 +212,7 @@ const AddTask = ({route}) => {
         setTitleErr("")
         setDateErr("")
         storeData(JSON.stringify(newTask))
+        done = false;
         navigation.navigate("calendarScreen", {
             edit: isThere
         });
