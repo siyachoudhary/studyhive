@@ -274,7 +274,7 @@ export default function ConferenceMeetingViewer() {
       </View>
       {/* Center */}
 
-      <TimerMain/>
+      {/* <TimerMain/> */}
 
       <View
         style={{
