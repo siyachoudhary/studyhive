@@ -20,11 +20,14 @@ const AddTask = ({route}) => {
     let arr = {};
     let item = {};
 
+    console.log(done)
+
     if(digit == "no"){
         done = true;
         isThere = false;
-    } else {
+    } else if (!done){
         console.log(done)
+        done = true
         isThere = true;
         loadArray();
     }
@@ -75,7 +78,7 @@ const AddTask = ({route}) => {
         if(time.includes('PM')){
             hours += 12;            
         }
-        // setDate1(new Date(year, month, day, hours, minutes))
+        setDate1(new Date(year, month, day, hours, minutes))
         console.log('done')
     }
 
@@ -382,7 +385,10 @@ const AddTask = ({route}) => {
                         backgroundColor: pressed ? '#EDA73A': '#ffab00',
                     },
                     styles.button, {marginTop: SCREENHEIGHT/40}]} 
-                    onPress={()=>navigation.navigate("calendarScreen")}
+                    onPress={()=>
+                        navigation.navigate("calendarScreen") +
+                        (done = false)
+                    }
                     >
                 <Text style={[styles.buttonText]}> BACK TO CALENDAR </Text>
             </Pressable>
