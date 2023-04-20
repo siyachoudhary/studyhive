@@ -25,19 +25,43 @@ let impName = ['- Major', '- Moderate', '- Minor']
 let itemNames = [];
 let deleteItem = false;
 let deleted;
+let edited;
+let edited2;
 let indexOfObj;
 
 export default class CalendarPage extends Component {
 
   componentDidMount() {
+
     const { navigation } = this.props;
     this.focusUnsubscriber = navigation.addListener('focus', () => {
+          this.checkEdit();
           this.fetchData();
     });
   }
 
   componentWillUnmount() {
     this.focusUnsubscriber();
+  }
+
+  checkEdit(){
+    console.log('is this even runnning')
+    if(!this.props.route.params){
+      edited = false
+    } else {
+      edited = this.props.route.params;
+      edited = edited["edit"]
+      console.log(edited["edit"])
+      // if(edited.includes("true")){
+      //   edited = true;
+      // } else {
+      //   edited = false;
+      // }
+    }
+
+    console.log("edited")
+    console.log(this.props.route.params)
+    console.log(edited)
   }
 
   fetchData() {
@@ -202,6 +226,7 @@ export default class CalendarPage extends Component {
     AsyncStorage.getItem("newTask").then(value => {
            if(value != null){
               userObject = JSON.parse(value);
+              console.log("user")
               console.log(userObject);
               console.log(Object.keys(arr).length)
               // console.log((deleted.day == userObject.date && deleted.name == userObject.title))
@@ -222,9 +247,34 @@ export default class CalendarPage extends Component {
 
                 for (let j = 0; j < arr[daynum].length; j++) {
                   if((arr[daynum][j].digit == userObject.digit)){
+                    console.log('we r the sammeeeeee')
+                    let change = false
+                    if(edited){
+                        // arr[daynum][j] = JSON.parse(JSON.stringify(userObject))
+                        arr[daynum][j] = {
+                          name: userObject.title,
+                          day: userObject.date, 
+                          time: userObject.time, 
+                          type: userObject.type, 
+                          importance: userObject.importance, 
+                          notes: userObject.notes,
+                          digit: userObject.digit
+                        }
+                        console.log(arr[daynum][j])
+                        this.saveData(JSON.stringify(arr))
+                        change = true;
+                        setTimeout(() => {
+                          if(change){
+                            this.loadItems();
+                            change = false
+                            edited = false;
+                            edited2 = true;
+                          }
+                        }, 1)
+                      }
                       console.log('same1')
                       return;
-                  } else if (!(!lastUserObject)){
+                  } else if (!(!lastUserObject) && !edited){
                     if((lastUserObject.digit == userObject.digit)){
                       console.log('same2')
                       return;
@@ -281,6 +331,7 @@ export default class CalendarPage extends Component {
       console.log("array")
       console.log(arr)
       for (let i = 0; i < Object.keys(arr).length; i++) {
+        console.log("I IS THIS REPEATINGGGGGG OR WHAAAATTTTTTTTT")
         let initialDay = arr[Object.keys(arr)[i]][0].day;
          
         // console.log(arr[initialDay][0].name);
@@ -382,9 +433,15 @@ export default class CalendarPage extends Component {
   }
 
   canAdd = (arr1, arr2) => {
+    console.log(edited2)
       for(let i = 0; i < arr2.length; i++) {
         for(let j = 0; j < arr1.length; j++) {
-            if(arr2[i].name == arr1[j].name && arr2.length == arr1.length){
+            if(edited2 && (userObject.digit == arr1[j].digit)){
+              console.log('TRUE')
+              edited2 = false
+              return true;
+            }
+            if((arr2[i].digit == arr1[j].digit) && (arr1.length-1 == j) && (arr2.length-1==i)){
               console.log('FALSE')
               return false;
             }

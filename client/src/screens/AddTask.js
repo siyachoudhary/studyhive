@@ -10,15 +10,17 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const SCREENHEIGHT = Dimensions.get('window').height;
 const SCREENWIDTH = Dimensions.get('window').width;
-let done;
+let done = false;
+let item = {};
+let isThere;
 
 const AddTask = ({route}) => {
 
     const navigation = useNavigation();
     const {digit} = route.params;
-    let isThere;
     let arr = {};
-    let item = {};
+
+    console.log('you have gone to task')
 
     console.log(done)
 
@@ -26,7 +28,7 @@ const AddTask = ({route}) => {
         done = true;
         isThere = false;
     } else if (!done){
-        console.log(done)
+        console.log(digit)
         done = true
         isThere = true;
         loadArray();
@@ -71,7 +73,7 @@ const AddTask = ({route}) => {
         let time = item.time
 
         let year = date2.slice(0, 4) * 1;
-        let month = date2.slice(5, 7) * 1;
+        let month = date2.slice(5, 7) * 1 - 1;
         let day = date2.slice(8) * 1;
         let hours = time.substring(0, time.indexOf(":")) * 1;
         let minutes = time.substring(time.indexOf(":") + 1, time.indexOf(" ")) * 1;
@@ -131,12 +133,21 @@ const AddTask = ({route}) => {
         var year = date.getFullYear();
         var hours = date.getHours()
         var minutes =  ('0' + date.getMinutes()).slice(-2);
-        let num = Math.random().toString(36).substring(2,10);
+        let num;
+        if(!item.digit){
+            num = Math.random().toString(36).substring(2,10);
+        } else {
+            num = item.digit
+            console.log(item.digit)
+        }
         var period = '';
         if(hours > 12){
             hours -= 12;
             period = "PM"
         } else {
+            if(hours = 12){
+                hours += 12
+            }
             period = "AM"
         }
 
@@ -201,7 +212,9 @@ const AddTask = ({route}) => {
         setTitleErr("")
         setDateErr("")
         storeData(JSON.stringify(newTask))
-        navigation.navigate("calendarScreen")
+        navigation.navigate("calendarScreen", {
+            edit: isThere
+        });
     }
 
     const storeData = async (value) => {
