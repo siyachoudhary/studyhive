@@ -10,9 +10,74 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const SCREENHEIGHT = Dimensions.get('window').height;
 const SCREENWIDTH = Dimensions.get('window').width;
+let done;
 
-const AddTask = () => {
+const AddTask = ({route}) => {
+
     const navigation = useNavigation();
+    const {digit} = route.params;
+    let isThere;
+    let arr = {};
+    let item = {};
+
+    if(digit == "no"){
+        done = true;
+        isThere = false;
+    } else {
+        console.log(done)
+        isThere = true;
+        loadArray();
+    }
+
+    function loadArray() {
+        AsyncStorage.getItem("recentArray").then(value => {
+          if(value != null){
+            arr = JSON.parse(value);
+            console.log('loaded array')
+            console.log(arr)
+            findItem();
+          }
+        }).catch(err => {
+          console.log(err.message);  
+        })
+    }
+
+    function findItem(){
+        for (let i = 0; i < Object.keys(arr).length; i++) {
+            let initialDay = arr[Object.keys(arr)[i]][0].day;
+            for (let j = 0; j < arr[initialDay].length; j++) {
+                if(arr[initialDay][j].digit == digit){
+                    item = JSON.parse(JSON.stringify(arr[initialDay][j]));
+                    console.log(item)
+                    updateStates();
+                    done = true;
+                    return;
+                }
+            }
+        }
+    }
+    
+
+    function updateStates(){
+        setValue('title', item.name)
+        setValue('notes', item.notes)
+        setValue('type', item.type)
+        setValue('importance', item.importance)
+    
+        let date2 = item.day
+        let time = item.time
+
+        let year = date2.slice(0, 4) * 1;
+        let month = date2.slice(5, 7) * 1;
+        let day = date2.slice(8) * 1;
+        let hours = time.substring(0, time.indexOf(":")) * 1;
+        let minutes = time.substring(time.indexOf(":") + 1, time.indexOf(" ")) * 1;
+        if(time.includes('PM')){
+            hours += 12;            
+        }
+        // setDate1(new Date(year, month, day, hours, minutes))
+        console.log('done')
+    }
 
     const [open, setOpen] = React.useState(false);
     const [date1, setDate1] = React.useState(new Date());
@@ -21,9 +86,8 @@ const AddTask = () => {
   
     const [titleErr, setTitleErr] = React.useState("");
     const [dateErr, setDateErr] = React.useState("");
-    
 
-    const {control, handleSubmit, errors, reset} = useForm({
+    const {control, handleSubmit, errors, register, setValue} = useForm({
         'title': "",
         'notes': "",
         'type': "",
@@ -57,12 +121,14 @@ const AddTask = () => {
 
     function submit(data){
         let date = date1;
+        console.log(date)
         console.log(date1.getUTCHours());
         var day = ('0' + date.getDate()).slice(-2);
         var month = ('0' + (date.getMonth()+1)).slice(-2); 
         var year = date.getFullYear();
         var hours = date.getHours()
         var minutes =  ('0' + date.getMinutes()).slice(-2);
+        let num = Math.random().toString(36).substring(2,10);
         var period = '';
         if(hours > 12){
             hours -= 12;
@@ -79,7 +145,8 @@ const AddTask = () => {
             importance: data.importance,
             date: `${year}-${month}-${day}`, 
             time: `${hours}:${minutes} ` + period,
-            doRemind: data.doRemind
+            doRemind: data.doRemind,
+            digit: num
         }
 
         if(newTask.title==undefined || newTask.title == ''){
@@ -155,7 +222,7 @@ const AddTask = () => {
 
     return (
         <View style={styles.backGround}>
-            <Text style={styles.header}>NEW TASK</Text>
+            <Text style={styles.header}>{isThere ? 'EDIT' : 'NEW'} TASK</Text>
 
             <Text style={styles.text}>TITLE:</Text>
             <Controller
@@ -306,7 +373,7 @@ const AddTask = () => {
                 styles.button]} 
                 onPress={handleSubmit(submit)}
             >
-                <Text style={styles.buttonText}> ADD TASK </Text>
+                <Text style={styles.buttonText}>{isThere ? 'UPDATE' : 'ADD'} TASK</Text>
             </Pressable>
 
             <Pressable 

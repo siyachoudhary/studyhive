@@ -14,7 +14,8 @@ const date1 = new Date();
 let dayy = date1.getDate() + 1;
 let month = date1.getMonth() + 1;
 let year = date1.getFullYear();
-let arr = {"2023-04-17": [{"day": "2023-04-17", "importance": "- Major", "name": "CS Class", "notes": "", "time": "11:03 PM", "type": "7"}]};
+let num = Math.random().toString(36).substring(2,10);
+let arr = {"2020-04-17": [{"day": "2020-04-17", "importance": "1", "name": "CS Class", "notes": "", "time": "11:03 PM", "type": "7", "digit": num}]};
 let userObject;
 let lastUserObject;
 let newArr;
@@ -181,7 +182,11 @@ export default class CalendarPage extends Component {
                         backgroundColor: pressed ? '#EDA73A': '#ffab00',
                     },
                     styles.button]} 
-                    onPress={()=>this.props.navigation.navigate("Tasks")}
+                    onPress={()=> 
+                      {this.props.navigation.navigate("Tasks", {
+                        digit: 'no',
+                      });
+                    }}
                 >
                     <Text style={styles.buttonText}> ADD TASK </Text>
             </Pressable>
@@ -216,11 +221,11 @@ export default class CalendarPage extends Component {
                 let box = this.state.boxChecked;
 
                 for (let j = 0; j < arr[daynum].length; j++) {
-                  if((daynum == userObject.date && arr[daynum][j].name == userObject.title)){
+                  if((arr[daynum][j].digit == userObject.digit)){
                       console.log('same1')
                       return;
                   } else if (!(!lastUserObject)){
-                    if((lastUserObject.date == userObject.date && lastUserObject.title == userObject.title)){
+                    if((lastUserObject.digit == userObject.digit)){
                       console.log('same2')
                       return;
                     } else (
@@ -241,12 +246,13 @@ export default class CalendarPage extends Component {
                 type: userObject.type, 
                 importance: userObject.importance, 
                 notes: userObject.notes,
+                digit: userObject.digit
               })
               lastUserObject = JSON.parse(JSON.stringify(userObject));
               this.saveValue(JSON.stringify(lastUserObject))
               console.log('is this even working')
               console.log(lastUserObject)
-              console.log((lastUserObject.date == userObject.date && lastUserObject.title == userObject.title))
+              console.log((lastUserObject.digit == userObject.digit))
               console.log(arr)
               this.saveData(JSON.stringify(arr))
               if(rerender){
@@ -300,7 +306,8 @@ export default class CalendarPage extends Component {
               time: arr[initialDay][j].time, 
               type: arr[initialDay][j].type, 
               importance: arr[initialDay][j].importance, 
-              notes: arr[initialDay][j].notes
+              notes: arr[initialDay][j].notes,
+              digit: arr[initialDay][j].digit
             })
           }
         } 
@@ -315,7 +322,8 @@ export default class CalendarPage extends Component {
               time: arr[initialDay][j].time, 
               type: arr[initialDay][j].type, 
               importance: arr[initialDay][j].importance, 
-              notes: arr[initialDay][j].notes
+              notes: arr[initialDay][j].notes, 
+              digit: arr[initialDay][j].digit
             })
             // console.log('items: ' + items[initialDay][j])
           }
@@ -357,8 +365,8 @@ export default class CalendarPage extends Component {
       itemNames = [];
       Object.keys(items).forEach(key => {
         for (let index = 0; index < items[key].length; index++) {
-          itemNames.push(items[key][index].day  + " " +  items[key][index].name)
-          console.log(items[key][index].day + " " + items[key][index].name);
+          itemNames.push(items[key][index].digit)
+          console.log(items[key][index].digit);
         }
       })
 
@@ -386,8 +394,6 @@ export default class CalendarPage extends Component {
   }
 
   removeItem = (info) => {
-    let date = info.substring(0, 10)
-    let name = info.substring(11)
     let newArr = {};
     let index;
     
@@ -397,7 +403,7 @@ export default class CalendarPage extends Component {
         for (let i = 0; i < Object.keys(arr).length; i++) {
           let initialDay = arr[Object.keys(arr)[i]][0].day;
           for (let j = 0; j < arr[initialDay].length; j++) {
-            if(initialDay != date || arr[initialDay][j].name != name){
+            if(arr[initialDay][j].digit != info){
               // console.log(newArr)
               if (!Object.keys(newArr).length) {
                 console.log("i ran")
@@ -406,7 +412,9 @@ export default class CalendarPage extends Component {
                   time: arr[initialDay][j].time, 
                   type: arr[initialDay][j].type, 
                   importance: arr[initialDay][j].importance, 
-                  notes: arr[initialDay][j].notes}]});
+                  notes: arr[initialDay][j].notes, 
+                  digit: arr[initialDay][j].digit
+                }]});
               } else {
                 if (!newArr[initialDay]) {
                   newArr[initialDay] = []
@@ -417,7 +425,8 @@ export default class CalendarPage extends Component {
                   time: arr[initialDay][j].time, 
                   type: arr[initialDay][j].type, 
                   importance: arr[initialDay][j].importance, 
-                  notes: arr[initialDay][j].notes
+                  notes: arr[initialDay][j].notes, 
+                  digit: arr[initialDay][j].digit
                 })
               }
             } else {
@@ -428,7 +437,8 @@ export default class CalendarPage extends Component {
                 time: arr[initialDay][j].time, 
                 type: arr[initialDay][j].type, 
                 importance: arr[initialDay][j].importance, 
-                notes: arr[initialDay][j].notes};
+                notes: arr[initialDay][j].notes, 
+                digit: arr[initialDay][j].digit};
             }
           }
         }
@@ -500,7 +510,11 @@ export default class CalendarPage extends Component {
       <TouchableOpacity
         testID={testIDs.agenda.ITEM}
         style={[styles.item, {height:reservation.height, borderColor}]}
-        onPress={() => Alert.alert(reservation.name)}
+        onPress={() => {
+          this.props.navigation.navigate("Tasks", {
+            digit: reservation.digit,
+          });
+        }}
       >
         <View style={{flexDirection: "row", marginTop: -1}}>
           <Text style={{fontSize, color, fontFamily: 'Mohave-Medium'}}>{reservation.name}</Text>
@@ -515,9 +529,9 @@ export default class CalendarPage extends Component {
           <CheckBox
               style={{alignSelf: 'flex-end', marginTop: -2}}
               onClick={()=>{
-                this.boxIsChecked(reservation.day + " " + reservation.name)
+                this.boxIsChecked(reservation.digit)
               }}
-              isChecked={this.state.boxChecked.includes(reservation.day + " " + reservation.name)}
+              isChecked={this.state.boxChecked.includes(reservation.digit)}
           />
             {/* <Text style={{fontSize: 15, color: timeColor, fontFamily: 'Mohave-Medium', letterSpacing: 0, textAlign: 'right'}}>{impName[[reservation.importance -1]]} {addTask}</Text> */}
           </View>
