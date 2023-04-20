@@ -46,7 +46,7 @@ const Home = () => {
                     backgroundColor: pressed ? '#EDA73A': '#ffab00',
                 },
                 styles.button]} 
-                onPress={navigation.navigate("Hive Session")}
+                onPress={()=>navigation.navigate("Hive Session")}
                 >
                     <Text style={styles.buttonText}> START A HIVE{'\n'}SESSION </Text>
                 </Pressable>
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
       width: 255,
       height: 255,
     //   padding: 10,
-      borderRadius: 150,
+      borderRadius: 255/2,
       // elevation: 8,
       marginHorizontal: SCREENWIDTH/5.7,
       marginTop: SCREENHEIGHT/25,
