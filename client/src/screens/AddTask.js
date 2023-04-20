@@ -101,7 +101,7 @@ const AddTask = () => {
         }
         
         if(newTask.type==undefined){
-            newTask.type='8'
+            newTask.type='7'
         }
 
         if(newTask.importance==undefined){

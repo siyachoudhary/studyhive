@@ -7,6 +7,7 @@ import { useNavigation } from "@react-navigation/native";
 // import CheckBox from '@react-native-community/checkbox';
 import EventBlock from "react-native-calendars/src/timeline/EventBlock";
 import CheckBox from 'react-native-check-box'
+import { convertAbsoluteToRem } from "native-base/lib/typescript/theme/tools";
 
 const SCREENHEIGHT = Dimensions.get('window').height;
 const date1 = new Date();
@@ -15,11 +16,16 @@ let month = date1.getMonth() + 1;
 let year = date1.getFullYear();
 let arr = {"2023-04-17": [{"day": "2023-04-17", "importance": "- Major", "name": "CS Class", "notes": "", "time": "11:03 PM", "type": "7"}]};
 let userObject;
+let lastUserObject;
 let newArr;
 let typeColors = ["#5A80F1", "#F08000", "#FFC300", "#B87333", "#00A36C", "#7B68EE", "black"]
 let typeName = ["Work", "Exercise", "School", "Chores", "Extracurriculars", "Personal", "Other"]
 let impName = ['- Major', '- Moderate', '- Minor']
 let itemNames = [];
+let deleteItem = false;
+let deleted;
+let indexOfObj;
+
 export default class CalendarPage extends Component {
 
   componentDidMount() {
@@ -50,15 +56,36 @@ export default class CalendarPage extends Component {
     }
   }
 
-  async loadArray() {
+  async saveValue(value) {
+    try {
+      await AsyncStorage.setItem('recentValue', value)
+      console.log("stored value")
+      console.log(JSON.parse(value))
+      this.loadValue()
+    } catch (e) {
+      // saving error
+      console.log('error: ' + e.message)
+    }
+  }
 
-    await AsyncStorage.getItem("recentArray").then(value => {
+  loadArray() {
+    AsyncStorage.getItem("recentArray").then(value => {
       if(value != null){
         arr = JSON.parse(value);
         console.log('loaded array')
         console.log(arr)
-      } else {
-        arr = [];
+      }
+    }).catch(err => {
+      console.log(err.message);  
+    })
+  }
+
+  loadValue() {
+    AsyncStorage.getItem("recentValue").then(value => {
+      if(value != null){
+        lastUserObject = JSON.parse(value);
+        console.log('loaded value')
+        console.log(lastUserObject)
       }
     }).catch(err => {
       console.log(err.message);  
@@ -165,31 +192,44 @@ export default class CalendarPage extends Component {
 
   retrieveData = async rerender => {
     this.loadArray();
+    this.loadValue();
     console.log(arr)
-    await AsyncStorage.getItem("newTask").then(value => {
+    AsyncStorage.getItem("newTask").then(value => {
            if(value != null){
               userObject = JSON.parse(value);
               console.log(userObject);
               console.log(Object.keys(arr).length)
+              // console.log((deleted.day == userObject.date && deleted.name == userObject.title))
+              console.log(deleted)
+              if(deleted){
+                if(deleted.day == userObject.date && deleted.name == userObject.title){
+                  return;
+                }
+                console.log(deleted.day)
+              }
               for (let i = 0; i < Object.keys(arr).length; i++) {
                 // console.log(arr[Object.keys(arr)[i]][0].day);
                 // console.log(arr[Object.keys(arr)[0]][0]);
+                //userObject.day + " " + userObject.name
+
                 let daynum = arr[Object.keys(arr)[i]][0].day;
+                let box = this.state.boxChecked;
+
                 for (let j = 0; j < arr[daynum].length; j++) {
-                  if(daynum == userObject.date && arr[daynum][j].name == userObject.title){
-                    console.log('same')
-                    console.log(arr)
-                    let toRemove = arr[daynum].findIndex((object) => object.key == arr[daynum][j].key)
-                    console.log('what r u' + arr[daynum][j])
-                    console.log(toRemove)
-                    console.log(arr[daynum].slice(0, 1))
-                    arr[daynum].slice(toRemove, 1)
-                    // delete arr[daynum][j]
-                    console.log(arr)
-                    return;
+                  if((daynum == userObject.date && arr[daynum][j].name == userObject.title)){
+                      console.log('same1')
+                      return;
+                  } else if (!(!lastUserObject)){
+                    if((lastUserObject.date == userObject.date && lastUserObject.title == userObject.title)){
+                      console.log('same2')
+                      return;
+                    } else (
+                      console.log('didnt happen')
+                    )
                   }
                 }
               }
+              
               if (!arr[userObject.date]) {
                 arr[userObject.date] = []
               }
@@ -202,6 +242,11 @@ export default class CalendarPage extends Component {
                 importance: userObject.importance, 
                 notes: userObject.notes,
               })
+              lastUserObject = JSON.parse(JSON.stringify(userObject));
+              this.saveValue(JSON.stringify(lastUserObject))
+              console.log('is this even working')
+              console.log(lastUserObject)
+              console.log((lastUserObject.date == userObject.date && lastUserObject.title == userObject.title))
               console.log(arr)
               this.saveData(JSON.stringify(arr))
               if(rerender){
@@ -222,8 +267,16 @@ export default class CalendarPage extends Component {
     const items = this.state.items || {}
 
     setTimeout(() => {
+
+      // deleteItem = false;
+      console.log("items")
+      console.log(items)
+
+      console.log("array")
+      console.log(arr)
       for (let i = 0; i < Object.keys(arr).length; i++) {
         let initialDay = arr[Object.keys(arr)[i]][0].day;
+         
         // console.log(arr[initialDay][0].name);
 
         // this.canAdd(items[initialDay], arr[Object.keys(arr)[i]])
@@ -268,12 +321,44 @@ export default class CalendarPage extends Component {
           }
         }
       }
+    
+      console.log('items')
+      console.log(items)
+      if(Object.keys(arr).length != Object.keys(items).length){
+        console.log('NOT EQUAL')
+        console.log(deleted.day)
+        delete items[deleted.day]
+        // const sliced = Object.keys(items).slice(0, indexOfObj).reduce((result, key) => {
+        //   result[key] = items[key];
 
+        //   return result;
+        // }, {});
+        // const sliced2 = Object.keys(items).slice(indexOfObj + 1).reduce((result, key) => {
+        //     result[key] = items[key];
+
+        //     return result;
+        // }, {});
+
+        // const sliced3 = {
+        //   ...sliced, 
+        //   ...sliced2
+        // };
+        
+        // console.log(sliced3);
+
+        // items = JSON.parse(JSON.stringify(sliced3))
+
+        // console.log(items)
+      } else {
+        console.log('IS EQUAL')
+      }
+
+      console.log(items)
       itemNames = [];
       Object.keys(items).forEach(key => {
         for (let index = 0; index < items[key].length; index++) {
-          itemNames.push(items[key][index].day + items[key][index].name)
-          console.log(items[key][index].day + items[key][index].name);
+          itemNames.push(items[key][index].day  + " " +  items[key][index].name)
+          console.log(items[key][index].day + " " + items[key][index].name);
         }
       })
 
@@ -285,7 +370,7 @@ export default class CalendarPage extends Component {
         items: newItems
       })
 
-    }, 1000)
+    }, 500)
   }
 
   canAdd = (arr1, arr2) => {
@@ -300,11 +385,97 @@ export default class CalendarPage extends Component {
       return true;
   }
 
+  removeItem = (info) => {
+    let date = info.substring(0, 10)
+    let name = info.substring(11)
+    let newArr = {};
+    let index;
+    
+    setTimeout(() => {
+      if(deleteItem){
+        console.log('RUNNINGGGG')
+        for (let i = 0; i < Object.keys(arr).length; i++) {
+          let initialDay = arr[Object.keys(arr)[i]][0].day;
+          for (let j = 0; j < arr[initialDay].length; j++) {
+            if(initialDay != date || arr[initialDay][j].name != name){
+              // console.log(newArr)
+              if (!Object.keys(newArr).length) {
+                console.log("i ran")
+                Object.assign(newArr, {[initialDay]: [{name: arr[initialDay][j].name,
+                  day: arr[initialDay][j].day,
+                  time: arr[initialDay][j].time, 
+                  type: arr[initialDay][j].type, 
+                  importance: arr[initialDay][j].importance, 
+                  notes: arr[initialDay][j].notes}]});
+              } else {
+                if (!newArr[initialDay]) {
+                  newArr[initialDay] = []
+                }
+                newArr[initialDay].push({
+                  name: arr[initialDay][j].name,
+                  day: arr[initialDay][j].day,
+                  time: arr[initialDay][j].time, 
+                  type: arr[initialDay][j].type, 
+                  importance: arr[initialDay][j].importance, 
+                  notes: arr[initialDay][j].notes
+                })
+              }
+            } else {
+              indexOfObj = i
+              deleted = {
+                name: arr[initialDay][j].name,
+                day: arr[initialDay][j].day,
+                time: arr[initialDay][j].time, 
+                type: arr[initialDay][j].type, 
+                importance: arr[initialDay][j].importance, 
+                notes: arr[initialDay][j].notes};
+            }
+          }
+        }
+
+        // deleted = JSON.parse(JSON.stringify(newDeleted))
+        console.log(" ")
+        console.log(" ")
+        console.log(deleted)
+        console.log(" ")
+        console.log(" ")
+        console.log(newArr)
+        console.log(" ")
+        console.log(" ")
+        console.log(arr)
+        console.log(" ")
+        this.saveData(JSON.stringify(newArr))
+
+        // this.loadItems()
+        setTimeout(() => {
+          console.log(" ")
+          console.log(arr)
+          console.log(" ")
+          // if(deleteItem){
+          //   console.log('set to undefined')
+          //   this.setState({
+          //     items: undefined
+          //   })      
+          // }
+          this.loadItems()
+        }, 50)
+      }
+    }, 1000)
+    // let index = itemNames.indexOf(deleted.day + deleted.name)
+
+    // let toRemove = arr[date].findIndex((object) => object.key == arr[date][j].key)
+    // console.log('what r u' + arr[daynum][j])
+    // console.log(toRemove)
+    // console.log(arr[daynum].slice(0, 1))
+    // arr[daynum].slice(toRemove, 1)
+
+  }
+
   renderItem = (reservation) => {
     const fontSize = 20;
     const color = "black";
     const borderColor = typeColors[+reservation.type - 1]
-    console.log(+reservation.type - 1)
+    // console.log(+reservation.type - 1)
     let timeColor = 'black';
     let timeName = "Due";
     let addTask = "";
@@ -316,18 +487,22 @@ export default class CalendarPage extends Component {
       addTask = "Task"
     }
 
-    console.log(itemNames)
+    // console.log(itemNames)
     // console.log(itemNames.indexOf(reservation.day + reservation.name))
     let index = itemNames.indexOf(reservation.day + reservation.name)
-    console.log(reservation.name + " " + index)
-
+    // console.log(reservation.name + " " + index)
+    // if(!items){
+    //   if(items[reservation.date] == []){
+    //     return;
+    //   }
+    // }
     return (
       <TouchableOpacity
         testID={testIDs.agenda.ITEM}
         style={[styles.item, {height:reservation.height, borderColor}]}
         onPress={() => Alert.alert(reservation.name)}
       >
-        <View style={{flexDirection: "row"}}>
+        <View style={{flexDirection: "row", marginTop: -1}}>
           <Text style={{fontSize, color, fontFamily: 'Mohave-Medium'}}>{reservation.name}</Text>
           <View style={{flex: 1}}>
             <Text style={{fontSize, color:borderColor, fontFamily: 'Mohave-Medium', textAlign: 'right'}}>{typeName[[+reservation.type - 1]]} </Text>
@@ -340,9 +515,9 @@ export default class CalendarPage extends Component {
           <CheckBox
               style={{alignSelf: 'flex-end', marginTop: -2}}
               onClick={()=>{
-                this.boxIsChecked(reservation.day + reservation.name)
+                this.boxIsChecked(reservation.day + " " + reservation.name)
               }}
-              isChecked={this.state.boxChecked.includes(reservation.day + reservation.name)}
+              isChecked={this.state.boxChecked.includes(reservation.day + " " + reservation.name)}
           />
             {/* <Text style={{fontSize: 15, color: timeColor, fontFamily: 'Mohave-Medium', letterSpacing: 0, textAlign: 'right'}}>{impName[[reservation.importance -1]]} {addTask}</Text> */}
           </View>
@@ -447,9 +622,12 @@ export default class CalendarPage extends Component {
     if (!box.includes(info)) { 
       box.push(info)
       console.log('checked')
+      deleteItem = true;
+      this.removeItem(info)
     }
     else {
        box.splice(info, 1) 
+       deleteItem = false;
        console.log('unchecked')
     }
     console.log("box2: " + box)
@@ -457,6 +635,9 @@ export default class CalendarPage extends Component {
   }
   
 }
+
+
+
 const styles = StyleSheet.create({
   item: {
     backgroundColor: "white",
