@@ -425,8 +425,6 @@ export default class CalendarPage extends Component {
 
   loadItems = date => {
     console.log("rerendering");
-    this.loadStudyLog();
-
     this.retrieveData(false)
     console.log(arr)
     const items = this.state.items || {}
