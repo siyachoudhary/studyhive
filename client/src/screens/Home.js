@@ -21,7 +21,7 @@ const Home = () => {
     const [buttonText, setButtonText] = useState(styles.buttonText)
     const [accButtonText, setAccButtonText] = useState("START A HIVE\nSESSION")
     const [renderOther, setRenderOther] = useState(false)
-    const [hours, setHours] = useState(0)
+    const [hours, setHours] = useState("")
     const [extra, setExtra] = useState("")
     const [extra2, setExtra2] = useState("")
     const [main, setMain] = useState("")
@@ -260,7 +260,7 @@ const styles = StyleSheet.create({
       borderRadius: 255/2,
       // elevation: 8,
       marginHorizontal: SCREENWIDTH/5.7,
-      marginTop: -SCREENHEIGHT/14,
+      marginTop: -SCREENHEIGHT/11,
     },
     button2: {
       alignItems: 'center',
