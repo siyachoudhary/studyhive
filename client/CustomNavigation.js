@@ -51,6 +51,13 @@ const InitNavigator = () => {
                   <MaterialIcons name={'groups'} size={28} color={focused?'#ffab00':'white'}/>
               ),
             }}/>
+            <Tab.Screen name="Chat" component={SettingsNavigator} 
+            options={{
+              tabBarLabel: 'Chat',
+              tabBarIcon: ({ focused, color, size }) => (
+                  <MaterialIcons name={'forum'} size={25} color={focused?'#ffab00':'white'}/>
+              ),
+            }}/>
             <Tab.Screen name="Profile" component={SettingsNavigator} 
             options={{
               tabBarLabel: 'Profile',
