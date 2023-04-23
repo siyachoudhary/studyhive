@@ -8,6 +8,7 @@ import { useNavigation } from "@react-navigation/native";
 import EventBlock from "react-native-calendars/src/timeline/EventBlock";
 import CheckBox from 'react-native-check-box'
 import { convertAbsoluteToRem } from "native-base/lib/typescript/theme/tools";
+import PushNotificationIOS from "@react-native-community/push-notification-ios";
 
 const SCREENHEIGHT = Dimensions.get('window').height;
 const date1 = new Date();
@@ -693,7 +694,7 @@ export default class CalendarPage extends Component {
           <CheckBox
               style={{alignSelf: 'flex-end', marginTop: -2}}
               onClick={()=>{
-                this.boxIsChecked(reservation.digit)
+                this.boxIsChecked(reservation.digit, reservation.name)
               }}
               isChecked={this.state.boxChecked.includes(reservation.digit)}
           />
@@ -779,7 +780,7 @@ export default class CalendarPage extends Component {
     return false;
   }
 
-  boxIsChecked(info){
+  boxIsChecked(info, titleOfItem){
     // this.setState(prevState => {
     //   const {boxChecked} = prevState
     //   let index2 = boxChecked.indexOf(index, 1);
@@ -802,6 +803,9 @@ export default class CalendarPage extends Component {
       console.log('checked')
       deleteItem = true;
       this.removeItem(info)
+
+      console.log("ITEM TITLE:",titleOfItem)
+      PushNotificationIOS.removePendingNotificationRequests([titleOfItem]);
     }
     else {
        box.splice(info, 1) 

@@ -153,7 +153,7 @@ const AddTask = ({route}) => {
             let placeholderHours = hours
 
             let notificationText = `${data.title} is due now!`
-            
+
             if(data.time==1){
                 placeholderMinutes-=1
                 notificationText = `${data.title} is due in 1 minute!`
@@ -172,7 +172,7 @@ const AddTask = ({route}) => {
             }
 
             PushNotificationIOS.addNotificationRequest({
-                id: 'openAgenda',
+                id: data.title,
                 fireDate: new Date(`${year}-${month}-${day}T${placeholderHours}:${placeholderMinutes}:00`),
                 title:"StudyHive Upcoming Task",
                 subtitle: notificationText
