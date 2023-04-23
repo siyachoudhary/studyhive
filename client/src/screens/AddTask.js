@@ -130,8 +130,8 @@ const AddTask = ({route}) => {
         { label: '1 minute before', value: '1' },
         { label: '5 minutes before', value: '2' },
         { label: '10 minutes before', value: '3' },
-        { label: '30 minutes before', value: '3' },
-        { label: '1 hour before', value: '3' },
+        { label: '30 minutes before', value: '4' },
+        { label: '1 hour before', value: '5' },
     ]
 
     function submit(data){
@@ -155,8 +155,8 @@ const AddTask = ({route}) => {
             let notificationText = `${data.title} is due now!`
 
             if(data.time==1){
-                if(minutes!=0){
-                    if(hours!=0){
+                if(placeholderMinutes!=0){
+                    if(placeholderHours!=0){
                         placeholderHours-=1
                     }else{
                         placeholderHours=23
@@ -167,47 +167,52 @@ const AddTask = ({route}) => {
                 }
                 notificationText = `${data.title} is due in 1 minute!`
             }else if(data.time==2){
-                if(minutes<5){
-                    if(hours!=0){
+                if(placeholderMinutes<5){
+                    if(placeholderHours!=0){
                         placeholderHours-=1
                     }else{
                         placeholderHours=23
                     }
-                    placeholderMinutes-=60-(5-minutes)
+                    placeholderMinutes=60-(5-placeholderMinutes)
                 }else{
                     placeholderMinutes-=5
                 }
                 notificationText = `${data.title} is due in 5 minutes!`
             }else if(data.time==3){
-                if(minutes<10){
-                    if(hours!=0){
+                
+                if(placeholderMinutes<10){
+                    if(placeholderHours!=0){
                         placeholderHours-=1
                     }else{
                         placeholderHours=23
                     }
-                    placeholderMinutes-=60-(10-minutes)
+                    placeholderMinutes=60-(10-placeholderMinutes)
                 }else{
                     placeholderMinutes-=10
                 }
+
+                console.log("FN:",placeholderMinutes)
+
                 notificationText = `${data.title} is due in 10 minutes!`
             }else if(data.time==4){
-                if(minutes<30){
-                    if(hours!=0){
+                if(placeholderMinutes<30){
+                    if(placeholderHours!=0){
                         placeholderHours-=1
                     }else{
                         placeholderHours=23
                     }
-                    placeholderMinutes-=60-(30-minutes)
+                    placeholderMinutes=60-(30-placeholderMinutes)
                 }else{
                     placeholderMinutes-=30
                 }
                 notificationText = `${data.title} is due in 30 minutes!`
             }if(data.time==5){
-                if(hours!=0){
+                if(placeholderHours!=0){
                     placeholderHours-=1
                 }else{
                     placeholderHours=23
                 }
+                
                 notificationText = `${data.title} is due in 1 hour!`
             }
 
