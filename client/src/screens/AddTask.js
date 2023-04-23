@@ -206,7 +206,7 @@ const AddTask = ({route}) => {
                     placeholderMinutes-=30
                 }
                 notificationText = `${data.title} is due in 30 minutes!`
-            }if(data.time==5){
+            }else if(data.time==5){
                 if(placeholderHours!=0){
                     placeholderHours-=1
                 }else{
