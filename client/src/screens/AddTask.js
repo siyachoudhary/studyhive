@@ -155,19 +155,59 @@ const AddTask = ({route}) => {
             let notificationText = `${data.title} is due now!`
 
             if(data.time==1){
-                placeholderMinutes-=1
+                if(minutes!=0){
+                    if(hours!=0){
+                        placeholderHours-=1
+                    }else{
+                        placeholderHours=23
+                    }
+                }else{
+                    placeholderHours-=1
+                    placeholderMinutes=59
+                }
                 notificationText = `${data.title} is due in 1 minute!`
             }else if(data.time==2){
-                placeholderMinutes-=5
+                if(minutes<5){
+                    if(hours!=0){
+                        placeholderHours-=1
+                    }else{
+                        placeholderHours=23
+                    }
+                    placeholderMinutes-=60-(5-minutes)
+                }else{
+                    placeholderMinutes-=5
+                }
                 notificationText = `${data.title} is due in 5 minutes!`
             }else if(data.time==3){
-                placeholderMinutes-=10
+                if(minutes<10){
+                    if(hours!=0){
+                        placeholderHours-=1
+                    }else{
+                        placeholderHours=23
+                    }
+                    placeholderMinutes-=60-(10-minutes)
+                }else{
+                    placeholderMinutes-=10
+                }
                 notificationText = `${data.title} is due in 10 minutes!`
             }else if(data.time==4){
-                placeholderMinutes-=30
+                if(minutes<30){
+                    if(hours!=0){
+                        placeholderHours-=1
+                    }else{
+                        placeholderHours=23
+                    }
+                    placeholderMinutes-=60-(30-minutes)
+                }else{
+                    placeholderMinutes-=30
+                }
                 notificationText = `${data.title} is due in 30 minutes!`
             }if(data.time==5){
-                placeholderHours-=1
+                if(hours!=0){
+                    placeholderHours-=1
+                }else{
+                    placeholderHours=23
+                }
                 notificationText = `${data.title} is due in 1 hour!`
             }
 
