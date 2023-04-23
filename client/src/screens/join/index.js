@@ -342,7 +342,7 @@ export default function Join({ navigation }) {
                           PushNotificationIOS.addNotificationRequest({
                             id: '123abc',
                             title:"New badge",
-                            subtitle: "You just earnt the Hive Starter Badge!"
+                            subtitle: "You just earned the Hive Starter Badge!"
                           })
                       })
                     navigation.navigate(SCREEN_NAMES.Meeting, {

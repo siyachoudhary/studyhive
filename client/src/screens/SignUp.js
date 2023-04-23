@@ -12,6 +12,7 @@ const SCREENWIDTH = Dimensions.get('window').width;
 import signUpBadge from "../assets/images/Badges/New.png"
 
 import { BaseURL } from './BaseUrl';
+import PushNotificationIOS from '@react-native-community/push-notification-ios';
 
 const SignUp = () => {
     const baseURL = BaseURL
@@ -117,6 +118,11 @@ const SignUp = () => {
                 badge: "newBee"
             }).then(function(response){
                 console.log("badge added")
+                PushNotificationIOS.addNotificationRequest({
+                    id: '123abc',
+                    title:"New badge",
+                    subtitle: "You just earned the New Bew Badge!"
+                })
             })
 
             navigation.navigate("HomeFirst")
