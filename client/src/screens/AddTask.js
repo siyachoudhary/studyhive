@@ -6,6 +6,7 @@ import DatePicker from 'react-native-date-picker'
 import { Dropdown } from 'react-native-element-dropdown';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import PushNotificationIOS from "@react-native-community/push-notification-ios";
 
 
 const SCREENHEIGHT = Dimensions.get('window').height;
@@ -62,7 +63,6 @@ const AddTask = ({route}) => {
         }
     }
     
-
     function updateStates(){
         setValue('title', item.name)
         setValue('notes', item.notes)
@@ -92,12 +92,14 @@ const AddTask = ({route}) => {
     const [titleErr, setTitleErr] = React.useState("");
     const [dateErr, setDateErr] = React.useState("");
 
-    const {control, handleSubmit, errors, register, setValue} = useForm({
+    const {control, handleSubmit, errors, register, setValue} = useForm(
+        {
         'title': "",
         'notes': "",
         'type': "",
         'importance': "",
         'date': date1,
+        'time': "",
         'doRemind': false,
     })
 
@@ -124,6 +126,14 @@ const AddTask = ({route}) => {
         { label: 'Minor', value: '3' },
     ]
 
+    const dueReminder = [
+        { label: '1 minute before', value: '1' },
+        { label: '5 minutes before', value: '2' },
+        { label: '10 minutes before', value: '3' },
+        { label: '30 minutes before', value: '3' },
+        { label: '1 hour before', value: '3' },
+    ]
+
     function submit(data){
         let date = date1;
         console.log(date)
@@ -134,6 +144,41 @@ const AddTask = ({route}) => {
         var hours = date.getHours()
         var minutes =  ('0' + date.getMinutes()).slice(-2);
         let num;
+
+        console.log(`FIREDATE: ${year}-${month}-${day}T${hours}:${minutes}:00`)
+
+        if(data.doRemind){
+
+            let placeholderMinutes = minutes
+            let placeholderHours = hours
+
+            let notificationText = `${data.title} is due now!`
+            
+            if(data.time==1){
+                placeholderMinutes-=1
+                notificationText = `${data.title} is due in 1 minute!`
+            }else if(data.time==2){
+                placeholderMinutes-=5
+                notificationText = `${data.title} is due in 5 minutes!`
+            }else if(data.time==3){
+                placeholderMinutes-=10
+                notificationText = `${data.title} is due in 10 minutes!`
+            }else if(data.time==4){
+                placeholderMinutes-=30
+                notificationText = `${data.title} is due in 30 minutes!`
+            }if(data.time==5){
+                placeholderHours-=1
+                notificationText = `${data.title} is due in 1 hour!`
+            }
+
+            PushNotificationIOS.addNotificationRequest({
+                id: 'openAgenda',
+                fireDate: new Date(`${year}-${month}-${day}T${placeholderHours}:${placeholderMinutes}:00`),
+                title:"StudyHive Upcoming Task",
+                subtitle: notificationText
+              })
+        }
+
         if(!item.digit){
             num = Math.random().toString(36).substring(2,10);
         } else {
@@ -188,6 +233,7 @@ const AddTask = ({route}) => {
         if(newTask.importance==undefined){
             newTask.importance=''
         }
+
         // axios
         // .post('http://localhost:3000/login', {
         //     title: title,
@@ -364,7 +410,7 @@ const AddTask = ({route}) => {
             </Controller>
             <Text style={[styles.text, {textAlign: "left", fontSize: 15, color:"red"}]}>{dateErr}</Text>
 
-            <View style={{ flexDirection: "row", marginTop: -SCREENHEIGHT/30}}>
+            {/* <View style={{ flexDirection: "row", marginTop: -SCREENHEIGHT/30}}>
                 <Text style={[styles.text, {marginTop: SCREENHEIGHT/25}]}>REMINDER NOTIFICATION:</Text>
                 <Controller
                     control={control}
@@ -376,10 +422,65 @@ const AddTask = ({route}) => {
                                 style={styles.switch}
                                 trackColor={{false: '#767577', true: '#EDA73A'}}
                                 ios_backgroundColor="#3e3e3e"
-                                onValueChange={value=>onChange(value)}
+                                onValueChange={
+                                    value=>onChange(value)
+                                }
                             />
                     )}> 
                 </Controller>  
+            </View> */}
+
+<View style={{flexDirection: "row"}}>
+                <View style={{flexDirection: "column"}}>
+                    <Text style={[styles.text, {marginRight: SCREENHEIGHT/15}]}>REMINDER:</Text>
+                    <Controller
+                    control={control}
+                    name='doRemind'
+                    render={
+                        ({field:{onChange, value}})=>(
+                            <Switch
+                                value={value}
+                                style={styles.switch}
+                                trackColor={{false: '#767577', true: '#EDA73A'}}
+                                ios_backgroundColor="#3e3e3e"
+                                onValueChange={
+                                    value=>onChange(value, toggleSwitch())
+                                        // setIsEnabled(!isEnabled)
+                                }
+                            />
+                    )}> 
+                </Controller>  
+                </View>
+
+                {isEnabled?
+                <View style={{flexDirection: "column"}}>
+                    <Text style={[styles.text, {marginLeft: SCREENHEIGHT/60}]}>REMIND TIME:</Text>
+                    <Controller
+                    control={control}
+                    name='time'
+                    render={
+                        ({field:{onChange, value}})=>(
+                            <Dropdown
+                                style={[styles.dropdown, {marginLeft: SCREENHEIGHT/60, marginRight: -SCREENHEIGHT/70}]}
+                                placeholderStyle={styles.placeholderStyle}
+                                selectedTextStyle={styles.selectedTextStyle}
+                                inputSearchStyle={styles.inputSearchStyle}
+                                iconStyle={styles.iconStyle}
+                                data={dueReminder}
+                                // search
+                                maxHeight={150}
+                                labelField="label"
+                                valueField="value"
+                                placeholder="Select Item"
+                                value={value}
+                                onChange={item => {
+                                onChange(item.value);
+                                }}
+                                renderItem={renderItem}
+                            />
+                        )
+                    }> </Controller>
+                </View>:null}
             </View>
 
             <Pressable 
@@ -465,10 +566,22 @@ const styles = StyleSheet.create({
         color: '#303030',
     },
     switch: {
-        marginTop: SCREENHEIGHT/30,
-        marginLeft: SCREENWIDTH/14,
+        marginTop: SCREENHEIGHT/75,
+        marginLeft: SCREENWIDTH/10,
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'center',   
+        marginLeft: SCREENHEIGHT/20,
+        marginRight: SCREENHEIGHT/5000,
+        padding: 10,
+        shadowColor: '#000',
+        shadowOffset: {
+          width: 0,
+          height: 1,
+        },
+        shadowOpacity: 0.2,
+        shadowRadius: 1.41,
+  
+        elevation: 2,
     }, 
     dropdown: {
         marginTop: SCREENHEIGHT/500,   
