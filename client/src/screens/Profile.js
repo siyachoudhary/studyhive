@@ -17,6 +17,8 @@ import { BADGE_IMAGES } from './BadgeRoutes';
 
 import axios from 'axios';
 
+import PushNotificationIOS from '@react-native-community/push-notification-ios';
+
 const SCREENHEIGHT = Dimensions.get('window').height;
 const SCREENWIDTH = Dimensions.get('window').width;
 
@@ -395,6 +397,35 @@ const Profile = () => {
     // console.log(friendId)
   }
 
+  const getCorrectDate = () => {
+    const date = new Date();
+    date.setDate(date.getDate() + 1);
+    date.setHours(23);
+    date.setMinutes(54);
+    return date;
+  };
+
+  useEffect(() => {
+    const type = 'notification';
+    PushNotificationIOS.addEventListener(type, onRemoteNotification);
+    return () => {
+      PushNotificationIOS.removeEventListener(type);
+    };
+  });
+
+  const onRemoteNotification = (notification) => {
+    const isClicked = notification.getData().userInteraction === 1;
+
+    if (isClicked) {
+      // Navigate user to another screen
+    } else {
+      // Do something else with push notification
+    }
+    // Use the appropriate result based on what you needed to do for this notification
+    const result = PushNotificationIOS.FetchResult.NoData;
+    notification.finish(result);
+  };
+
   const renderTab3Item = ({item, index}) => {
     return (
       <View>
@@ -404,7 +435,7 @@ const Profile = () => {
             marginVertical: tab2ItemWidth/400,
             marginBottom: 10,
           }} onPress={
-            ()=>navigation.navigate("AddFriend")
+            ()=>navigation .navigate("AddFriend")
             }>
             <Text style={{color:"white", fontSize:20, backgroundColor: "grey", padding: 20}}>+ ADD FRIENDS</Text>
           </Pressable>: null

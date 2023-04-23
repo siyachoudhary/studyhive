@@ -24,11 +24,13 @@ import Menu from "../../components/Menu";
 import MenuItem from "../meeting/Components/MenuItem";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
+import PushNotificationIOS from "@react-native-community/push-notification-ios";
 // import { ROBOTO_FONTS } from "../../styles/fonts";
 
+import { BaseURL } from "../BaseUrl";
+
 export default function Join({ navigation }) {
-  // const baseURL = "http://localhost:3000"
-  const baseURL = "http://192.168.1.122:3000/"
+  const baseURL = BaseURL
 
   const [tracks, setTrack] = useState("");
   const [micOn, setMicon] = useState(true);
@@ -337,6 +339,11 @@ export default function Join({ navigation }) {
                       badge: "hiveBee"
                       }).then(function(response){
                           console.log("badge added")
+                          PushNotificationIOS.addNotificationRequest({
+                            id: '123abc',
+                            title:"New badge",
+                            subtitle: "You just earnt the Hive Starter Badge!"
+                          })
                       })
                     navigation.navigate(SCREEN_NAMES.Meeting, {
                       name: name.trim(),

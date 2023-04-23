@@ -46,6 +46,7 @@ target 'client' do
 
   pod 'react-native-webrtc', :path => '../node_modules/@videosdk.live/react-native-webrtc'
 
+  pod 'React-RCTPushNotification', :path => '../node_modules/react-native/Libraries/PushNotificationIOS'
   # pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
 

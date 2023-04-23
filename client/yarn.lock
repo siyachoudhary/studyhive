@@ -7642,11 +7642,6 @@ react-native-push-notification@^8.1.1:
   resolved "https://registry.npmjs.org/react-native-push-notification/-/react-native-push-notification-8.1.1.tgz"
   integrity sha512-XpBtG/w+a6WXTxu6l1dNYyTiHnbgnvjoc3KxPTxYkaIABRmvuJZkFxqruyGvfCw7ELAlZEAJO+dthdTabCe1XA==
 
-react-native-push-notifications@^3.0.10:
-  version "3.0.10"
-  resolved "https://registry.npmjs.org/react-native-push-notifications/-/react-native-push-notifications-3.0.10.tgz"
-  integrity sha512-VuVNkfQq0Hr9FTPQw01y4MtjLRqmq48p828+lXvhMwFC2gDMDHUzS1dxR3KgOPPUu1qcpXgB0IHbH50voeS9Pw==
-
 react-native-ratings@8.0.4:
   version "8.0.4"
   resolved "https://registry.npmjs.org/react-native-ratings/-/react-native-ratings-8.0.4.tgz"

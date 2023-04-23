@@ -285,6 +285,7 @@ app.post("/addBadge/:_id", (request, response) => {
 
   User.findOne({ _id: request.params._id }) 
     .then((user) => {
+      console.log("userFound")
       let currentBadges = user.badges
       let works = true;
       for (let index = 0; index < currentBadges.length; index++) {
@@ -302,15 +303,16 @@ app.post("/addBadge/:_id", (request, response) => {
         })
         .catch((e) => {
           console.log(e)
-          response.status(404).send({
-            message: "Could not add badge",
-            e,
-          });
+          // response.status(404).send({
+          //   message: "Could not add badge",
+          //   e,
+          // });
         });
       }else{
-        response.status(200).send({
-          message: "user badge already exists",
-        })
+        // response.status(200).send({
+        //   message: "user badge already exists",
+        // })
+        console.log("user badge exists")
       }
       
     })
