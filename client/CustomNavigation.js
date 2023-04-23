@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 ;
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Profile from "./src/screens/Profile";
@@ -14,7 +14,9 @@ const Tab = createBottomTabNavigator();  // creates object for Stack Navigator
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import FriendProfile from "./src/screens/FriendProfile";
 // https://oblador.github.io/react-native-vector-icons/ -> link for materialIcons icons
+
 const InitNavigator = () => {
+
     return (
             <Tab.Navigator 
             initialRouteName="Home" 
@@ -113,6 +115,7 @@ import { SCREEN_NAMES } from "./src/navigators/screenNames";
 import Join from "./src/screens/join";
 import Meeting from "./src/screens/meeting";
 import { LogBox} from "react-native";
+import PushNotificationIOS from "@react-native-community/push-notification-ios";
 LogBox.ignoreLogs(["Warning: ..."]);
 LogBox.ignoreAllLogs();
 

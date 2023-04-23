@@ -119,9 +119,9 @@ const SignUp = () => {
             }).then(function(response){
                 console.log("badge added")
                 PushNotificationIOS.addNotificationRequest({
-                    id: '123abc',
-                    title:"New badge",
-                    subtitle: "You just earned the New Bew Badge!"
+                    id: 'openProfile',
+                    title:"StudyHive",
+                    subtitle: "You just earned the New Bee Badge!",
                 })
             })
 

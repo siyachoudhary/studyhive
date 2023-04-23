@@ -340,8 +340,8 @@ export default function Join({ navigation }) {
                       }).then(function(response){
                           console.log("badge added")
                           PushNotificationIOS.addNotificationRequest({
-                            id: '123abc',
-                            title:"New badge",
+                            id: 'openProfile',
+                            title:"StudyHive",
                             subtitle: "You just earned the Hive Starter Badge!"
                           })
                       })
