@@ -13,6 +13,7 @@ const SCREENWIDTH = Dimensions.get('window').width;
 var ImagePicker = require('react-native-image-picker');
 
 import { BaseURL } from './BaseUrl';
+import PushNotificationIOS from '@react-native-community/push-notification-ios';
 const baseURL = BaseURL
 
 const Settings = () => {
@@ -143,6 +144,8 @@ const Settings = () => {
 
     function logout(){
         AsyncStorage.removeItem('user')
+        PushNotificationIOS.removeAllPendingNotificationRequests();
+
         navigation.navigate("Welcome Screen")
     }
 
@@ -154,6 +157,7 @@ const Settings = () => {
             // console.log(JSON.stringify(response.data));
             
             AsyncStorage.clear
+            PushNotificationIOS.removeAllPendingNotificationRequests();
             navigation.navigate("Welcome Screen")
         })
         .catch(function (err) {

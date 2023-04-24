@@ -145,8 +145,6 @@ const AddTask = ({route}) => {
         var minutes =  ('0' + date.getMinutes()).slice(-2);
         let num;
 
-        console.log(`FIREDATE: ${year}-${month}-${day}T${hours}:${minutes}:00`)
-
         if(data.doRemind){
 
             let placeholderMinutes = minutes
@@ -156,13 +154,13 @@ const AddTask = ({route}) => {
 
             if(data.time==1){
                 if(placeholderMinutes!=0){
+                    placeholderMinutes-=1
+                }else{
                     if(placeholderHours!=0){
                         placeholderHours-=1
                     }else{
                         placeholderHours=23
                     }
-                }else{
-                    placeholderHours-=1
                     placeholderMinutes=59
                 }
                 notificationText = `${data.title} is due in 1 minute!`
@@ -215,6 +213,8 @@ const AddTask = ({route}) => {
                 
                 notificationText = `${data.title} is due in 1 hour!`
             }
+
+            console.log("FIREDATE:", `${year}-${month}-${day}T${placeholderHours}:${placeholderMinutes}:00`)
 
             PushNotificationIOS.addNotificationRequest({
                 id: data.title,
@@ -528,30 +528,63 @@ const AddTask = ({route}) => {
                 </View>:null}
             </View>
 
-            <Pressable 
-                style={({pressed}) => [
-                {
-                    backgroundColor: pressed ? '#EDA73A': '#ffab00',
-                },
-                styles.button]} 
-                onPress={handleSubmit(submit)}
-            >
-                <Text style={styles.buttonText}>{isThere ? 'UPDATE' : 'ADD'} TASK</Text>
-            </Pressable>
-
-            <Pressable 
-                    style={({pressed}) => [
-                    {
-                        backgroundColor: pressed ? '#EDA73A': '#ffab00',
-                    },
-                    styles.button, {marginTop: SCREENHEIGHT/40}]} 
-                    onPress={()=>
-                        navigation.navigate("calendarScreen") +
-                        (done = false)
-                    }
+            <View style={{flexDirection:'row', alignItems: 'center', justifyContent: 'center', marginTop: SCREENHEIGHT/1.2, marginLeft: SCREENWIDTH/20, position:'absolute'}}>
+                    <Pressable 
+                        style={({pressed}) => [
+                        {
+                            backgroundColor: pressed ? '#EDA73A': '#ffab00',
+                        },
+                        styles.button]} 
+                        onPress={handleSubmit(submit)}
                     >
-                <Text style={[styles.buttonText]}> BACK TO CALENDAR </Text>
-            </Pressable>
+                        <Text style={styles.buttonText}>{isThere ? 'UPDATE' : 'ADD'} TASK</Text>
+                    </Pressable>
+                    <Pressable 
+                            style={({pressed}) => [
+                            {
+                                backgroundColor: pressed ? '#EDA73A': '#ffab00',
+                            },
+                            styles.button]} 
+                            onPress={()=>
+                                navigation.navigate("calendarScreen") +
+                                (done = false)
+                            }
+                            >
+                        <Text style={[styles.buttonText]}> BACK TO CALENDAR </Text>
+                    </Pressable>
+        </View>
+
+            {/* <View style={{flexDirection:'row'}}>
+                <View style={{flexDirection:'column'}}>
+                    <Pressable 
+                        style={({pressed}) => [
+                        {
+                            backgroundColor: pressed ? '#EDA73A': '#ffab00',
+                        },
+                        styles.button]} 
+                        onPress={handleSubmit(submit)}
+                    >
+                        <Text style={styles.buttonText}>{isThere ? 'UPDATE' : 'ADD'} TASK</Text>
+                    </Pressable>
+                </View>
+            
+                <View style={{flexDirection:'column'}}>
+                    <Pressable 
+                            style={({pressed}) => [
+                            {
+                                backgroundColor: pressed ? '#EDA73A': '#ffab00',
+                            },
+                            styles.button, {marginTop: SCREENHEIGHT/40}]} 
+                            onPress={()=>
+                                navigation.navigate("calendarScreen") +
+                                (done = false)
+                            }
+                            >
+                        <Text style={[styles.buttonText]}> BACK TO CALENDAR </Text>
+                    </Pressable>
+            </View>
+            </View> */}
+            
         </View>
     );
 };
@@ -564,14 +597,15 @@ const styles = StyleSheet.create({
       backgroundColor: "#2F2F2F"
     },
     button: {
-      alignItems: 'center',
-      justifyContent: 'center',
-      paddingVertical: 7,
-      paddingHorizontal: 10,
-      borderRadius: 6,
-      // elevation: 8,
-      marginHorizontal: SCREENHEIGHT/9,
-      marginTop: SCREENHEIGHT/25,
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingVertical: 7,
+        paddingHorizontal: 10,
+        borderRadius: 6,
+        // elevation: 8,
+        marginHorizontal: SCREENHEIGHT/80,
+        marginVertical: SCREENHEIGHT/100,
+        width:150
     },
     header: {
       fontFamily:'Mohave-Medium',
@@ -604,7 +638,7 @@ const styles = StyleSheet.create({
     }, 
     buttonText: {
         fontFamily:'Mohave-Bold',
-        fontSize: 23,
+        fontSize: 15,
         fontWeight: 'bold',
         // lineHeight: 25,
         letterSpacing: 1,
