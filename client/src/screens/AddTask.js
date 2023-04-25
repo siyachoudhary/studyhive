@@ -210,7 +210,6 @@ const AddTask = ({route}) => {
                 }else{
                     placeholderHours=23
                 }
-                
                 notificationText = `${data.title} is due in 1 hour!`
             }
 
