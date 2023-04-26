@@ -346,6 +346,8 @@ const Profile = () => {
       imgSource = BADGE_IMAGES.hiveBee.uri;
     }else if (item === 'friendlyBee') {
       imgSource = BADGE_IMAGES.friendlyBee.uri;
+    }else if (item === 'busyBee') {
+      imgSource = BADGE_IMAGES.busyBee.uri;
     }
     return (
       <View

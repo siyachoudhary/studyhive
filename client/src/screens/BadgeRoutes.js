@@ -11,4 +11,8 @@ export const BADGE_IMAGES = {
         imgName: 'FriendlyBee.png', 
         uri: require('../assets/images/Badges/FriendlyBee.png')
       },
+      busyBee: {
+        imgName: 'BusyBee.png', 
+        uri: require('../assets/images/Badges/BusyBee.png')
+      },
   }
