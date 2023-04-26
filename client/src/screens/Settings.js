@@ -155,7 +155,6 @@ const Settings = () => {
         .then(function (response) {
             // handle success
             // console.log(JSON.stringify(response.data));
-            
             AsyncStorage.clear
             PushNotificationIOS.removeAllPendingNotificationRequests();
             navigation.navigate("Welcome Screen")

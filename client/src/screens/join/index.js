@@ -342,7 +342,8 @@ export default function Join({ navigation }) {
                           PushNotificationIOS.addNotificationRequest({
                             id: 'openProfile',
                             title:"StudyHive",
-                            subtitle: "You just earned the Hive Starter Badge!"
+                            subtitle: "You just earned the Hive Starter Badge!",
+                            body: "Congratulations on creating your first StudyHive Hive Session."
                           })
                       })
                     navigation.navigate(SCREEN_NAMES.Meeting, {

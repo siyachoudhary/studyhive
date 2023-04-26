@@ -122,6 +122,7 @@ const SignUp = () => {
                     id: 'openProfile',
                     title:"StudyHive",
                     subtitle: "You just earned the New Bee Badge!",
+                    body: "Congratulations on creating your new StudyHive account."
                 })
             })
 

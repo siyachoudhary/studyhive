@@ -7,4 +7,8 @@ export const BADGE_IMAGES = {
         imgName: 'HiveBee.png', 
         uri: require('../assets/images/Badges/HiveBee.png')
       },
+      friendlyBee: {
+        imgName: 'FriendlyBee.png', 
+        uri: require('../assets/images/Badges/FriendlyBee.png')
+      },
   }

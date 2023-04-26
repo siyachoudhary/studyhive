@@ -12,6 +12,7 @@ import Animated from 'react-native-reanimated';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { BaseURL } from './BaseUrl';
+import PushNotificationIOS from '@react-native-community/push-notification-ios';
 
 const AddFriends = () => {
   const baseURL = BaseURL
@@ -132,6 +133,17 @@ const AddFriends = () => {
       })
       .then(function (res) {
           getData(user)
+          axios.post(`${baseURL}addBadge/${user._id}`, {
+            badge: "friendlyBee"
+            }).then(function(response){
+                console.log("badge added")
+                PushNotificationIOS.addNotificationRequest({
+                  id: 'openProfile',
+                  title:"StudyHive",
+                  subtitle: "You just earned the Friendly Bee Badge!",
+                  body: "Congratulations of sending your first friend request."
+                })
+            })
       })
       .catch(function (err) {
           // handle error
