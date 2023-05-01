@@ -290,6 +290,8 @@ export default class CalendarPage extends Component {
                   textDayFontSize: 16,
                   dayTextColor: '#D4D5D8', 
                   textDisabledColor: '#979797',
+                  'stylesheet.calendar.header': { week: {marginTop: -1, flexDirection: 'row', justifyContent: 'space-between'} }
+
                   }}
           // theme={{calendarBackground: 'red', agendaKnobColor: 'green'}}
           // renderDay={(day, item) => (<Text>{day ? day.day: 'item'}</Text>)}
