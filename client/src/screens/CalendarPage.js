@@ -343,7 +343,8 @@ export default class CalendarPage extends Component {
               // console.log((deleted.day == userObject.date && deleted.name == userObject.title))
               console.log(deleted)
               if(deleted){
-                if(deleted.day == userObject.date && deleted.name == userObject.title){
+                if(deleted.digit == userObject.digit && deleted.day == userObject.date){
+                  console.log('i stopped one.')
                   return;
                 }
                 console.log(deleted.day)
@@ -362,6 +363,32 @@ export default class CalendarPage extends Component {
                     let change = false
                     if(edited){
                         // arr[daynum][j] = JSON.parse(JSON.stringify(userObject))
+                      //   if(daynum == userObject.date){
+                      //     arr[daynum][j] = {
+                      //       name: userObject.title,
+                      //       day: userObject.date, 
+                      //       time: userObject.time, 
+                      //       type: userObject.type, 
+                      //       importance: userObject.importance, 
+                      //       notes: userObject.notes,
+                      //       digit: userObject.digit
+                      //     }
+                      //     console.log(arr[daynum][j])
+                      //     this.saveData(JSON.stringify(arr))
+                      //     change = true;
+                      //   }
+                      //   setTimeout(() => {
+                      //     if(change){
+                      //       this.loadItems();
+                      //       change = false
+                      //       edited = false;
+                      //       edited2 = true;
+                      //     }
+                      //   }, 1)
+                      // }
+                      // console.log('same1')
+                      // return;
+                      if(daynum == userObject.date){
                         arr[daynum][j] = {
                           name: userObject.title,
                           day: userObject.date, 
@@ -374,17 +401,67 @@ export default class CalendarPage extends Component {
                         console.log(arr[daynum][j])
                         this.saveData(JSON.stringify(arr))
                         change = true;
-                        setTimeout(() => {
-                          if(change){
-                            this.loadItems();
-                            change = false
-                            edited = false;
-                            edited2 = true;
-                          }
-                        }, 1)
+                      } else {
+                          // if (!arr[userObject.date]) {
+                          //   arr[userObject.date] = []
+                          // }
+                          // console.log(!arr[userObject.date])
+                          // arr[userObject.date].push({
+                          //   name: userObject.title,
+                          //   day: userObject.date, 
+                          //   time: userObject.time, 
+                          //   type: userObject.type, 
+                          //   importance: userObject.importance, 
+                          //   notes: userObject.notes,
+                          //   digit: userObject.digit
+                          // })
+                          console.log('THE SAME BRUH')
+                          // if(arr[daynum].length > 1){
+                          //   delete arr[daynum][j];
+                          // } else {
+                          //   delete arr[daynum];
+                          // }
+                          deleteItem = true;
+                          this.removeItem(arr[daynum][j].digit, 0)
+                          // deleted = {
+                          //   name: arr[initialDay][j].name,
+                          //   day: arr[initialDay][j].day,
+                          //   time: arr[initialDay][j].time, 
+                          //   type: arr[initialDay][j].type, 
+                          //   importance: arr[initialDay][j].importance, 
+                          //   notes: arr[initialDay][j].notes, 
+                          //   digit: arr[initialDay][j].digit
+                          // };
+                          // change = true;
+                          // setTimeout(() => {
+                            // if (!arr[userObject.date]) {
+                            //   arr[userObject.date] = []
+                            // }
+                            // console.log(!arr[userObject.date])
+                            // arr[userObject.date].push({
+                            //   name: userObject.title,
+                            //   day: userObject.date, 
+                            //   time: userObject.time, 
+                            //   type: userObject.type, 
+                            //   importance: userObject.importance, 
+                            //   notes: userObject.notes,
+                            //   digit: userObject.digit
+                            // })
+                            // this.saveData(JSON.stringify(arr))
+                          // }, 50)
+                          // change = true;
                       }
-                      console.log('same1')
-                      return;
+                      setTimeout(() => {
+                        if(change){
+                          this.loadItems();
+                          change = false
+                          edited = false;
+                          edited2 = true;
+                        }
+                      }, 1)
+                    }
+                    console.log('same1')
+                    return;
                   } else if (!(!lastUserObject) && !edited){
                     if((lastUserObject.digit == userObject.digit)){
                       console.log('same2')
@@ -560,7 +637,7 @@ export default class CalendarPage extends Component {
       return true;
   }
 
-  removeItem = (info) => {
+  removeItem = (info, wait) => {
     let newArr = {};
     let index;
     
@@ -621,7 +698,34 @@ export default class CalendarPage extends Component {
         console.log(" ")
         console.log(arr)
         console.log(" ")
+
+        if(edited){
+          console.log('are you even adding anythign')
+          if (!newArr[userObject.date]) {
+            newArr[userObject.date] = []
+          }
+          console.log(!newArr[userObject.date])
+          newArr[userObject.date].push({
+            name: userObject.title,
+            day: userObject.date, 
+            time: userObject.time, 
+            type: userObject.type, 
+            importance: userObject.importance, 
+            notes: userObject.notes,
+            digit: userObject.digit
+          })
+          edited = false;
+          edited2 = true;
+        }
+
+        console.log(" ")
+        console.log(" ")
+        console.log(newArr)
+        console.log(" ")
+        console.log(" ")
+
         this.saveData(JSON.stringify(newArr))
+        deleteItem = false;
 
         // this.loadItems()
         setTimeout(() => {
@@ -635,9 +739,14 @@ export default class CalendarPage extends Component {
           //   })      
           // }
           this.loadItems()
+          // if(change){
+          //   change = false;
+          //   edited = false;
+          //   edited2 = true;
+          // }
         }, 50)
       }
-    }, 1000)
+    }, wait)
     // let index = itemNames.indexOf(deleted.day + deleted.name)
 
     // let toRemove = arr[date].findIndex((object) => object.key == arr[date][j].key)
@@ -804,7 +913,7 @@ export default class CalendarPage extends Component {
       box.push(info)
       console.log('checked')
       deleteItem = true;
-      this.removeItem(info)
+      this.removeItem(info, 1500)
 
       console.log("ITEM TITLE:",titleOfItem)
       PushNotificationIOS.removePendingNotificationRequests([titleOfItem]);

@@ -28,6 +28,7 @@ const AddTask = ({route}) => {
     if(digit == "no"){
         done = true;
         isThere = false;
+        item = {};
     } else if (!done){
         console.log(digit)
         done = true
