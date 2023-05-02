@@ -346,8 +346,11 @@ PODS:
   - React-jsinspector (0.71.6)
   - React-logger (0.71.6):
     - glog
+<<<<<<< HEAD
   - react-native-appearance-control (0.3.4):
     - React-Core
+=======
+>>>>>>> 06867c1 (almost done)
   - react-native-background-timer (2.4.1):
     - React-Core
   - react-native-date-picker (4.2.9):
@@ -554,7 +557,10 @@ DEPENDENCIES:
   - React-jsiexecutor (from `../node_modules/react-native/ReactCommon/jsiexecutor`)
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
+<<<<<<< HEAD
   - react-native-appearance-control (from `../node_modules/react-native-appearance-control`)
+=======
+>>>>>>> 06867c1 (almost done)
   - react-native-background-timer (from `../node_modules/react-native-background-timer`)
   - react-native-date-picker (from `../node_modules/react-native-date-picker`)
   - react-native-image-picker (from `../node_modules/react-native-image-picker`)
@@ -651,8 +657,11 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/jsinspector"
   React-logger:
     :path: "../node_modules/react-native/ReactCommon/logger"
+<<<<<<< HEAD
   react-native-appearance-control:
     :path: "../node_modules/react-native-appearance-control"
+=======
+>>>>>>> 06867c1 (almost done)
   react-native-background-timer:
     :path: "../node_modules/react-native-background-timer"
   react-native-date-picker:
@@ -754,7 +763,10 @@ SPEC CHECKSUMS:
   React-jsiexecutor: 7894956638ff3e00819dd3f9f6f4a84da38f2409
   React-jsinspector: d5ce2ef3eb8fd30c28389d0bc577918c70821bd6
   React-logger: 9332c3e7b4ef007a0211c0a9868253aac3e1da82
+<<<<<<< HEAD
   react-native-appearance-control: 92370bec9c1c22e166056293f8b3aaede2713221
+=======
+>>>>>>> 06867c1 (almost done)
   react-native-background-timer: 17ea5e06803401a379ebf1f20505b793ac44d0fe
   react-native-date-picker: c063a8967058c58a02d7d0e1d655f0453576fb0d
   react-native-image-picker: ec9b713e248760bfa0f879f0715391de4651a7cb
