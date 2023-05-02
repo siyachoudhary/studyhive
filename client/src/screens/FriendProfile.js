@@ -62,7 +62,7 @@ const FriendProfile = ({route}) => {
   ]);
   const [canScroll, setCanScroll] = useState(true);
   const [tab1Data, setTab1Data] = useState([]);
-  const [tab2Data] = useState(Array(30).fill(0));
+  const [tab2Data, setTab2Data] = useState([]);
   const [tab3Data, setTab3Data] = useState([]);
   const dataFetchedRef = useRef(false);
 
@@ -154,6 +154,7 @@ const FriendProfile = ({route}) => {
        if(!friendsFound){
         getUserFriends()
         getUserBadges()
+        getUserScores()
        }
   })
 
@@ -168,6 +169,43 @@ const FriendProfile = ({route}) => {
              // handle error
              console.log("error: "+err.message);
          });
+       }
+  }
+
+  const getUserScores = async () =>{
+    const scoresData = [];
+    if(email!=""){
+      await axios
+         .get(`${baseURL}getLifeTimeHours/${userId}`)
+         .then(function (res) {
+            scoresData.push(res.data.lifetimeHours)
+         })
+         .catch(function (err) {
+             // handle error
+             console.log("error: "+err.message);
+         });
+
+        await axios
+        .get(`${baseURL}getCurrentStreak/${userId}`)
+        .then(function (res) {
+            scoresData.push(res.data.currentStreak)
+        })
+        .catch(function (err) {
+            // handle error
+            console.log("error: "+err.message);
+        });
+
+        await axios
+        .get(`${baseURL}getLongestStreak/${userId}`)
+        .then(function (res) {
+          scoresData.push(res.data.longestStreak)
+        })
+        .catch(function (err) {
+            // handle error
+            console.log("error: "+err.message);
+        });
+
+         setTab2Data(scoresData)
        }
   }
 
@@ -370,15 +408,71 @@ const FriendProfile = ({route}) => {
           marginHorizontal: tab2ItemWidth/23,
           marginVertical: tab2ItemWidth/400,
           width: tab2ItemWidth,
-          height: tab2ItemHeight,
-          backgroundColor: '#aaa',
+          height: tab2ItemHeight*1.3,
+          backgroundColor: '#4a4a4a',
           justifyContent: 'center',
           alignItems: 'center',
+          flexDirection:'row'
         }}>
-        <Text>{index}</Text>
+          <View
+            style={{
+              position:'absolute',
+              left: 15,
+              top: 25
+            }}
+          >
+            {index==0?
+              <Text style={styles.buttonTextStreaks}>Lifetime Hours</Text>
+              :
+              index==1?
+              <Text style={styles.buttonTextStreaks}>Current Streak</Text>
+              :
+              <Text style={styles.buttonTextStreaks}>Longest Streak</Text>
+            }
+          </View>
+
+          <View
+            style={{
+              position:'absolute',
+              right: 15,
+            }}
+          >
+            {index==0?
+              <View
+                style={{
+                  flexDirection:"row"
+                }}
+              >
+                <Text style={[styles.buttonTextScore, {marginRight:10}]}>{item}</Text>
+                <Text style={[styles.buttonTextUnit, {top:10}]}>HOURS</Text>
+              </View>
+              :
+              index==1?
+                <View
+                  style={{
+                    flexDirection:"row",
+                    right: 15
+                  }}
+                >
+                  <Text style={[styles.buttonTextScore, {marginRight:10}]}>{item}</Text>
+                <Text style={[styles.buttonTextUnit, {top:10}]}>DAYS</Text>
+                </View>
+              :
+              <View
+                style={{
+                  flexDirection:"row",
+                  right: 15
+                }}
+              >
+                <Text style={[styles.buttonTextScore, {marginRight:10}]}>{item}</Text>
+                <Text style={[styles.buttonTextUnit, {top:10}]}>DAYS</Text>
+              </View>
+            }
+          </View>
       </View>
     );
   };
+
 
   const renderTab3Item = ({item, index}) => {
     return (
@@ -391,7 +485,7 @@ const FriendProfile = ({route}) => {
             padding:tab2ItemWidth/23,
             width: tab2ItemWidth,
             height: tab2ItemHeight,
-            backgroundColor: '#aaa',
+            backgroundColor: '#4a4a4a',
             flexDirection: "row",
           }}>
 
@@ -652,14 +746,14 @@ buttonText2: {
   fontSize: 15,
   fontWeight: 'bold',
   letterSpacing: 1,
-  color: '#303030',
+  color: 'white',
 },
 buttonText3: {
   fontFamily:'Mohave-Bold',
   fontSize: 14,
   fontWeight: '500',
   letterSpacing: 1,
-  color: '#303030',
+  color: '#aaa',
 },
 goBack:{
     left: -300,
@@ -680,7 +774,28 @@ button1: {
     position:'absolute',
     left: 80,
     top: 15
-  }
+  },
+  buttonTextStreaks:{
+    fontFamily:'Mohave-Bold',
+    fontSize: 25,
+    fontWeight: 'bold',
+    letterSpacing: 1,
+    color: 'white',
+  },
+  buttonTextScore:{
+    fontFamily:'Mohave-Bold',
+    fontSize: 40,
+    fontWeight: 'bold',
+    letterSpacing: 1,
+    color: '#ffab00',
+  },
+  buttonTextUnit:{
+    fontFamily:'Mohave-Bold',
+    fontSize: 25,
+    fontWeight: 'bold',
+    letterSpacing: 1,
+    color: 'white',
+  },
 });
 
 export default FriendProfile;
