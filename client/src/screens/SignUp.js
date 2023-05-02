@@ -103,7 +103,12 @@ const SignUp = () => {
             name: name,
             email: email.toLowerCase(),
             password: password,
-            imgProfile: 'blankProfile.png'
+            imgProfile: 'blankProfile.png',
+            //I MADE CHANGES HERE
+            // lifetimeHours: 0, 
+            // currentStreak: 0, 
+            // longestStreak: 0
+            //
         })
         .then(function (response) {
             // handle success
@@ -124,6 +129,31 @@ const SignUp = () => {
                     subtitle: "You just earned the New Bee Badge!",
                     body: "Congratulations on creating your new StudyHive account."
                 })
+            })
+            
+            axios.post(`${baseURL}updateLifeTimeHours/${response.data._id}`, {
+                lifetimeHours: 0
+            }).then(function(response){
+                console.log("life time hours added")
+            }).catch(function (err) {
+                console.log('THIS IS NOT WORKING BRO')
+                console.log(err.message);
+            })
+
+            axios.post(`${baseURL}updateCurrentStreak/${response.data._id}`, {
+                currentStreak: 0
+            }).then(function(response){
+                console.log("current streak added")
+            }).catch(function (err) {
+                console.log(err.message);
+            })
+
+            axios.post(`${baseURL}updateLongestStreak/${response.data._id}`, {
+                longestStreak: 0
+            }).then(function(response){
+                console.log("longest streak added")
+            }).catch(function (err) {
+                console.log(err.message);
             })
 
             navigation.navigate("HomeFirst")

@@ -48,7 +48,12 @@ app.post("/register", (request, response) => {
         email: request.body.email,
         name: request.body.name,
         password: hashedPassword,
-        imgProfile: request.body.imgProfile
+        imgProfile: request.body.imgProfile, 
+        //I MADE CHANGES HERE
+        // lifetimeHours: request.body.lifetimeHours, 
+        // currentStreak: request.body.currentStreak, 
+        // longestStreak: request.body.longestStreak,
+        //
       });
 
       // save the new user
@@ -465,6 +470,7 @@ app.get("/findUser/:_id", (request, response) => {
     });
 });
 
+//I MADE CHANGES HERE
 //lifetime study hours
 app.get("/getLifeTimeHours/:_id", (request, response) => { 
   User.findOne({ _id: request.params._id }) 
@@ -560,18 +566,20 @@ app.post("/updateLongestStreak/:_id", (request, response) => {
   User.updateOne({ _id: request.params._id}, {$set: {longestStreak: request.body.longestStreak}},) 
     .then((user) => {
       response.status(200).send({
-        message: "current streak updated successfully",
+        message: "longest streak updated successfully",
         longestStreak: user.longestStreak
       });
     })
     .catch((e) => {
       console.log(e)
+      console.log('THIS IS NOT WORKING BOROROROIRFHIEORFJHOEIRFE')
       response.status(404).send({
         message: "couldnt update current streak",
         e,
       });
     });
 });
+//
 
 // free endpoint
 app.get("/free-endpoint", (request, response) => {
