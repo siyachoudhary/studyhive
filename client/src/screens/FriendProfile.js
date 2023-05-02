@@ -417,7 +417,7 @@ const FriendProfile = ({route}) => {
           <View
             style={{
               position:'absolute',
-              left: 15,
+              left: 20,
               top: 25
             }}
           >
@@ -434,7 +434,7 @@ const FriendProfile = ({route}) => {
           <View
             style={{
               position:'absolute',
-              right: 15,
+              right: 20,
             }}
           >
             {index==0?
