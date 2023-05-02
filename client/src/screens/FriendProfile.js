@@ -57,7 +57,7 @@ const FriendProfile = ({route}) => {
   const [tabIndex, setIndex] = useState(0);
   const [routes] = useState([
     {key: 'tab1', title: 'BADGES'},
-    {key: 'tab2', title: 'SCORES'},
+    {key: 'tab2', title: 'STREAKS'},
     {key: 'tab3', title: 'MUTUAL FRIENDS'},
   ]);
   const [canScroll, setCanScroll] = useState(true);
