@@ -36,6 +36,15 @@ const UserSchema = new mongoose.Schema({
       },
       badges:{
         type: Array
+      },
+      lifetimeHours: {
+        type: Number
+      },
+      currentStreak: {
+        type: Number
+      },
+      longestStreak: {
+        type: Number
       }
   })
 

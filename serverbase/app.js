@@ -465,6 +465,114 @@ app.get("/findUser/:_id", (request, response) => {
     });
 });
 
+//lifetime study hours
+app.get("/getLifeTimeHours/:_id", (request, response) => { 
+  User.findOne({ _id: request.params._id }) 
+    .then((user) => {
+      response.status(200).send({
+        lifetimeHours: user.lifetimeHours
+      });
+    })
+    .catch((e) => {
+      console.log(e)
+      response.status(404).send({
+        message: "user not found, proceed",
+        e,
+      });
+    });
+});
+
+//update lifetime hours
+app.post("/updateLifeTimeHours/:_id", (request, response) => {
+  // check if email exists
+  User.updateOne({ _id: request.params._id}, {$set: {lifetimeHours: request.body.lifetimeHours}},) 
+    .then((user) => {
+      response.status(200).send({
+        message: "life time hours updated successfully",
+        lifetimeHours: user.lifetimeHours
+      });
+    })
+    .catch((e) => {
+      console.log(e)
+      response.status(404).send({
+        message: "couldnt update lifetime hours",
+        e,
+      });
+    });
+});
+
+//current study streak
+app.get("/getCurrentStreak/:_id", (request, response) => { 
+  User.findOne({ _id: request.params._id }) 
+    .then((user) => {
+      response.status(200).send({
+        currentStreak: user.currentStreak
+      });
+    })
+    .catch((e) => {
+      console.log(e)
+      response.status(404).send({
+        message: "user not found, proceed",
+        e,
+      });
+    });
+});
+
+//update current streak
+app.post("/updateCurrentStreak/:_id", (request, response) => {
+  // check if email exists
+  User.updateOne({ _id: request.params._id}, {$set: {currentStreak: request.body.currentStreak}},) 
+    .then((user) => {
+      response.status(200).send({
+        message: "current streak updated successfully",
+        currentStreak: user.currentStreak
+      });
+    })
+    .catch((e) => {
+      console.log(e)
+      response.status(404).send({
+        message: "couldnt update current streak",
+        e,
+      });
+    });
+});
+
+//longest study streak
+app.get("/getLongestStreak/:_id", (request, response) => { 
+  User.findOne({ _id: request.params._id }) 
+    .then((user) => {
+      response.status(200).send({
+        longestStreak: user.longestStreak
+      });
+    })
+    .catch((e) => {
+      console.log(e)
+      response.status(404).send({
+        message: "user not found, proceed",
+        e,
+      });
+    });
+});
+
+//update longest streak
+app.post("/updateLongestStreak/:_id", (request, response) => {
+  // check if email exists
+  User.updateOne({ _id: request.params._id}, {$set: {longestStreak: request.body.longestStreak}},) 
+    .then((user) => {
+      response.status(200).send({
+        message: "current streak updated successfully",
+        longestStreak: user.longestStreak
+      });
+    })
+    .catch((e) => {
+      console.log(e)
+      response.status(404).send({
+        message: "couldnt update current streak",
+        e,
+      });
+    });
+});
+
 // free endpoint
 app.get("/free-endpoint", (request, response) => {
   response.json({ message: "You are free to access me anytime" });
