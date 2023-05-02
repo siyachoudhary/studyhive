@@ -4,8 +4,10 @@ import { useNavigation } from "@react-navigation/native";
 import {useForm, Controller} from "react-hook-form"
 import DatePicker from 'react-native-date-picker'
 import { Dropdown } from 'react-native-element-dropdown';
+import axios from 'axios';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { BaseURL } from './BaseUrl';
 
 const SCREENHEIGHT = Dimensions.get('window').height;
 const SCREENWIDTH = Dimensions.get('window').width;
@@ -21,6 +23,7 @@ const LogHour = () => {
 
     const [open, setOpen] = React.useState(false);
     const [date1, setDate1] = React.useState(new Date());
+    const [user, setUser] = useState(null)
 
     const {control, handleSubmit, errors, reset} = useForm({
         'topic': '',
@@ -28,9 +31,41 @@ const LogHour = () => {
         'date': ''
     })
 
+    async function retrieveData(){
+        try {
+            const value = await AsyncStorage.getItem('user')
+            const obj = JSON.parse(value);
+            // console.log("user value:" + value)
+            if(value !== null) {
+              setUser(obj)
+            }
+          } catch(e) {
+            console.log(e.message)
+          }
+    }
+
+    // let lifetimeHours; 
+    // const getLifeTimeHours = async () =>{
+    //     if(!(!user)){
+    //       await axios
+    //          .get(`${BaseURL}getLifeTimeHours/${user._id}`)
+    //          .then(function (res) {
+    //             lifetimeHours = res.data.lifetimeHours
+    //             console.log('lifetime')
+    //             console.log(lifetimeHours)
+    //          })
+    //          .catch(function (err) {
+    //              // handle error
+    //              console.log("error: "+err.message);
+    //          });
+    //        }
+    // }
+
     async function submit(data){
         await loadLog();
-        
+        await retrieveData();
+        // await getLifeTimeHours();
+
         let date = date1;
         console.log(date)
         var day = ('0' + date.getDate()).slice(-2);
