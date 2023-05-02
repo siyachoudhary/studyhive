@@ -236,9 +236,14 @@ const AddTask = ({route}) => {
             period = "PM"
         } else {
             if(hours == 12){
-                hours += 12
+                period = "PM"
             }
-            period = "AM"
+            if(hours < 12){
+                period = "AM"
+                if(hours == 0){
+                    hours += 12
+                }
+            }
         }
 
         console.log(`${year}-` + month + `-` + day)
