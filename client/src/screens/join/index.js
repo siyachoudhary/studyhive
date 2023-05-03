@@ -461,6 +461,7 @@ export default function Join({ navigation }) {
                         webcamEnabled: videoOn,
                         meetingType: "GROUP",
                       });
+                      setMeetingId("")
                     }else{
                       setIdError("ID is not valid")
                     }

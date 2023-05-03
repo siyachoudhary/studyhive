@@ -181,7 +181,6 @@ const Profile = () => {
     if(!friendsFound){
         getUserFriends()
         getUserBadges()
-        getUserScores()
       }
       // console.log("callback")
   })
@@ -243,6 +242,7 @@ const Profile = () => {
         .get(`${baseURL}findFriends/${email}`)
         .then(function (res) {
               getUserNames(res.data)
+              getUserScores()
         })
         .catch(function (err) {
             // handle error
