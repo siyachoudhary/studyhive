@@ -10,6 +10,7 @@ import AddFriends from "./src/screens/AddFriends";
 import AddTask from "./src/screens/AddTask";
 import Requests from './src/screens/Requests';
 import LogHour from "./src/screens/LogHour";
+import StartPomodoro from "./src/screens/StartPomodoro";
 const Tab = createBottomTabNavigator();  // creates object for Stack Navigator
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import FriendProfile from "./src/screens/FriendProfile";
@@ -44,6 +45,13 @@ const InitNavigator = () => {
               tabBarLabel: 'Calendar',
               tabBarIcon: ({ focused, color, size }) => (
                   <MaterialIcons name={'date-range'} size={25} color={focused?'#ffab00':'white'} />
+              ),
+            }}/>
+            <Tab.Screen name="Bee Time" component={StartPomodoro} 
+            options={{
+              tabBarLabel: 'Bee Time',
+              tabBarIcon: ({ focused, color, size }) => (
+                  <MaterialIcons name={'timelapse'} size={25} color={focused?'#ffab00':'white'}/>
               ),
             }}/>
             <Tab.Screen name="Hive Session" component={CallNavigator} 
