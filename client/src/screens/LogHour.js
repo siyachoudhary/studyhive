@@ -8,21 +8,39 @@ import axios from 'axios';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { BaseURL } from './BaseUrl';
+import { getOverlayDirection } from 'react-bootstrap/esm/helpers';
+import { useIsFocused } from '@react-navigation/native'
+import { max } from 'moment';
 
 const SCREENHEIGHT = Dimensions.get('window').height;
 const SCREENWIDTH = Dimensions.get('window').width;
 let logDays = [];
 let logFull = {};
 let fakeLogFull = {};
+let lastDates = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
 
 const LogHour = () => {    
     const navigation = useNavigation();
     const baseURL = BaseURL;
+    // const isFocused = useIsFocused()
+
+    // useEffect(() => {
+    //     if(isFocused){
+    //       console.log("is focused on log page")
+
+    //     }
+    //   }, [isFocused])
 
     const [hourErr, setHourErr] = useState("")
     const [dateErr, setDateErr] = useState("")
     // const [email, setEmail] = useState("")
 
+    let tomorrow = JSON.stringify(new Date(new Date().setDate(new Date().getDate() + 1)));
+    let nextyear = tomorrow.slice(1, 5);
+    let nextmonth = tomorrow.slice(6, 8);
+    let nextday =  tomorrow.slice(9, 11);
+    let maxDate = `${nextyear}-${nextmonth}-${nextday}`;
+    console.log("max date: " + maxDate)
     const [open, setOpen] = useState(false);
     const [date1, setDate1] = useState(new Date());
     let user;
@@ -72,6 +90,23 @@ const LogHour = () => {
            }
     }
 
+    const updateLifeTimeHours = (hours) =>{
+        // console.log('RUNNING THIS')
+        // console.log(email)
+        if(email != ""){
+            // console.log('passed first test')
+            axios
+            .post(`${baseURL}updateLifeTimeHours/${user._id}`, {
+                lifetimeHours: hours
+            }).then(function(response){
+                console.log("life time hours updated")
+            }).catch(function (err) {
+                console.log('THIS IS NOT WORKING BRO')
+                console.log(err.message);
+            })
+        }
+    }
+
     let currentStreak; 
     const getCurrentStreak = async () =>{
         // console.log('RUNNING THIS')
@@ -92,6 +127,24 @@ const LogHour = () => {
            }
     }
 
+    const updateCurrentStreak = (days) =>{
+        // console.log('RUNNING THIS')
+        // console.log(email)
+        if(email != ""){
+            // console.log('passed first test')
+            axios
+            .post(`${baseURL}updateCurrentStreak/${user._id}`, {
+                currentStreak: days
+            }).then(function(response){
+                console.log("current streak updated")
+                console.log(currentStreak)
+            }).catch(function (err) {
+                console.log('THIS IS NOT WORKING BRO')
+                console.log(err.message);
+            })
+        }
+    }
+
     let longestStreak; 
     const getLongestStreak = async () =>{
         // console.log('RUNNING THIS')
@@ -110,6 +163,24 @@ const LogHour = () => {
                  console.log("error: "+err.message);
              });
            }
+    }
+
+    const updateLongestStreak = (days) =>{
+        // console.log('RUNNING THIS')
+        // console.log(email)
+        if(email != ""){
+            // console.log('passed first test')
+            axios
+            .post(`${baseURL}updateLongestStreak/${user._id}`, {
+                longestStreak: days
+            }).then(function(response){
+                console.log("longest streak updated")
+                console.log(longestStreak)
+            }).catch(function (err) {
+                console.log('THIS IS NOT WORKING BRO')
+                console.log(err.message);
+            })
+        }
     }
 
     async function submit(data){
@@ -134,7 +205,7 @@ const LogHour = () => {
     //         let email = data.email
     //         const password = data.password
 
-            if(newTask.hours==undefined){
+            if(newTask.hours==undefined || parseInt(newTask.hours) == 0){
                 console.log("duration of study required")
                 setHourErr("DURATION OF STUDY REQUIRED")
                 setDateErr("")
@@ -180,11 +251,99 @@ const LogHour = () => {
             })
         }
 
-        console.log(logFull)
+        const ordered = Object.keys(logFull).sort().reduce(
+            (obj, key) => { 
+              obj[key] = logFull[key]; 
+              return obj;
+            }, 
+            {}
+        );
+
+        lifetimeHours += parseInt(newTask.hours);
+        updateLifeTimeHours(lifetimeHours);
+        // console.log((Object.keys(ordered)[0]).slice(8))
+        findStreaks(ordered)
+        updateCurrentStreak(currentStreak)
+        updateLongestStreak(longestStreak)
+        // console.log(ordered)
+
+
+        // console.log(logFull)
         await storeLog(JSON.stringify(logFull))
 
         navigation.navigate("calendarScreen")
         // storeData(JSON.stringify(newTask))
+    }
+
+    const findStreaks = (ordered) => {
+        console.log('FIND STREAKS')
+        console.log(ordered)
+        let now = JSON.stringify(new Date())
+        let year = now.slice(1, 5);
+        let month = now.slice(6, 8);
+        let day =  now.slice(9, 11);
+        let newDate = `${year}-${month}-${day}`;
+        let oldNum = (Object.keys(ordered)[0]).slice(8) * 1; 
+        console.log(Object.keys(ordered)[0])
+        let thatMonth = (Object.keys(ordered)[0]).slice(5, 7) * 1;
+        if(lastDates[thatMonth-1] == oldNum){
+            oldNum = 0;
+        }
+        let newNum;
+        let tempCurrent = 0;
+        let tempLongest = 0;
+        for (let i = 1; i < Object.keys(ordered).length; i++) {
+            newNum = (Object.keys(ordered)[i]).slice(8) * 1;
+            let thatMonth = (Object.keys(ordered)[0]).slice(5, 7) * 1;
+            if(lastDates[thatMonth-1] == oldNum){
+                oldNum = 0;
+            }
+            console.log(newNum - oldNum)
+            if((newNum - oldNum) == 1){
+                if(tempLongest == 0){
+                    tempLongest += 1;
+                }
+                tempLongest += 1;
+                console.log(tempLongest)
+                if(tempLongest > longestStreak){
+                    longestStreak = tempLongest;
+                }
+            } else {
+                tempLongest = 0;
+            }
+            oldNum = newNum;
+        }
+        console.log(newDate)
+        console.log(Object.keys(ordered)[Object.keys(ordered).length-1])
+        if(Object.keys(ordered)[Object.keys(ordered).length-1] == newDate){
+            console.log('sameeeeeeeeeeeee')
+            // currentStreak = 1;
+            tempCurrent = 1;
+            if(tempCurrent > currentStreak){
+                currentStreak = tempCurrent;
+            }
+            oldNum = (Object.keys(ordered)[Object.keys(ordered).length-1]).slice(8) * 1;
+            for (let i = Object.keys(ordered).length-2; i >= 0; i--) {
+                newNum = (Object.keys(ordered)[i]).slice(8) * 1;
+                let thatMonth = (Object.keys(ordered)[i]).slice(5, 7) * 1;
+                if(lastDates[thatMonth-1] == newNum){
+                    oldNum = newNum+1;
+                }
+                console.log(oldNum - newNum)
+                if((oldNum - newNum) == 1){
+                    tempCurrent += 1;
+                    if(tempCurrent > currentStreak){
+                        currentStreak = tempCurrent;
+                    }
+                } else {
+                    break;
+                }
+                oldNum = newNum;
+            }
+            if(longestStreak == 0){
+                longestStreak = currentStreak;
+            }
+        }
     }
 
     // const storeData = async (value) => {
@@ -292,6 +451,7 @@ const LogHour = () => {
                         mode='date'
                         open={open}
                         date={date1}
+                        maximumDate={new Date(maxDate)}
                         onConfirm={(date1) => {
                         setOpen(false)
                         setDate1(date1)

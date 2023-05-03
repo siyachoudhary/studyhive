@@ -77,22 +77,22 @@ const Home = () => {
       // studyLogDays = []
       for (let i = 0; i < Object.keys(studyLogFull).length; i++) {
         let daynum = studyLogFull[Object.keys(studyLogFull)[i]][0].date;
-        console.log(daynum)
+        // console.log(daynum)
         let now = JSON.stringify(new Date())
         let year = now.slice(1, 5);
         let month = now.slice(6, 8);
         let day =  now.slice(9, 11);
         let newDate = `${year}-${month}-${day}`;
         let accHours = 0;
-        console.log(newDate)
+        // console.log(newDate)
         if(daynum == newDate){
-          console.log('hello')
+          // console.log('hello')
           for (let j = 0; j < studyLogFull[daynum].length; j++) {
               if(!Object.keys(obj).length){
                 obj = [JSON.parse(JSON.stringify(studyLogFull[daynum][j]))]
                 studyTopics = [JSON.parse(JSON.stringify(studyLogFull[daynum][j].topic))]
                 // accHours = studyLogFull[daynum][j].hours * 1
-                console.log('hello1')
+                // console.log('hello1')
               } else {
                 obj.push(JSON.parse(JSON.stringify(studyLogFull[daynum][j])))
                 accHours += (studyLogFull[daynum][j].hours * 1);

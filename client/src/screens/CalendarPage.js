@@ -155,8 +155,12 @@ export default class CalendarPage extends Component {
   sortLog(){
     obj = {};
     studyLogDays = []
+    // console.log(" ")
+    // console.log(" ")
+    // console.log(studyLogFull[0][0].date)
     for (let i = 0; i < Object.keys(studyLogFull).length; i++) {
       let daynum = studyLogFull[Object.keys(studyLogFull)[i]][0].date;
+      console.log(daynum)
       studyLogDays.push(daynum)
     }
     console.log(studyLogDays)
@@ -172,7 +176,7 @@ export default class CalendarPage extends Component {
       this.anotherFunc(daynum, hours)
     }
     this.setState({marked : obj});
-    console.log(this.state.marked)
+    // console.log(this.state.marked)
   }
 
   setDates(){
@@ -180,7 +184,7 @@ export default class CalendarPage extends Component {
   }
 
   anotherFunc = (date, hours) => {
-    console.log('i am trying')
+    // console.log('i am trying')
     let color;
     if(hours == 1) {
       color = "#FFE082"
@@ -213,8 +217,8 @@ export default class CalendarPage extends Component {
 
         
     // obj =  {"2023-05-17": {"selected": true, "selectedColor": "#FFE082", "selectedTextColor": "#292929"}}
-    console.log('obj')
-    console.log(obj)
+    // console.log('obj')
+    // console.log(obj)
   }
 
 //   constructor(props) {
