@@ -17,13 +17,16 @@ let fakeLogFull = {};
 
 const LogHour = () => {    
     const navigation = useNavigation();
+    const baseURL = BaseURL;
 
     const [hourErr, setHourErr] = useState("")
     const [dateErr, setDateErr] = useState("")
+    // const [email, setEmail] = useState("")
 
-    const [open, setOpen] = React.useState(false);
-    const [date1, setDate1] = React.useState(new Date());
-    const [user, setUser] = useState(null)
+    const [open, setOpen] = useState(false);
+    const [date1, setDate1] = useState(new Date());
+    let user;
+    let email = "";
 
     const {control, handleSubmit, errors, reset} = useForm({
         'topic': '',
@@ -37,35 +40,85 @@ const LogHour = () => {
             const obj = JSON.parse(value);
             // console.log("user value:" + value)
             if(value !== null) {
-              setUser(obj)
+              console.log(obj)
+              user = obj;
+              console.log(user.email)
+              email = user.email;
+            //   console.log(user._id)
+              console.log('RETRIEVED USER')
             }
           } catch(e) {
-            console.log(e.message)
+            console.log(e.message )
           }
     }
 
-    // let lifetimeHours; 
-    // const getLifeTimeHours = async () =>{
-    //     if(!(!user)){
-    //       await axios
-    //          .get(`${BaseURL}getLifeTimeHours/${user._id}`)
-    //          .then(function (res) {
-    //             lifetimeHours = res.data.lifetimeHours
-    //             console.log('lifetime')
-    //             console.log(lifetimeHours)
-    //          })
-    //          .catch(function (err) {
-    //              // handle error
-    //              console.log("error: "+err.message);
-    //          });
-    //        }
-    // }
+    let lifetimeHours; 
+    const getLifeTimeHours = async () =>{
+        // console.log('RUNNING THIS')
+        // console.log(email)
+        if(email != ""){
+            // console.log('passed first test')
+          await axios
+             .get(`${baseURL}getLifeTimeHours/${user._id}`)
+             .then(function (res) {
+                lifetimeHours = res.data.lifetimeHours
+                console.log('lifetime')
+                console.log(lifetimeHours)
+             })
+             .catch(function (err) {
+                 // handle error
+                 console.log("error: "+err.message);
+             });
+           }
+    }
+
+    let currentStreak; 
+    const getCurrentStreak = async () =>{
+        // console.log('RUNNING THIS')
+        // console.log(email)
+        if(email != ""){
+            // console.log('passed first test')
+          await axios
+             .get(`${baseURL}getCurrentStreak/${user._id}`)
+             .then(function (res) {
+                currentStreak = res.data.currentStreak
+                console.log('current streak')
+                console.log(currentStreak)
+             })
+             .catch(function (err) {
+                 // handle error
+                 console.log("error: "+err.message);
+             });
+           }
+    }
+
+    let longestStreak; 
+    const getLongestStreak = async () =>{
+        // console.log('RUNNING THIS')
+        // console.log(email)
+        if(email != ""){
+            // console.log('passed first test')
+          await axios
+             .get(`${baseURL}getLongestStreak/${user._id}`)
+             .then(function (res) {
+                longestStreak = res.data.longestStreak
+                console.log('longest streak')
+                console.log(longestStreak)
+             })
+             .catch(function (err) {
+                 // handle error
+                 console.log("error: "+err.message);
+             });
+           }
+    }
 
     async function submit(data){
         await loadLog();
         await retrieveData();
-        // await getLifeTimeHours();
-
+        await getLifeTimeHours();
+        await getCurrentStreak();
+        await getLongestStreak();
+        
         let date = date1;
         console.log(date)
         var day = ('0' + date.getDate()).slice(-2);

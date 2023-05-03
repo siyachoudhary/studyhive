@@ -163,6 +163,7 @@ const Profile = () => {
         // console.log("user value:" + value)
         if(value !== null) {
           setUser(obj)
+          // console.log("obj " + obj)
           setName(user.name)
           setEmail(user.email)
           setProfileImg(user.profile)
