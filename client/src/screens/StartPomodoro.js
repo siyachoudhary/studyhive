@@ -81,7 +81,7 @@ const StartPomodoro = () => {
             title: data.title, 
             pomodoro: data.pomodoro,
             short: data.short, 
-            length: data.length,
+            long: data.long,
             after: data.after,
         }
 
@@ -91,6 +91,10 @@ const StartPomodoro = () => {
         //     setDateErr("")
         //     return
         // }
+
+        if(newPomodoro.title==undefined || newPomodoro.title ==""){
+            newPomodoro.title = "Other"
+        }
 
         if(newPomodoro.pomodoro==undefined || newPomodoro.pomodoro == ''){
             console.log("Pomodoro DURATION Required")
@@ -104,13 +108,14 @@ const StartPomodoro = () => {
         if(newPomodoro.short==undefined || newPomodoro.short == ''){
             console.log("Pomodoro DURATION Required")
             setShortErr("PLEASE ENTER SHORT BREAK DURATION FOR BEE TIME")
-            setPomdoroErr("")
+            setPomodoroErr("")
             setLongErr("")
             setAfterErr("")
             return
         }
 
         if(newPomodoro.long==undefined || newPomodoro.long == ''){
+
             console.log("Pomodoro duration Required")
             setLongErr("PLEASE ENTER LONG BREAK DURATION FOR BEE TIME")
             setShortErr("")
@@ -124,7 +129,7 @@ const StartPomodoro = () => {
             setAfterErr("PLEASE ENTER LONG BREAK AFTER FOR BEE TIME")
             setShortErr("")
             setLongErr("")
-            setPomdoroErr("")
+            setPomodoroErr("")
             return
         }
 
@@ -152,8 +157,12 @@ const StartPomodoro = () => {
 
         // storeData(JSON.stringify(newTask))
         done = false;
-        navigation.navigate("calendarScreen", {
-            edit: isThere
+        navigation.navigate("pomodoroTimer", {
+            title: newPomodoro.title, 
+            pomodoro: newPomodoro.pomodoro, 
+            short: newPomodoro.short, 
+            long: newPomodoro.long, 
+            after: newPomodoro.after, 
         });
     }
 

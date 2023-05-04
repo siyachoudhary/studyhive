@@ -1,7 +1,7 @@
-import React, {useState} from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 
 import axios from "axios";
-import {StyleSheet, View, Dimensions, Text, Pressable, TextInput} from "react-native";
+import {AppState, StyleSheet, View, Dimensions, Text, Pressable, TextInput} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import {useForm, Controller} from "react-hook-form"
 
@@ -132,7 +132,7 @@ const SignUp = () => {
             })
             
             axios.post(`${baseURL}updateLifeTimeHours/${response.data._id}`, {
-                lifetimeHours: 0
+                lifetimeHours: 0.0
             }).then(function(response){
                 console.log("life time hours added")
             }).catch(function (err) {

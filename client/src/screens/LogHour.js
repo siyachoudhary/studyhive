@@ -52,6 +52,7 @@ const LogHour = () => {
         'date': ''
     })
 
+    
     async function retrieveData(){
         try {
             const value = await AsyncStorage.getItem('user')
@@ -205,13 +206,13 @@ const LogHour = () => {
     //         let email = data.email
     //         const password = data.password
 
-            if(newTask.hours==undefined || parseInt(newTask.hours) == 0){
+            if(newTask.hours==undefined || parseFloat(newTask.hours) == 0){
                 console.log("duration of study required")
                 setHourErr("DURATION OF STUDY REQUIRED")
                 setDateErr("")
                 return
             }
-            if(parseInt(newTask.hours) >= 24){
+            if(parseFloat(newTask.hours) >= 24){
                 console.log("TOO MUCH")
                 setHourErr("HOURS LOGGED MUST BE UNDER 24")
                 setDateErr("")
@@ -259,7 +260,7 @@ const LogHour = () => {
             {}
         );
 
-        lifetimeHours += parseInt(newTask.hours);
+        lifetimeHours += parseFloat(newTask.hours);
         updateLifeTimeHours(lifetimeHours);
         // console.log((Object.keys(ordered)[0]).slice(8))
         findStreaks(ordered)

@@ -170,7 +170,7 @@ export default class CalendarPage extends Component {
       let hours = 0;
       for (let j = 0; j < studyLogFull[daynum].length; j++) {
         console.log(studyLogFull[daynum][j].hours)
-        hours += (studyLogFull[daynum][j].hours * 1)
+        hours += (studyLogFull[daynum][j].hours * 1.0)
       }
       // this.setDates();
       this.anotherFunc(daynum, hours)
@@ -186,15 +186,15 @@ export default class CalendarPage extends Component {
   anotherFunc = (date, hours) => {
     // console.log('i am trying')
     let color;
-    if(hours == 1) {
+    if(hours >= 0 && hours <= 1) {
       color = "#FFE082"
-    } else if (hours >= 2 && hours <= 3){
+    } else if (hours >= 1 && hours <= 3){
       color = "#FFD54F"
-    } else if (hours >= 4 && hours <= 5){
+    } else if (hours >= 3 && hours <= 5){
       color = "#FFCA28"
-    } else if (hours >= 6 && hours <= 7){
+    } else if (hours >= 5 && hours <= 7){
       color = "#FFC107"
-    } else if (hours >= 8 && hours <= 9){
+    } else if (hours >= 7 && hours <= 9){
       color = "#FFB300"
     } else if (hours >= 10){
       color = "#FFA000"
