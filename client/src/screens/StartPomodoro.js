@@ -18,72 +18,6 @@ let isThere;
 const StartPomodoro = () => {
 
     const navigation = useNavigation();
-    // const {digit} = route.params;
-    // let arr = {};
-
-    // console.log('you have gone to task')
-
-    // console.log(done)
-
-    // if(digit == "no"){
-    //     done = true;
-    //     isThere = false;
-    //     item = {};
-    // } else if (!done){
-    //     console.log(digit)
-    //     done = true
-    //     isThere = true;
-    //     loadArray();
-    // }
-
-    // function loadArray() {
-    //     AsyncStorage.getItem("recentArray").then(value => {
-    //       if(value != null){
-    //         arr = JSON.parse(value);
-    //         console.log('loaded array')
-    //         console.log(arr)
-    //         findItem();
-    //       }
-    //     }).catch(err => {
-    //       console.log(err.message);  
-    //     })
-    // }
-
-    // function findItem(){
-    //     for (let i = 0; i < Object.keys(arr).length; i++) {
-    //         let initialDay = arr[Object.keys(arr)[i]][0].day;
-    //         for (let j = 0; j < arr[initialDay].length; j++) {
-    //             if(arr[initialDay][j].digit == digit){
-    //                 item = JSON.parse(JSON.stringify(arr[initialDay][j]));
-    //                 console.log(item)
-    //                 updateStates();
-    //                 done = true;
-    //                 return;
-    //             }
-    //         }
-    //     }
-    // }
-    
-    // function updateStates(){
-    //     setValue('title', item.name)
-    //     setValue('notes', item.notes)
-    //     setValue('type', item.type)
-    //     setValue('importance', item.importance)
-    
-    //     let date2 = item.day
-    //     let time = item.time
-
-    //     let year = date2.slice(0, 4) * 1;
-    //     let month = date2.slice(5, 7) * 1 - 1;
-    //     let day = date2.slice(8) * 1;
-    //     let hours = time.substring(0, time.indexOf(":")) * 1;
-    //     let minutes = time.substring(time.indexOf(":") + 1, time.indexOf(" ")) * 1;
-    //     if(time.includes('PM')){
-    //         hours += 12;            
-    //     }
-    //     setDate1(new Date(year, month, day, hours, minutes))
-    //     console.log('done')
-    // }
 
     const [open, setOpen] = React.useState(false);
     const [date1, setDate1] = React.useState(new Date());
@@ -102,36 +36,7 @@ const StartPomodoro = () => {
         'short': "",
         'long': "",
         'after': "",
-        // 'notes': "",
-        // 'type': "",
-        // 'importance': "",
-        // 'date': date1,
-        // 'time': "",
-        // 'doRemind': false,
     })
-
-    const data2 = [
-        //blue
-        { label: 'Work', value: '1' },
-        //orange
-        { label: 'Exercise', value: '2' },
-        //yellow
-        { label: 'School', value: '3' },
-        //brown
-        { label: 'Chores', value: '4' },
-        //green
-        { label: 'Extracurriculars', value: '5' },
-        //purple
-        { label: 'Personal', value: '6' },
-        //white
-        { label: 'Other', value: '7' },
-    ]
-
-    const ranking = [
-        { label: 'Major', value: '1' },
-        { label: 'Moderate', value: '2' },
-        { label: 'Minor', value: '3' },
-    ]
 
     const pomodoroLength = [
         { label: '15 Minutes', value: '1' },
@@ -171,83 +76,7 @@ const StartPomodoro = () => {
     ]
 
     function submit(data){
-        // if(data.doRemind){
-
-        //     let placeholderMinutes = minutes
-        //     let placeholderHours = hours
-
-        //     let notificationText = `${data.title} is due now!`
-
-        //     if(data.time==1){
-        //         if(placeholderMinutes!=0){
-        //             placeholderMinutes-=1
-        //         }else{
-        //             if(placeholderHours!=0){
-        //                 placeholderHours-=1
-        //             }else{
-        //                 placeholderHours=23
-        //             }
-        //             placeholderMinutes=59
-        //         }
-        //         notificationText = `${data.title} is due in 1 minute!`
-        //     }else if(data.time==2){
-        //         if(placeholderMinutes<5){
-        //             if(placeholderHours!=0){
-        //                 placeholderHours-=1
-        //             }else{
-        //                 placeholderHours=23
-        //             }
-        //             placeholderMinutes=60-(5-placeholderMinutes)
-        //         }else{
-        //             placeholderMinutes-=5
-        //         }
-        //         notificationText = `${data.title} is due in 5 minutes!`
-        //     }else if(data.time==3){
-                
-        //         if(placeholderMinutes<10){
-        //             if(placeholderHours!=0){
-        //                 placeholderHours-=1
-        //             }else{
-        //                 placeholderHours=23
-        //             }
-        //             placeholderMinutes=60-(10-placeholderMinutes)
-        //         }else{
-        //             placeholderMinutes-=10
-        //         }
-
-        //         console.log("FN:",placeholderMinutes)
-
-        //         notificationText = `${data.title} is due in 10 minutes!`
-        //     }else if(data.time==4){
-        //         if(placeholderMinutes<30){
-        //             if(placeholderHours!=0){
-        //                 placeholderHours-=1
-        //             }else{
-        //                 placeholderHours=23
-        //             }
-        //             placeholderMinutes=60-(30-placeholderMinutes)
-        //         }else{
-        //             placeholderMinutes-=30
-        //         }
-        //         notificationText = `${data.title} is due in 30 minutes!`
-        //     }else if(data.time==5){
-        //         if(placeholderHours!=0){
-        //             placeholderHours-=1
-        //         }else{
-        //             placeholderHours=23
-        //         }
-        //         notificationText = `${data.title} is due in 1 hour!`
-        //     }
-
-        //     console.log("FIREDATE:", `${year}-${month}-${day}T${placeholderHours}:${placeholderMinutes}:00`)
-
-        //     PushNotificationIOS.addNotificationRequest({
-        //         id: data.title,
-        //         fireDate: new Date(`${year}-${month}-${day}T${placeholderHours}:${placeholderMinutes}:00`),
-        //         title:"StudyHive Upcoming Task",
-        //         subtitle: notificationText
-        //       })
-        // }
+        
         let newPomodoro = {
             title: data.title, 
             pomodoro: data.pomodoro,
@@ -320,9 +149,8 @@ const StartPomodoro = () => {
         //     // handle error
         //     console.log(error.message);
         // });
-        setTitleErr("")
-        setDateErr("")
-        storeData(JSON.stringify(newTask))
+
+        // storeData(JSON.stringify(newTask))
         done = false;
         navigation.navigate("calendarScreen", {
             edit: isThere

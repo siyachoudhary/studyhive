@@ -11,6 +11,7 @@ import AddTask from "./src/screens/AddTask";
 import Requests from './src/screens/Requests';
 import LogHour from "./src/screens/LogHour";
 import StartPomodoro from "./src/screens/StartPomodoro";
+import PomodoroTimer from "./src/screens/PomodoroTimer";
 const Tab = createBottomTabNavigator();  // creates object for Stack Navigator
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import FriendProfile from "./src/screens/FriendProfile";
@@ -47,7 +48,7 @@ const InitNavigator = () => {
                   <MaterialIcons name={'date-range'} size={25} color={focused?'#ffab00':'white'} />
               ),
             }}/>
-            <Tab.Screen name="Bee Time" component={StartPomodoro} 
+            <Tab.Screen name="Bee Time" component={TimerNavigator} 
             options={{
               tabBarLabel: 'Bee Time',
               tabBarIcon: ({ focused, color, size }) => (
@@ -117,6 +118,23 @@ const InitNavigator = () => {
   }
 
   export {TasksNavigator}
+
+
+  const Stack3 = createNativeStackNavigator();
+
+  const TimerNavigator = () => {
+    return (
+        <Stack3.Navigator 
+        screenOptions={{
+            headerShown: false
+        }}>
+           <Stack3.Screen name='startPomodoro' component={StartPomodoro}/>
+           <Stack3.Screen name='pomodoroTimer' component={PomodoroTimer}/>
+     </Stack3.Navigator> 
+    );
+  }
+
+  export {TimerNavigator}
 import "react-native-gesture-handler";
 import { createStackNavigator } from "@react-navigation/stack";
 import { SCREEN_NAMES } from "./src/navigators/screenNames";
