@@ -560,6 +560,23 @@ app.get("/getLongestStreak/:_id", (request, response) => {
     });
 });
 
+app.get("/getUserScores/:_id", (request, response) => { 
+  User.findOne({ _id: request.params._id }) 
+    .then((user) => {
+      console.log(user.lifetimeHours, user.longestStreak, user.currentStreak)
+      response.status(200).send({
+        dataStuff: [user.lifetimeHours, user.longestStreak, user.currentStreak]
+      });
+    })
+    .catch((e) => {
+      console.log(e)
+      response.status(404).send({
+        message: "user not found, proceed",
+        e,
+      });
+    });
+});
+
 //update longest streak
 app.post("/updateLongestStreak/:_id", (request, response) => {
   // check if email exists

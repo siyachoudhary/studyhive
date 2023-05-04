@@ -179,6 +179,7 @@ const Profile = () => {
     if (dataFetchedRef.current) return;
     retrieveData()
     if(!friendsFound){
+        getUserScores()
         getUserFriends()
         getUserBadges()
       }
@@ -203,34 +204,38 @@ const Profile = () => {
     const scoresData = [];
     if(email!=""){
       await axios
-         .get(`${baseURL}getLifeTimeHours/${user._id}`)
+         .get(`${baseURL}getUserScores/${user._id}`)
          .then(function (res) {
-            scoresData.push(res.data.lifetimeHours)
+            // scoresData.push(res.data.lifetimeHours)
+            console.log(res.data.dataStuff)
+            scoresData.push(res.data.dataStuff[0])
+            scoresData.push(res.data.dataStuff[1])
+            scoresData.push(res.data.dataStuff[2])
          })
          .catch(function (err) {
              // handle error
              console.log("error: "+err.message);
          });
 
-        await axios
-        .get(`${baseURL}getCurrentStreak/${user._id}`)
-        .then(function (res) {
-            scoresData.push(res.data.currentStreak)
-        })
-        .catch(function (err) {
-            // handle error
-            console.log("error: "+err.message);
-        });
+      //   await axios
+      //   .get(`${baseURL}getCurrentStreak/${user._id}`)
+      //   .then(function (res) {
+      //       scoresData.push(res.data.currentStreak)
+      //   })
+      //   .catch(function (err) {
+      //       // handle error
+      //       console.log("error: "+err.message);
+      //   });
 
-        await axios
-        .get(`${baseURL}getLongestStreak/${user._id}`)
-        .then(function (res) {
-          scoresData.push(res.data.longestStreak)
-        })
-        .catch(function (err) {
-            // handle error
-            console.log("error: "+err.message);
-        });
+      //   await axios
+      //   .get(`${baseURL}getLongestStreak/${user._id}`)
+      //   .then(function (res) {
+      //     scoresData.push(res.data.longestStreak)
+      //   })
+      //   .catch(function (err) {
+      //       // handle error
+      //       console.log("error: "+err.message);
+      //   });
 
          setTab2Data(scoresData)
        }
@@ -242,7 +247,6 @@ const Profile = () => {
         .get(`${baseURL}findFriends/${email}`)
         .then(function (res) {
               getUserNames(res.data)
-              getUserScores()
         })
         .catch(function (err) {
             // handle error
@@ -837,7 +841,7 @@ buttonTextStreaks:{
 },
 buttonTextScore:{
   fontFamily:'Mohave-Bold',
-  fontSize: 40,
+  fontSize: 35,
   fontWeight: 'bold',
   letterSpacing: 1,
   color: '#ffab00',
