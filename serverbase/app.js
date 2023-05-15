@@ -298,7 +298,6 @@ app.post("/addBadge/:_id", (request, response) => {
           works = false
         }
       }
-      console.log(works)
       if(works){
          User.updateOne({ _id: request.params._id}, {$push: {badges: request.body.badge}},) 
         .then((user) => {
@@ -436,9 +435,52 @@ app.post("/removeFriend/:_id", (request, response) => {
 //  get all user friends
 app.get("/findFriends/:email", (request, response) => {
   // check if email exists
+  // User.findOne({ email: request.params.email}) 
+  //   .then((user) => {
+  //     response.json(user.friends)
+  //   })
+  //   .catch((e) => {
+  //     console.log(e)
+  //     response.status(404).send({
+  //       message: "Could not find user friends",
+  //       e,
+  //     });
+  //   });
   User.findOne({ email: request.params.email}) 
     .then((user) => {
-      response.json(user.friends)
+      var allFriends=[]
+      var amount = user.friends.length
+      fetched = 0
+      for(var i = 0; i<amount; i++){
+        (function() {
+        User.findOne({ _id: user.friends[i]}) 
+        .then((user2) => {
+          fetched++
+          // console.log(user2)
+          allFriends.push({
+            name: user2.name,
+            email: user2.email,
+            _id: user2._id,
+            friends: user2.friends,
+            profile: user2.imgProfile
+        });
+        console.log(i)
+        if(fetched===amount){
+          console.log(allFriends)
+          response.status(200).send(allFriends)
+          return
+        }
+        }) 
+        
+        .catch((e) => {
+          console.log(e)
+          response.status(404).send({
+            message: "Could not find user friends",
+            e,
+          });
+        });
+      })();
+      }
     })
     .catch((e) => {
       console.log(e)

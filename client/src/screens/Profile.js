@@ -79,6 +79,7 @@ const Profile = () => {
     if(isFocused){
       console.log("is focused on profile page")
         dataFetchedRef.current=false
+        friendsFound=false
     }
   }, [isFocused])
 
@@ -243,10 +244,16 @@ const Profile = () => {
 
   const getUserFriends = async ()=>{
     if(email!=""){
+      const friends = [" "];
      await axios
         .get(`${baseURL}findFriends/${email}`)
         .then(function (res) {
-              getUserNames(res.data)
+              // getUserNames(res.data)
+              console.log(res.data)
+              friends.push(res.data)
+              setTab3Data(res.data)
+              dataFetchedRef.current = true;
+              friendsFound = true
         })
         .catch(function (err) {
             // handle error
