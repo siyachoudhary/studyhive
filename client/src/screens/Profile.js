@@ -232,7 +232,7 @@ const Profile = () => {
       console.log("getting user friends")
       // const friends = [" "];
      await axios
-        .get(`${baseURL}findFriends/${email}`)
+        .get(`${baseURL}findFriends/${user._id}`)
         .then(function (res) {
               // getUserNames(res.data)
               // console.log(res.data)

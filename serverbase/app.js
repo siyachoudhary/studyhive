@@ -433,7 +433,7 @@ app.post("/removeFriend/:_id", (request, response) => {
 });
 
 //  get all user friends
-app.get("/findFriends/:email", (request, response) => {
+app.get("/findFriends/:_id", (request, response) => {
   // check if email exists
   // User.findOne({ email: request.params.email}) 
   //   .then((user) => {
@@ -446,7 +446,7 @@ app.get("/findFriends/:email", (request, response) => {
   //       e,
   //     });
   //   });
-  User.findOne({ email: request.params.email}) 
+  User.findOne({ _id: request.params._id}) 
     .then((user) => {
       var allFriends=[]
       var amount = user.friends.length
@@ -489,6 +489,21 @@ app.get("/findFriends/:email", (request, response) => {
       });
     });
 });
+
+app.get("/findFriendsList/:_id", (request, response) => {
+  User.findOne({ _id: request.params._id}) 
+    .then((user) => {
+      response.json(user.friends)
+    })
+    .catch((e) => {
+      console.log(e)
+      response.status(404).send({
+        message: "Could not find user friends",
+        e,
+      });
+    });
+});
+
 
 app.get("/findUser/:_id", (request, response) => {
   // check if email exists

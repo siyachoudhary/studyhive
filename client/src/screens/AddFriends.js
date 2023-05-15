@@ -71,8 +71,9 @@ const AddFriends = () => {
 
     const getFriends = async(data1, currentUser)=>{
       await axios
-        .get(`${baseURL}findFriends/${currentUser.email}`)
+        .get(`${baseURL}findFriendsList/${currentUser._id}`)
         .then(function (res) {
+          console.log(res.data)
           filtered = data1
           for(var i = 0; i<res.data.length; i++){
             filtered = filtered.filter(friendUser => friendUser._id != res.data[i])
@@ -278,7 +279,7 @@ const AddFriends = () => {
         zIndex: 1,
         position: 'absolute',
         width: '100%',
-        bottom: 350
+        bottom: 350,
     },
     button: {
       alignItems: 'center',
