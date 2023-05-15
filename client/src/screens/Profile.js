@@ -60,6 +60,7 @@ const Profile = () => {
   const [tab1Data, setTab1Data] = useState([]);
   const [tab2Data, setTab2Data] = useState([]);
   const [tab3Data, setTab3Data] = useState([]);
+  const [firstLoad, setFirstLoad] = useState(true);
   const dataFetchedRef = useRef(false);
 
   /**
@@ -82,6 +83,15 @@ const Profile = () => {
         friendsFound=false
     }
   }, [isFocused])
+
+  useEffect(() => {
+    if(email!="" && firstLoad){
+      console.log("getting all info")
+      getUserFriends()
+      getUserScores()
+      getUserBadges()
+    }
+  }, [email])
 
   /**
    * PanResponder for header
@@ -158,6 +168,7 @@ const Profile = () => {
    */
 
   async function retrieveData(){
+    console.log("retrieving")
     try {
         const value = await AsyncStorage.getItem('user')
         const obj = JSON.parse(value);
@@ -168,23 +179,18 @@ const Profile = () => {
           setName(user.name)
           setEmail(user.email)
           setProfileImg(user.profile)
+          setFirstLoad(true)
         }
       } catch(e) {
         console.log(e.message)
       }
   }
 
-  let friendsFound = false
-
   useEffect(()=>{
     if (dataFetchedRef.current) return;
-    retrieveData()
-    if(!friendsFound){
-        getUserScores()
-        getUserFriends()
-        getUserBadges()
-      }
-      // console.log("callback")
+    if(email==""){
+      retrieveData()
+    }
   })
 
   const getUserBadges = async () =>{
@@ -217,40 +223,20 @@ const Profile = () => {
              // handle error
              console.log("error: "+err.message);
          });
-
-      //   await axios
-      //   .get(`${baseURL}getCurrentStreak/${user._id}`)
-      //   .then(function (res) {
-      //       scoresData.push(res.data.currentStreak)
-      //   })
-      //   .catch(function (err) {
-      //       // handle error
-      //       console.log("error: "+err.message);
-      //   });
-
-      //   await axios
-      //   .get(`${baseURL}getLongestStreak/${user._id}`)
-      //   .then(function (res) {
-      //     scoresData.push(res.data.longestStreak)
-      //   })
-      //   .catch(function (err) {
-      //       // handle error
-      //       console.log("error: "+err.message);
-      //   });
-
          setTab2Data(scoresData)
        }
   }
 
   const getUserFriends = async ()=>{
     if(email!=""){
-      const friends = [" "];
+      console.log("getting user friends")
+      // const friends = [" "];
      await axios
         .get(`${baseURL}findFriends/${email}`)
         .then(function (res) {
               // getUserNames(res.data)
-              console.log(res.data)
-              friends.push(res.data)
+              // console.log(res.data)
+              // friends.push(res.data)
               setTab3Data(res.data)
               dataFetchedRef.current = true;
               friendsFound = true
@@ -583,13 +569,10 @@ const Profile = () => {
 
           <Pressable 
                   style={({pressed}) => [
-                  {
-                      backgroundColor: pressed ? '#EDA73A': '#ffab00',
-                  },
                   styles.button]} 
                   onPress={()=>removeFriend(item)}
                   >
-              <Text style={styles.buttonText}> Remove </Text>
+              <Text style={[styles.buttonText, {color:"red"}]}> Remove </Text>
           </Pressable>
       </View>:null
     }

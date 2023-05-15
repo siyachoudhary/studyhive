@@ -464,7 +464,7 @@ app.get("/findFriends/:email", (request, response) => {
             friends: user2.friends,
             profile: user2.imgProfile
         });
-        console.log(i)
+        console.log(fetched)
         if(fetched===amount){
           console.log(allFriends)
           response.status(200).send(allFriends)
