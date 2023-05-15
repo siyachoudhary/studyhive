@@ -470,8 +470,7 @@ app.get("/findFriends/:email", (request, response) => {
           response.status(200).send(allFriends)
           return
         }
-        }) 
-        
+        })
         .catch((e) => {
           console.log(e)
           response.status(404).send({

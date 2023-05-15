@@ -55,13 +55,13 @@ const InitNavigator = () => {
                   <MaterialIcons name={'timelapse'} size={25} color={focused?'#ffab00':'white'}/>
               ),
             }}/>
-            <Tab.Screen name="Hive Session" component={CallNavigator} 
+            {/* <Tab.Screen name="Hive Session" component={CallNavigator} 
             options={{
               tabBarLabel: 'Hive Session',
               tabBarIcon: ({ focused, color, size }) => (
                   <MaterialIcons name={'groups'} size={28} color={focused?'#ffab00':'white'}/>
               ),
-            }}/>
+            }}/> */}
             {/* <Tab.Screen name="Chat" component={SettingsNavigator} 
             options={{
               tabBarLabel: 'Chat',

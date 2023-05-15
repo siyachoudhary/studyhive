@@ -19,7 +19,7 @@ const Home = () => {
     const [bottomText, setBottomText] = useState("LET'S GET BEE-ZY!");
     const [buttonStyle, setButtonStyle] = useState(styles.button)
     const [buttonText, setButtonText] = useState(styles.buttonText)
-    const [accButtonText, setAccButtonText] = useState("START A HIVE\nSESSION")
+    const [accButtonText, setAccButtonText] = useState("START A\nSTUDY SESSION")
     const [renderOther, setRenderOther] = useState(false)
     const [hours, setHours] = useState("")
     const [extra, setExtra] = useState("")
@@ -116,7 +116,7 @@ const Home = () => {
           setBottomText("KEEP ON BUZZ-ING!")
           setButtonStyle(styles.button2)
           setButtonText(styles.buttonText2)
-          setAccButtonText('START A HIVE SESSION')
+          setAccButtonText('START A STUDY SESSION')
           setRenderOther(true)
           setHours(accHours)
           setExtra("HOURS")
@@ -199,7 +199,7 @@ const Home = () => {
                   backgroundColor: pressed ? '#EDA73A': '#ffab00',
               },
               buttonStyle]} 
-              onPress={()=>navigation.navigate("Hive Session")}
+              onPress={()=>navigation.navigate("Bee Time")}
               >
                   <Text style={styles.buttonText}> {accButtonText} </Text>
               </Pressable>
