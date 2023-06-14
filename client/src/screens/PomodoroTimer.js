@@ -12,6 +12,8 @@ import { BaseURL } from './BaseUrl';
 import Timer from '../timer.js';
 import { useIsFocused } from '@react-navigation/native'
 
+import PushNotificationIOS from '@react-native-community/push-notification-ios';
+
 const SCREENHEIGHT = Dimensions.get('window').height;
 const SCREENWIDTH = Dimensions.get('window').width;
 let logDays = [];
@@ -42,6 +44,14 @@ const PomodoroTimer = ({route}) => {
           console.log(stopped)
           if(!stopped){
             setPlaying(isPlaying => !isPlaying)
+            console.log('changed')
+          }
+          if(!stopped){
+            PushNotificationIOS.addNotificationRequest({
+              id: 'leftApp',
+              title:"StudyHive",
+              body: "Your timer has been stopped. Go back to keep on studying!"
+            })
           }
         }
         });
