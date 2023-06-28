@@ -125,7 +125,12 @@ const Home = () => {
           } else {
             setExtra2("Topic: ")
           }
-          setMain((JSON.stringify(studyTopics)).slice(2, -2))
+          var set = JSON.stringify(studyTopics)
+          set = set.replaceAll('"', '')
+          set = set.replaceAll('[', '')
+          set = set.replaceAll(']', '')
+          set = set.replaceAll(',', ', ')
+          setMain(set)
           setMargin(SCREENHEIGHT/40)
         }
 
@@ -189,7 +194,7 @@ const Home = () => {
               <Text style={styles.text}>{displayText}</Text>
 
               <Text style={[styles.text, {fontWeight: '500', fontSize: 40, marginTop: SCREENHEIGHT/60, marginBottom: SCREENHEIGHT/1000}]}>{hours} {extra}</Text>
-              <Text style={[styles.text, {fontWeight: '100', fontSize: 30, marginTop: -SCREENHEIGHT/500, marginBottom: SCREENHEIGHT/1000}]}>{extra2} {main}</Text>
+              <Text style={[styles.text, {fontWeight: '100', fontSize: 25, marginTop: -SCREENHEIGHT/500, marginBottom: SCREENHEIGHT/1000}]}>{extra2} {main}</Text>
 
               {/* {renderOther()} */}
 

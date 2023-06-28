@@ -37,6 +37,9 @@ import { useIsFocused } from '@react-navigation/native'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { BaseURL } from './BaseUrl';
+let lastDates = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+let logDays = [];
+let logFull = {};
 
 const Profile = () => {
   const baseURL = BaseURL
@@ -76,6 +79,13 @@ const Profile = () => {
 
   const isFocused = useIsFocused()
 
+  useEffect(()=>{
+    if (dataFetchedRef.current) return;
+    if(email==""){
+      retrieveData()
+    }
+  })
+
   useEffect(() => {
     if(isFocused){
       console.log("is focused on profile page")
@@ -87,11 +97,104 @@ const Profile = () => {
   useEffect(() => {
     if(email!="" && firstLoad){
       console.log("getting all info")
+      getCurrentStreak();
       getUserFriends()
       getUserScores()
       getUserBadges()
+      loadLog();
+      // getCurrentStreak();
     }
   }, [email])
+
+  // useEffect(() => {
+
+  // }, [currentStreak])
+
+  async function loadLog() {
+    await AsyncStorage.getItem("studyLog").then(value => {
+      if(value != null){
+        logFull = JSON.parse(value);
+        console.log('loaded study log')
+        console.log(logFull)
+      }
+    }).catch(err => {
+      console.log(err.message);  
+    })
+    const ordered = Object.keys(logFull).sort().reduce(
+      (obj, key) => { 
+        obj[key] = logFull[key]; 
+        return obj;
+      }, 
+      {}
+    );
+    findStreaks(ordered)
+    return;
+  }
+
+  let currentStreak;
+  const getCurrentStreak = async () =>{
+    // console.log('RUNNING THIS')
+    // console.log(email)
+    if(email != ""){
+        // console.log('passed first test')
+      await axios
+         .get(`${baseURL}getCurrentStreak/${user._id}`)
+         .then(function (res) {
+            currentStreak = res.data.currentStreak
+            console.log('current streak')
+            console.log(currentStreak)
+         })
+         .catch(function (err) {
+             // handle error
+             console.log("error: "+err.message);
+         });
+       }
+}
+
+  const findStreaks = (ordered) => {
+    console.log('FIND STREAKS')
+    console.log(ordered)
+    let now = JSON.stringify(new Date())
+    let year = now.slice(1, 5);
+    let month = now.slice(6, 8);
+    let day =  now.slice(9, 11);
+    let newDate = `${year}-${month}-${day}`;
+    let oldNum = (Object.keys(ordered)[0]).slice(8) * 1; 
+    console.log(Object.keys(ordered)[0])
+    let thatMonth = (Object.keys(ordered)[0]).slice(5, 7) * 1;
+    if(lastDates[thatMonth-1] == oldNum){
+        oldNum = 0;
+    }
+    let newNum;
+    let tempCurrent = 0;
+    console.log(newDate)
+    console.log(Object.keys(ordered)[Object.keys(ordered).length-1])
+    if(!(Object.keys(ordered)[Object.keys(ordered).length-1] == newDate)){
+      currentStreak = 0;
+    }
+    console.log("currentStreak: " + currentStreak)
+    // console.log("longestStreak: " + longestStreak)
+    updateCurrentStreak(currentStreak)
+}
+
+  const updateCurrentStreak = (days) =>{
+    // console.log('RUNNING THIS')
+    // console.log(email)
+    if(email != ""){
+        // console.log('passed first test')
+        axios
+        .post(`${baseURL}updateCurrentStreak/${user._id}`, {
+            currentStreak: days
+        }).then(function(response){
+            console.log("current streak updated")
+            console.log(currentStreak)
+        }).catch(function (err) {
+            console.log('THIS IS NOT WORKING BRO')
+            console.log(err.message);
+        })
+    }
+    getUserScores();
+}
 
   /**
    * PanResponder for header
@@ -186,13 +289,6 @@ const Profile = () => {
       }
   }
 
-  useEffect(()=>{
-    if (dataFetchedRef.current) return;
-    if(email==""){
-      retrieveData()
-    }
-  })
-
   const getUserBadges = async () =>{
     if(email!=""){
       await axios
@@ -216,8 +312,8 @@ const Profile = () => {
             // scoresData.push(res.data.lifetimeHours)
             console.log(res.data.dataStuff)
             scoresData.push(res.data.dataStuff[0])
-            scoresData.push(res.data.dataStuff[1])
             scoresData.push(res.data.dataStuff[2])
+            scoresData.push(res.data.dataStuff[1])
          })
          .catch(function (err) {
              // handle error
