@@ -91,6 +91,8 @@ const Profile = () => {
       console.log("is focused on profile page")
         dataFetchedRef.current=false
         friendsFound=false
+        getUserScores()
+        getUserBadges()
     }
   }, [isFocused])
 
@@ -99,8 +101,6 @@ const Profile = () => {
       console.log("getting all info")
       getCurrentStreak();
       getUserFriends()
-      getUserScores()
-      getUserBadges()
       loadLog();
       // getCurrentStreak();
     }
