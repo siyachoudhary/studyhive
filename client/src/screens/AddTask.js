@@ -100,7 +100,7 @@ const AddTask = ({route}) => {
         'type': "",
         'importance': "",
         'date': date1,
-        'time': "",
+        'remind': "",
         'doRemind': false,
     })
 
@@ -153,7 +153,7 @@ const AddTask = ({route}) => {
 
             let notificationText = `${data.title} is due now!`
 
-            if(data.time==1){
+            if(data.remind==1){
                 if(placeholderMinutes!=0){
                     placeholderMinutes-=1
                 }else{
@@ -165,7 +165,7 @@ const AddTask = ({route}) => {
                     placeholderMinutes=59
                 }
                 notificationText = `${data.title} is due in 1 minute!`
-            }else if(data.time==2){
+            }else if(data.remind==2){
                 if(placeholderMinutes<5){
                     if(placeholderHours!=0){
                         placeholderHours-=1
@@ -177,7 +177,7 @@ const AddTask = ({route}) => {
                     placeholderMinutes-=5
                 }
                 notificationText = `${data.title} is due in 5 minutes!`
-            }else if(data.time==3){
+            }else if(data.remind==3){
                 
                 if(placeholderMinutes<10){
                     if(placeholderHours!=0){
@@ -193,7 +193,7 @@ const AddTask = ({route}) => {
                 console.log("FN:",placeholderMinutes)
 
                 notificationText = `${data.title} is due in 10 minutes!`
-            }else if(data.time==4){
+            }else if(data.remind==4){
                 if(placeholderMinutes<30){
                     if(placeholderHours!=0){
                         placeholderHours-=1
@@ -205,7 +205,7 @@ const AddTask = ({route}) => {
                     placeholderMinutes-=30
                 }
                 notificationText = `${data.title} is due in 30 minutes!`
-            }else if(data.time==5){
+            }else if(data.remind==5){
                 if(placeholderHours!=0){
                     placeholderHours-=1
                 }else{
@@ -507,7 +507,7 @@ const AddTask = ({route}) => {
                     <Text style={[styles.text, {marginLeft: SCREENHEIGHT/60}]}>REMIND TIME:</Text>
                     <Controller
                     control={control}
-                    name='time'
+                    name='remind'
                     render={
                         ({field:{onChange, value}})=>(
                             <Dropdown
