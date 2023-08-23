@@ -936,7 +936,7 @@ export default class CalendarPage extends Component {
       this.removeItem(info, 1500)
 
       console.log("ITEM TITLE:",titleOfItem)
-      PushNotificationIOS.removePendingNotificationRequests([titleOfItem]);
+      PushNotificationIOS.removePendingNotificationRequests([info]);
     }
     else {
        box.splice(info, 1) 

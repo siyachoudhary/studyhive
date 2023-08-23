@@ -149,8 +149,15 @@ const AddTask = ({route}) => {
         var minutes =  ('0' + date.getMinutes()).slice(-2);
         let num;
 
-        if(data.doRemind){
-
+        if(!data.doRemind){
+            setValue('remind', "")
+            if(item.remind != ""){
+                PushNotificationIOS.removePendingNotificationRequests([item.digit])
+            }
+        } else {
+            if(item.remind != ""){
+                PushNotificationIOS.removePendingNotificationRequests([item.digit])
+            }
             let placeholderMinutes = minutes
             let placeholderHours = hours
 
@@ -220,7 +227,7 @@ const AddTask = ({route}) => {
             console.log("FIREDATE:", `${year}-${month}-${day}T${placeholderHours}:${placeholderMinutes}:00`)
 
             PushNotificationIOS.addNotificationRequest({
-                id: data.title,
+                id: data.digit,
                 fireDate: new Date(`${year}-${month}-${day}T${placeholderHours}:${placeholderMinutes}:00`),
                 title:"StudyHive Upcoming Task",
                 subtitle: notificationText
