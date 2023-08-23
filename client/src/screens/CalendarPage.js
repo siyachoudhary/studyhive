@@ -400,7 +400,9 @@ export default class CalendarPage extends Component {
                           type: userObject.type, 
                           importance: userObject.importance, 
                           notes: userObject.notes,
-                          digit: userObject.digit
+                          digit: userObject.digit, 
+                          doRemind: userObject.doRemind, 
+                          remind: userObject.remind
                         }
                         console.log(arr[daynum][j])
                         this.saveData(JSON.stringify(arr))
@@ -488,7 +490,9 @@ export default class CalendarPage extends Component {
                 type: userObject.type, 
                 importance: userObject.importance, 
                 notes: userObject.notes,
-                digit: userObject.digit
+                digit: userObject.digit, 
+                doRemind: userObject.doRemind, 
+                remind: userObject.remind
               })
               lastUserObject = JSON.parse(JSON.stringify(userObject));
               this.saveValue(JSON.stringify(lastUserObject))
@@ -549,7 +553,9 @@ export default class CalendarPage extends Component {
               type: arr[initialDay][j].type, 
               importance: arr[initialDay][j].importance, 
               notes: arr[initialDay][j].notes,
-              digit: arr[initialDay][j].digit
+              digit: arr[initialDay][j].digit, 
+              doRemind: arr[initialDay][j].doRemind, 
+              remind: arr[initialDay][j].remind
             })
           }
         } 
@@ -565,7 +571,9 @@ export default class CalendarPage extends Component {
               type: arr[initialDay][j].type, 
               importance: arr[initialDay][j].importance, 
               notes: arr[initialDay][j].notes, 
-              digit: arr[initialDay][j].digit
+              digit: arr[initialDay][j].digit, 
+              doRemind: arr[initialDay][j].doRemind, 
+              remind: arr[initialDay][j].remind
             })
             // console.log('items: ' + items[initialDay][j])
           }
@@ -661,7 +669,9 @@ export default class CalendarPage extends Component {
                   type: arr[initialDay][j].type, 
                   importance: arr[initialDay][j].importance, 
                   notes: arr[initialDay][j].notes, 
-                  digit: arr[initialDay][j].digit
+                  digit: arr[initialDay][j].digit, 
+                  doRemind: arr[initialDay][j].doRemind, 
+                  remind: arr[initialDay][j].remind
                 }]});
               } else {
                 if (!newArr[initialDay]) {
@@ -674,7 +684,9 @@ export default class CalendarPage extends Component {
                   type: arr[initialDay][j].type, 
                   importance: arr[initialDay][j].importance, 
                   notes: arr[initialDay][j].notes, 
-                  digit: arr[initialDay][j].digit
+                  digit: arr[initialDay][j].digit, 
+                  doRemind: arr[initialDay][j].doRemind, 
+                  remind: arr[initialDay][j].remind
                 })
               }
             } else {
@@ -686,7 +698,9 @@ export default class CalendarPage extends Component {
                 type: arr[initialDay][j].type, 
                 importance: arr[initialDay][j].importance, 
                 notes: arr[initialDay][j].notes, 
-                digit: arr[initialDay][j].digit};
+                digit: arr[initialDay][j].digit, 
+                doRemind: arr[initialDay][j].doRemind, 
+                remind: arr[initialDay][j].remind};
             }
           }
         }
@@ -716,7 +730,9 @@ export default class CalendarPage extends Component {
             type: userObject.type, 
             importance: userObject.importance, 
             notes: userObject.notes,
-            digit: userObject.digit
+            digit: userObject.digit, 
+            doRemind: userObject.doRemind, 
+            remind: userObject.remind
           })
           edited = false;
           edited2 = true;

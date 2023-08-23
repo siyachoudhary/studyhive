@@ -69,6 +69,9 @@ const AddTask = ({route}) => {
         setValue('notes', item.notes)
         setValue('type', item.type)
         setValue('importance', item.importance)
+        setValue('doRemind', item.doRemind)
+        setValue('remind', item.remind)
+        setIsEnabled(item.doRemind)
     
         let date2 = item.day
         let time = item.time
@@ -255,6 +258,7 @@ const AddTask = ({route}) => {
             date: `${year}-${month}-${day}`, 
             time: `${hours}:${minutes} ` + period,
             doRemind: data.doRemind,
+            remind: data.remind,
             digit: num
         }
 
