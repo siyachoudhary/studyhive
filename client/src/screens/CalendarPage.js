@@ -805,7 +805,7 @@ export default class CalendarPage extends Component {
     return (
       <TouchableOpacity
         testID={testIDs.agenda.ITEM}
-        style={[styles.item, {height:reservation.height, borderColor}]}
+        style={[styles.item, {height:"auto", borderColor}]}
         onPress={() => {
           this.props.navigation.navigate("Tasks", {
             digit: reservation.digit,
