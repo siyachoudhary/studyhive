@@ -294,8 +294,15 @@ export default class CalendarPage extends Component {
                   textDayFontSize: 16,
                   dayTextColor: '#D4D5D8', 
                   textDisabledColor: '#979797',
-                  'stylesheet.calendar.header': { week: {marginTop: -1, flexDirection: 'row', justifyContent: 'space-between'} }
-
+                  'stylesheet.calendar.header': { week: {flexDirection: 'row', justifyContent: 'space-between'} },
+                  'stylesheet.calendar.main': {
+                    week: {
+                      flexDirection: 'row',
+                      justifyContent: 'space-around',
+                      marginTop: 6,
+                      marginBottom: 6,
+                    },
+                  },
                   }}
           // theme={{calendarBackground: 'red', agendaKnobColor: 'green'}}
           // renderDay={(day, item) => (<Text>{day ? day.day: 'item'}</Text>)}
