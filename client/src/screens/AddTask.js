@@ -139,6 +139,7 @@ const AddTask = ({route}) => {
     ]
 
     function submit(data){
+        console.log()
         let date = date1;
         console.log(date)
         console.log(date1.getUTCHours());
@@ -151,11 +152,13 @@ const AddTask = ({route}) => {
 
         if(!data.doRemind){
             setValue('remind', "")
-            if(item.remind != ""){
+            console.log("1 " + item.remind)
+            if(item.remind != undefined){
                 PushNotificationIOS.removePendingNotificationRequests([item.digit])
             }
         } else {
-            if(item.remind != ""){
+            console.log("2 " + item.remind)
+            if(item.remind != undefined){
                 PushNotificationIOS.removePendingNotificationRequests([item.digit])
             }
             let placeholderMinutes = minutes
@@ -269,6 +272,8 @@ const AddTask = ({route}) => {
             digit: num
         }
 
+        console.log(newTask)
+
         if(newTask.title==undefined || newTask.title == ''){
             console.log("title required")
             setTitleErr("PLEASE ENTER AN TITLE FOR YOUR TASK")
@@ -293,6 +298,11 @@ const AddTask = ({route}) => {
 
         if(newTask.importance==undefined){
             newTask.importance=''
+        }
+
+        if(newTask.remind==undefined){
+            console.log('fuckthishitbitch');
+            newTask.remind=''
         }
 
         // axios
@@ -320,6 +330,7 @@ const AddTask = ({route}) => {
         setDateErr("")
         storeData(JSON.stringify(newTask))
         done = false;
+        console.log('this is owrkikng ')
         navigation.navigate("calendarScreen", {
             edit: isThere
         });
