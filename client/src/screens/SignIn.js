@@ -72,7 +72,7 @@ const SignIn = () => {
                 setEmailErr("")
             }
             if(error.message=='Request failed with status code 404'){
-                console.log("email does not exist")
+                console.log(e)
                 setEmailErr("THIS EMAIL DOES NOT EXIST")
                 setPassErr("")
             }

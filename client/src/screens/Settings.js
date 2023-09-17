@@ -36,6 +36,9 @@ const Settings = () => {
 
     async function submit(data){
 
+          // console.log(data.email)
+          // console.log(data.name)
+
             let nameUpdate = data.name
             let emailUpdate = data.email
 
@@ -62,18 +65,34 @@ const Settings = () => {
             // alert("Upload failed!");
           });
       }
-
-      axios
-      .post(`${baseURL}checkDuplicates/${emailUpdate}`)
+      
+      if(emailUpdate!=undefined){
+        console.log(emailUpdate)
+        axios
+      .post(`${baseURL}checkDuplicates/${emailUpdate.toLowerCase()}`)
       .then(function (response) {
-          setEmailErr("YOUR SUGGESTED EMAIL WAS BEING USED BY ANOTHER USER")
-          setNameErr("")
-          return
+          console.log(response.data.message)
+          if(response.data.message=="user found successfully"){
+            console.log("email found")
+            setEmailErr("YOUR SUGGESTED EMAIL WAS BEING USED BY ANOTHER USER")
+            setNameErr("")
+            reset() 
+            return
+          }
       })
       .catch(function (err) {
           // handle error
           console.log("no duplicates found");
+
+          
       });
+    }
+
+      // else{
+      //   setEmailErr("")
+      //   setNameErr("")
+      //   navigation.navigate("profileScreen")
+      // }
 
       if(nameUpdate==undefined){
         nameUpdate = name
@@ -82,7 +101,8 @@ const Settings = () => {
           emailUpdate = email
       }
 
-        await axios
+
+        axios
         .post(`${baseURL}updateUser/${email}`, {
             name: nameUpdate,
             email: emailUpdate.toLowerCase(),
@@ -90,18 +110,17 @@ const Settings = () => {
         })
         .then(function (response) {
             // handle success
-            // console.log(JSON.stringify(response.data));
+            console.log(JSON.stringify(response.data));
             setEmailErr("")
             setNameErr("")
-            console.log(response.data)
             storeData(JSON.stringify(response.data))
-            navigation.navigate("profileScreen")
+            
         })
         .catch(function (err) {
             // handle error
-            console.log(err.message);
+            console.log(err);
         });
-            reset()        
+        reset()        
     }
 
     const [photo, setPhoto] = useState(null)
@@ -134,8 +153,11 @@ const Settings = () => {
       })
 
     const storeData = async (value) => {
+      console.log(value)
         try {
           await AsyncStorage.setItem('user', value)
+          navigation.navigate("profileScreen")
+          return
         } catch (e) {
           // saving error
           console.log(e.message)

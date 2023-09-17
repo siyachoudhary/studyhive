@@ -89,6 +89,9 @@ const Profile = () => {
   useEffect(() => {
     if(isFocused){
       console.log("is focused on profile page")
+        // retrieveData()
+        setEmail("")
+        setName("")
         dataFetchedRef.current=false
         friendsFound=false
         getUserScores()
@@ -101,6 +104,8 @@ const Profile = () => {
       console.log("getting all info")
       getCurrentStreak();
       getUserFriends()
+      getUserBadges()
+      getUserScores()
       loadLog();
       // getCurrentStreak();
     }
@@ -274,6 +279,7 @@ const Profile = () => {
     console.log("retrieving")
     try {
         const value = await AsyncStorage.getItem('user')
+        console.log(email)
         const obj = JSON.parse(value);
         // console.log("user value:" + value)
         if(value !== null) {

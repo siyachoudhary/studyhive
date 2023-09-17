@@ -140,7 +140,8 @@ app.post("/login", (request, response) => {
 // update endpoint
 app.post("/updateUser/:email", (request, response) => {
   // check if email exists
-  User.updateOne({ email: request.params.email }, request.body, {runValidators:true,new:true}) 
+  console.log(request.body.name )
+  User.updateOne({ email: request.params.email }, { "$set":{"email": request.body.email, "name":request.body.name}}, {runValidators:true,new:true}) 
     .then((user) => {
       const token = jwt.sign(
         {
@@ -150,10 +151,9 @@ app.post("/updateUser/:email", (request, response) => {
         "RANDOM-TOKEN",
         { expiresIn: "24h" }
       );
-
-      User.findOne({ email: request.params.email }) 
+      
+      User.findOne({ email: request.body.email }) 
     .then((user) => {
-
       response.status(200).send({
         message: "data stored successfully",
         email: request.body.email,
@@ -184,11 +184,19 @@ app.post("/updateUser/:email", (request, response) => {
 // delete endpoint
 app.post("/checkDuplicates/:email", (request, response) => {
   // check if email exists
+  console.log(request.params.email)
   User.findOne({ email: request.params.email }) 
-    .then(() => {
-      response.status(200).send({
-        message: "user found successfully",
-      });
+    .then((user) => {
+      console.log(user)
+      if(user!=null){
+        response.status(200).send({
+          message: "user found successfully",
+        });
+      }else{
+        response.status(404).send({
+          message: "user not found, proceed",
+        });
+      }
     })
     .catch((e) => {
       console.log(e)
