@@ -1,2 +1,2 @@
-// export const BaseURL = 'http://192.168.1.7:3000/'
-export const BaseURL = 'http://localhost:3000/'
+// export const BaseURL = 'http://192.168.1.17:3000/'
+export const BaseURL = 'https://studyhiveserver-production.up.railway.app/'

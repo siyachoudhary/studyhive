@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "client.app"
-               BlueprintName = "client"
+               BuildableName = "StudyHive.app"
+               BlueprintName = "StudyHive"
                ReferencedContainer = "container:StudyHive.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -33,8 +33,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "clientTests.xctest"
-               BlueprintName = "clientTests"
+               BuildableName = "StudyHiveTests.xctest"
+               BlueprintName = "StudyHiveTests"
                ReferencedContainer = "container:StudyHive.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -55,8 +55,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "client.app"
-            BlueprintName = "client"
+            BuildableName = "StudyHive.app"
+            BlueprintName = "StudyHive"
             ReferencedContainer = "container:StudyHive.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -72,8 +72,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "client.app"
-            BlueprintName = "client"
+            BuildableName = "StudyHive.app"
+            BlueprintName = "StudyHive"
             ReferencedContainer = "container:StudyHive.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

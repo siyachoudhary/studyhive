@@ -75,10 +75,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		00E356EE1AD99517003FC87E /* clientTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = clientTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		00E356EE1AD99517003FC87E /* StudyHiveTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StudyHiveTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* clientTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = clientTests.m; sourceTree = "<group>"; };
-		13B07F961A680F5B00A75B9A /* client.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = client.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07F961A680F5B00A75B9A /* StudyHive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StudyHive.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = client/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = client/AppDelegate.mm; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = client/Images.xcassets; sourceTree = "<group>"; };
@@ -264,8 +264,8 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* client.app */,
-				00E356EE1AD99517003FC87E /* clientTests.xctest */,
+				13B07F961A680F5B00A75B9A /* StudyHive.app */,
+				00E356EE1AD99517003FC87E /* StudyHiveTests.xctest */,
 				7309DD7129DA05D100E9B676 /* ScreenBroadcast.appex */,
 				7309DD7C29DA05D200E9B676 /* ScreenBroadcastSetupUI.appex */,
 			);
@@ -286,9 +286,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		00E356ED1AD99517003FC87E /* clientTests */ = {
+		00E356ED1AD99517003FC87E /* StudyHiveTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "clientTests" */;
+			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "StudyHiveTests" */;
 			buildPhases = (
 				4BA5D6EC3BD36D662E6CAB19 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
@@ -302,14 +302,14 @@
 			dependencies = (
 				00E356F51AD99517003FC87E /* PBXTargetDependency */,
 			);
-			name = clientTests;
+			name = StudyHiveTests;
 			productName = clientTests;
-			productReference = 00E356EE1AD99517003FC87E /* clientTests.xctest */;
+			productReference = 00E356EE1AD99517003FC87E /* StudyHiveTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		13B07F861A680F5B00A75B9A /* client */ = {
+		13B07F861A680F5B00A75B9A /* StudyHive */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "client" */;
+			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "StudyHive" */;
 			buildPhases = (
 				2C657352D2C97CF11974B5C4 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
@@ -327,9 +327,9 @@
 				7309DD8529DA05D200E9B676 /* PBXTargetDependency */,
 				7309DD8829DA05D200E9B676 /* PBXTargetDependency */,
 			);
-			name = client;
+			name = StudyHive;
 			productName = client;
-			productReference = 13B07F961A680F5B00A75B9A /* client.app */;
+			productReference = 13B07F961A680F5B00A75B9A /* StudyHive.app */;
 			productType = "com.apple.product-type.application";
 		};
 		7309DD7029DA05D100E9B676 /* ScreenBroadcast */ = {
@@ -390,7 +390,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "client" */;
+			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "StudyHive" */;
 			compatibilityVersion = "Xcode 12.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -403,8 +403,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				13B07F861A680F5B00A75B9A /* client */,
-				00E356ED1AD99517003FC87E /* clientTests */,
+				13B07F861A680F5B00A75B9A /* StudyHive */,
+				00E356ED1AD99517003FC87E /* StudyHiveTests */,
 				7309DD7029DA05D100E9B676 /* ScreenBroadcast */,
 				7309DD7B29DA05D200E9B676 /* ScreenBroadcastSetupUI */,
 			);
@@ -645,7 +645,7 @@
 /* Begin PBXTargetDependency section */
 		00E356F51AD99517003FC87E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 13B07F861A680F5B00A75B9A /* client */;
+			target = 13B07F861A680F5B00A75B9A /* StudyHive */;
 			targetProxy = 00E356F41AD99517003FC87E /* PBXContainerItemProxy */;
 		};
 		7309DD8529DA05D200E9B676 /* PBXTargetDependency */ = {
@@ -685,7 +685,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/client.app/client";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/StudyHive.app/StudyHive";
 			};
 			name = Debug;
 		};
@@ -711,7 +711,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.studyhive.app.client;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/client.app/client";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/StudyHive.app/StudyHive";
 			};
 			name = Release;
 		};
@@ -729,6 +729,7 @@
 				DEVELOPMENT_TEAM = ASG65G6Z57;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = client/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = StudyHive;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -741,7 +742,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				"PRODUCT_BUNDLE_IDENTIFIER[sdk=iphoneos*]" = org.reactjs.native.example.studyhive.client1;
-				PRODUCT_NAME = client;
+				PRODUCT_NAME = StudyHive;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "client-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -763,6 +764,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = ASG65G6Z57;
 				INFOPLIST_FILE = client/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = StudyHive;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -774,7 +776,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.studyhive.app;
-				PRODUCT_NAME = client;
+				PRODUCT_NAME = StudyHive;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "client-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
@@ -1080,7 +1082,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "clientTests" */ = {
+		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "StudyHiveTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				00E356F61AD99517003FC87E /* Debug */,
@@ -1089,7 +1091,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "client" */ = {
+		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "StudyHive" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				13B07F941A680F5B00A75B9A /* Debug */,
@@ -1116,7 +1118,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "client" */ = {
+		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "StudyHive" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				83CBBA201A601CBA00E9B192 /* Debug */,
