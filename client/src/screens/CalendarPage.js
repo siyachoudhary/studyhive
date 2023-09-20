@@ -299,8 +299,8 @@ export default class CalendarPage extends Component {
                     week: {
                       flexDirection: 'row',
                       justifyContent: 'space-around',
-                      marginTop: 6,
-                      marginBottom: 6,
+                      marginTop: 6.5,
+                      marginBottom: 6.5,
                     },
                   },
                   }}
