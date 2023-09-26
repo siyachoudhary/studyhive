@@ -7,7 +7,8 @@
     "ios": "react-native run-ios",
     "lint": "eslint .",
     "start": "react-native start",
-    "test": "jest"
+    "test": "jest",
+    "postinstall": "patch-package"
   },
   "dependencies": {
     "@hookform/resolvers": "^2.9.11",
@@ -30,6 +31,7 @@
     "lottie-react-native": "^5.1.5",
     "moment": "^2.29.4",
     "native-base": "^3.4.28",
+    "patch-package": "^8.0.0",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.2",
     "react-hook-form": "^7.43.5",
