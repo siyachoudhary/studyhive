@@ -13,7 +13,7 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2E4485751C3A4C52AA2646D2 /* Mohave-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3E33C500ADD94DCD8EEFCC67 /* Mohave-Medium.ttf */; };
-		52AC534C17CC63E3176DB8A9 /* libPods-client-clientTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9162D39F4B15749D73FC00A4 /* libPods-client-clientTests.a */; };
+		5336D2A8C05F41B7BEBF27F7 /* libPods-StudyHive.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FB0986ED29B409D91BF5681 /* libPods-StudyHive.a */; };
 		7309DD7329DA05D100E9B676 /* ReplayKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7309DD7229DA05D100E9B676 /* ReplayKit.framework */; };
 		7309DD7629DA05D200E9B676 /* SampleHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7309DD7529DA05D200E9B676 /* SampleHandler.swift */; };
 		7309DD7D29DA05D200E9B676 /* ReplayKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7309DD7229DA05D100E9B676 /* ReplayKit.framework */; };
@@ -28,11 +28,11 @@
 		7309DD9D29DA23B100E9B676 /* DarwinNotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7309DD9C29DA23B100E9B676 /* DarwinNotificationCenter.swift */; };
 		7309DD9F29DA23CA00E9B676 /* Atomic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7309DD9E29DA23CA00E9B676 /* Atomic.swift */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		87A2C21CEF081B0296A6C6BD /* libPods-client.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 36C60259639504404C08D182 /* libPods-client.a */; };
 		A49684B4EBDD49FF901EE8F4 /* Mohave-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 41BE2BCD8B8D4235AE210F54 /* Mohave-Bold.ttf */; };
 		B7533EED3DD14EEAB8E485FA /* Mohave-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8051A155F4354199A3A6D790 /* Mohave-VariableFont_wght.ttf */; };
 		DB9AA0D40289453F9488EEDA /* Mohave-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A4501A0D73F54D9AAB422B72 /* Mohave-Regular.ttf */; };
 		EAAB5D0DD57C45A5928AA1AD /* Mohave-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E6D28A45EF654376BC3181DB /* Mohave-Light.ttf */; };
+		ED7FCC4159FF696D0BC7C194 /* libPods-StudyHive-StudyHiveTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C1F3DC4E7FE5D7470696E81B /* libPods-StudyHive-StudyHiveTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -84,7 +84,7 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = client/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = client/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = client/main.m; sourceTree = "<group>"; };
-		36C60259639504404C08D182 /* libPods-client.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-client.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		272446728168BBB9D2FFA5EC /* Pods-StudyHive.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StudyHive.debug.xcconfig"; path = "Target Support Files/Pods-StudyHive/Pods-StudyHive.debug.xcconfig"; sourceTree = "<group>"; };
 		3C0DF9EC4CC8A1648A514574 /* Pods-client.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-client.debug.xcconfig"; path = "Target Support Files/Pods-client/Pods-client.debug.xcconfig"; sourceTree = "<group>"; };
 		3E33C500ADD94DCD8EEFCC67 /* Mohave-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Mohave-Medium.ttf"; path = "../src/assets/fonts/Mohave-Medium.ttf"; sourceTree = "<group>"; };
 		41BE2BCD8B8D4235AE210F54 /* Mohave-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Mohave-Bold.ttf"; path = "../src/assets/fonts/Mohave-Bold.ttf"; sourceTree = "<group>"; };
@@ -107,14 +107,18 @@
 		7309DD9E29DA23CA00E9B676 /* Atomic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Atomic.swift; sourceTree = "<group>"; };
 		8051A155F4354199A3A6D790 /* Mohave-VariableFont_wght.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Mohave-VariableFont_wght.ttf"; path = "../src/assets/fonts/Mohave-VariableFont_wght.ttf"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = client/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		9162D39F4B15749D73FC00A4 /* libPods-client-clientTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-client-clientTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9FB0986ED29B409D91BF5681 /* libPods-StudyHive.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-StudyHive.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A4501A0D73F54D9AAB422B72 /* Mohave-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Mohave-Regular.ttf"; path = "../src/assets/fonts/Mohave-Regular.ttf"; sourceTree = "<group>"; };
+		BC8B2FF23CAD58FFA9F9A21C /* Pods-StudyHive.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StudyHive.release.xcconfig"; path = "Target Support Files/Pods-StudyHive/Pods-StudyHive.release.xcconfig"; sourceTree = "<group>"; };
+		C1F3DC4E7FE5D7470696E81B /* libPods-StudyHive-StudyHiveTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-StudyHive-StudyHiveTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB24D48977C742B08E1BE754 /* Mohave-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Mohave-SemiBold.ttf"; path = "../src/assets/fonts/Mohave-SemiBold.ttf"; sourceTree = "<group>"; };
+		D190EEE7840562AA18F2A85A /* Pods-StudyHive-StudyHiveTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StudyHive-StudyHiveTests.release.xcconfig"; path = "Target Support Files/Pods-StudyHive-StudyHiveTests/Pods-StudyHive-StudyHiveTests.release.xcconfig"; sourceTree = "<group>"; };
 		D241340D3EAE32818F1C1E6D /* Pods-client.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-client.release.xcconfig"; path = "Target Support Files/Pods-client/Pods-client.release.xcconfig"; sourceTree = "<group>"; };
 		DB7F197923CB103F1C5E0029 /* Pods-client-clientTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-client-clientTests.release.xcconfig"; path = "Target Support Files/Pods-client-clientTests/Pods-client-clientTests.release.xcconfig"; sourceTree = "<group>"; };
 		E0FDEA1D70CB66B6D9DE686A /* Pods-client-clientTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-client-clientTests.debug.xcconfig"; path = "Target Support Files/Pods-client-clientTests/Pods-client-clientTests.debug.xcconfig"; sourceTree = "<group>"; };
 		E6D28A45EF654376BC3181DB /* Mohave-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Mohave-Light.ttf"; path = "../src/assets/fonts/Mohave-Light.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		F0FD56FDCEE9368D367B9545 /* Pods-StudyHive-StudyHiveTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StudyHive-StudyHiveTests.debug.xcconfig"; path = "Target Support Files/Pods-StudyHive-StudyHiveTests/Pods-StudyHive-StudyHiveTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,7 +126,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				52AC534C17CC63E3176DB8A9 /* libPods-client-clientTests.a in Frameworks */,
+				ED7FCC4159FF696D0BC7C194 /* libPods-StudyHive-StudyHiveTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -130,7 +134,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				87A2C21CEF081B0296A6C6BD /* libPods-client.a in Frameworks */,
+				5336D2A8C05F41B7BEBF27F7 /* libPods-StudyHive.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -194,8 +198,8 @@
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				7309DD7229DA05D100E9B676 /* ReplayKit.framework */,
 				7309DD7E29DA05D200E9B676 /* UIKit.framework */,
-				36C60259639504404C08D182 /* libPods-client.a */,
-				9162D39F4B15749D73FC00A4 /* libPods-client-clientTests.a */,
+				9FB0986ED29B409D91BF5681 /* libPods-StudyHive.a */,
+				C1F3DC4E7FE5D7470696E81B /* libPods-StudyHive-StudyHiveTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -279,6 +283,10 @@
 				D241340D3EAE32818F1C1E6D /* Pods-client.release.xcconfig */,
 				E0FDEA1D70CB66B6D9DE686A /* Pods-client-clientTests.debug.xcconfig */,
 				DB7F197923CB103F1C5E0029 /* Pods-client-clientTests.release.xcconfig */,
+				272446728168BBB9D2FFA5EC /* Pods-StudyHive.debug.xcconfig */,
+				BC8B2FF23CAD58FFA9F9A21C /* Pods-StudyHive.release.xcconfig */,
+				F0FD56FDCEE9368D367B9545 /* Pods-StudyHive-StudyHiveTests.debug.xcconfig */,
+				D190EEE7840562AA18F2A85A /* Pods-StudyHive-StudyHiveTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -482,7 +490,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-client-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-StudyHive-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -504,7 +512,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-client-clientTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-StudyHive-StudyHiveTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -517,15 +525,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-client-clientTests/Pods-client-clientTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-StudyHive-StudyHiveTests/Pods-StudyHive-StudyHiveTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-client-clientTests/Pods-client-clientTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-StudyHive-StudyHiveTests/Pods-StudyHive-StudyHiveTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-client-clientTests/Pods-client-clientTests-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-StudyHive-StudyHiveTests/Pods-StudyHive-StudyHiveTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		B4E1A15F7BE4D2E1884AB635 /* [CP] Copy Pods Resources */ = {
@@ -534,15 +542,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-client/Pods-client-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-StudyHive/Pods-StudyHive-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-client/Pods-client-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-StudyHive/Pods-StudyHive-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-client/Pods-client-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-StudyHive/Pods-StudyHive-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		E447FB8FA1605C00551A7F98 /* [CP] Embed Pods Frameworks */ = {
@@ -551,15 +559,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-client/Pods-client-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-StudyHive/Pods-StudyHive-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-client/Pods-client-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-StudyHive/Pods-StudyHive-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-client/Pods-client-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-StudyHive/Pods-StudyHive-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F94AA760D24CC2C22293B1A0 /* [CP] Copy Pods Resources */ = {
@@ -568,15 +576,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-client-clientTests/Pods-client-clientTests-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-StudyHive-StudyHiveTests/Pods-StudyHive-StudyHiveTests-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-client-clientTests/Pods-client-clientTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-StudyHive-StudyHiveTests/Pods-StudyHive-StudyHiveTests-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-client-clientTests/Pods-client-clientTests-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-StudyHive-StudyHiveTests/Pods-StudyHive-StudyHiveTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
@@ -663,7 +671,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E0FDEA1D70CB66B6D9DE686A /* Pods-client-clientTests.debug.xcconfig */;
+			baseConfigurationReference = F0FD56FDCEE9368D367B9545 /* Pods-StudyHive-StudyHiveTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -691,7 +699,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DB7F197923CB103F1C5E0029 /* Pods-client-clientTests.release.xcconfig */;
+			baseConfigurationReference = D190EEE7840562AA18F2A85A /* Pods-StudyHive-StudyHiveTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -717,7 +725,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3C0DF9EC4CC8A1648A514574 /* Pods-client.debug.xcconfig */;
+			baseConfigurationReference = 272446728168BBB9D2FFA5EC /* Pods-StudyHive.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -753,7 +761,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D241340D3EAE32818F1C1E6D /* Pods-client.release.xcconfig */;
+			baseConfigurationReference = BC8B2FF23CAD58FFA9F9A21C /* Pods-StudyHive.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
